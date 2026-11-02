@@ -116,7 +116,7 @@ header.top{align-items:center;gap:10px}header.top .row{gap:7px}header.top select
 .danger-zone{margin:18px 0 4px;padding-top:10px;border-top:1px dashed var(--line);font-size:12px}.text-link.danger{color:#9b2f43}#delAsk{color:#9b2f43}
 @media(max-width:600px){.buy-row{grid-template-columns:1fr}.buy-row>[data-bought]{grid-row:auto;grid-column:1;justify-self:start}.ab-row select[data-ab-k=sys]{max-width:150px}}
 </style>
-</head><body><main class="wrap"><noscript><div style="margin:16px 0;padding:14px;border:2px solid #b5485c;border-radius:8px;background:#fdf1f3;font-size:14px;line-height:1.5"><b>Приложение открыто в режиме просмотра — программа не запущена.</b><br>Так бывает при открытии из Telegram, WhatsApp или приложения «Файлы» на iPhone. Откройте ToothTech по ссылке в Safari.</div></noscript><header class="top"><div><div class="logo">Tooth<b>Tech</b> <span class="tag">V15</span></div><div class="sub">Врач ↔ техник · презентационная версия</div><div class="goldline"></div></div><div class="row"><select id="role" style="width:190px"><option value="tech">Режим техника</option><option value="doctor">Режим врача</option></select><select id="docSelector" style="width:190px"></select></div></header><div class="panel"><div class="row between"><div><b id="welcome">Все активные заказы</b><div class="muted" id="description"></div></div><div class="row"><button class="btn" id="export" type="button" title="Все наряды, прайсы, расходы, фото и голосовые — одним файлом">⇩ Полная копия</button><button class="btn" id="importBtn" type="button" title="Восстановить копию или загрузить результаты врача">⇧ Загрузить файл</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn main" id="newButton">+ Новый заказ</button></div></div><div id="newForm" class="hidden section"><h3>Создание заказа: только 4 обязательных поля</h3><div class="grid"><div class="field"><label>Фамилия пациента *</label><input id="newPatient" placeholder="Иванов"></div><div class="field"><label>Клиника *</label><input id="newClinic" placeholder="Название клиники"></div><div class="field"><label>Дата приёма *</label><input id="newDate" type="date"></div><div class="field"><label>Вид конструкции *</label><input id="newConstruction" placeholder="Временный All-on-6"></div></div><div class="row" style="margin-top:12px"><button class="btn main" id="create">Создать черновик</button><button class="btn" id="cancelNew">Отмена</button></div></div></div><div id="list"></div><div id="modalBackdrop" class="modal-backdrop hidden"></div><section id="detail" class="panel hidden" role="dialog" aria-modal="true" aria-label="Заказ-наряд"></section><p class="footer">Наряды, прайсы и оплаты синхронизируются через облако (кнопка ☁). Фото, видео и голосовые пока хранятся только на том устройстве, где их добавили.</p></main><script>
+</head><body><main class="wrap"><noscript><div style="margin:16px 0;padding:14px;border:2px solid #b5485c;border-radius:8px;background:#fdf1f3;font-size:14px;line-height:1.5"><b>Приложение открыто в режиме просмотра — программа не запущена.</b><br>Так бывает при открытии из Telegram, WhatsApp или приложения «Файлы» на iPhone. Откройте ToothTech по ссылке в Safari.</div></noscript><header class="top"><div><div class="logo">Tooth<b>Tech</b> <span class="tag">V16</span></div><div class="sub">Врач ↔ техник · презентационная версия</div><div class="goldline"></div></div><div class="row"><select id="role" style="width:190px"><option value="tech">Режим техника</option><option value="doctor">Режим врача</option></select><select id="docSelector" style="width:190px"></select></div></header><div class="panel"><div class="row between"><div><b id="welcome">Все активные заказы</b><div class="muted" id="description"></div></div><div class="row"><button class="btn" id="export" type="button" title="Все наряды, прайсы, расходы, фото и голосовые — одним файлом">⇩ Полная копия</button><button class="btn" id="importBtn" type="button" title="Восстановить копию или загрузить результаты врача">⇧ Загрузить файл</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn main" id="newButton">+ Новый заказ</button></div></div><div id="newForm" class="hidden section"><h3>Создание заказа: только 4 обязательных поля</h3><div class="grid"><div class="field"><label>Фамилия пациента *</label><input id="newPatient" placeholder="Иванов"></div><div class="field"><label>Клиника *</label><input id="newClinic" placeholder="Название клиники"></div><div class="field"><label>Дата приёма *</label><input id="newDate" type="date"></div><div class="field"><label>Вид конструкции *</label><input id="newConstruction" placeholder="Временный All-on-6"></div></div><div class="row" style="margin-top:12px"><button class="btn main" id="create">Создать черновик</button><button class="btn" id="cancelNew">Отмена</button></div></div></div><div id="list"></div><div id="modalBackdrop" class="modal-backdrop hidden"></div><section id="detail" class="panel hidden" role="dialog" aria-modal="true" aria-label="Заказ-наряд"></section><p class="footer">Наряды, прайсы и оплаты синхронизируются через облако (кнопка ☁). Фото, видео и голосовые пока хранятся только на том устройстве, где их добавили.</p></main><script>
 let toothClickTimer=null,bridgeAnchor=null,lastTap=null,manualDbl=0;
 const jawRows=[['18','17','16','15','14','13','12','11','21','22','23','24','25','26','27','28'],['48','47','46','45','44','43','42','41','31','32','33','34','35','36','37','38']];
 function bindTeeth(o){
@@ -954,58 +954,113 @@ function applyRemote(data){
  finally{window.__ttSuppress=false}
  selected=null;render();
 }
-// V15.1: автоматическое слияние без вопросов
-function mergeDb(local,remote){
- const out=JSON.parse(JSON.stringify(remote||{}));out.orders=Array.isArray(out.orders)?out.orders:[];
- const deleted={...(remote?.deleted||{}),...(local?.deleted||{})};out.deleted=deleted;
- const byId=new Map(out.orders.map(o=>[o.id,o]));
- for(const lo of local?.orders||[]){const ro=byId.get(lo.id);if(!ro){out.orders.push(JSON.parse(JSON.stringify(lo)));continue}
-  const lc=JSON.parse(JSON.stringify(lo)),rc=JSON.parse(JSON.stringify(ro));migrateOrder(lc);migrateOrder(rc);
-  const m=mergeOrder(lc,rc);out.orders[out.orders.indexOf(ro)]=m}
- out.orders=out.orders.filter(o=>!deleted[o.id]);
- out.doctorPhones={...(remote?.doctorPhones||{}),...(local?.doctorPhones||{})};
- if(local?.supplierPhone)out.supplierPhone=local.supplierPhone;
- return out;
+// ===== V16: синхронизация по нарядам (каждый наряд — отдельная строка в облаке) =====
+const PRIVATE_KEYS=['costs','abutments','formulaBatchDraft','workEntryDraft'];
+const LIFESTOM_PRIVATE=['workItems','payments','steps'];
+const SETTINGS_SKIP=['orders','deleted'];
+function hashStr(s){let x=5381;for(let i=0;i<s.length;i++)x=((x<<5)+x+s.charCodeAt(i))|0;return x}
+const orderHash=o=>hashStr(JSON.stringify(o));
+function splitOrder(o){
+ const priv=o.clinic==='Life-Stom'?[...PRIVATE_KEYS,...LIFESTOM_PRIVATE]:PRIVATE_KEYS,sh={},pr={};
+ for(const [k,v] of Object.entries(o)){if(k==='events')continue;(priv.includes(k)?pr:sh)[k]=v}
+ sh.events=(o.events||[]).filter(e=>!e.private);pr.events=(o.events||[]).filter(e=>e.private);
+ return {sh,pr};
 }
-async function cloudPull(silent){
+function joinOrder(sh,pr){
+ const o={...(sh||{}),...(pr||{})};
+ o.events=[...((sh&&sh.events)||[]),...((pr&&pr.events)||[])].sort((a,b)=>timeKey(a.time).localeCompare(timeKey(b.time)));
+ return o;
+}
+function settingsPart(){const s={};for(const [k,v] of Object.entries(db))if(!SETTINGS_SKIP.includes(k))s[k]=v;return s}
+function publicPart(){return {prices:{'Bai-Stom':(db.prices||{})['Bai-Stom']||[],'Тулеш':(db.prices||{})['Тулеш']||[]}}}
+const chunks=(a,n)=>{const r=[];for(let i=0;i<a.length;i+=n)r.push(a.slice(i,i+n));return r};
+let pullTimer=null;
+
+async function ensureV16(c){
+ const m=syncMeta();if(m.v16User===sbUser.id)return true;
+ const {error:pe}=await c.from('profiles').upsert({user_id:sbUser.id,role:'tech',tech_id:sbUser.id,name:'Техник'},{onConflict:'user_id',ignoreDuplicates:true});
+ if(pe&&!/duplicate|conflict/i.test(pe.message||''))throw pe;
+ const {count,error}=await c.from('orders').select('id',{count:'exact',head:true}).eq('tech_id',sbUser.id);
+ if(error)throw error;
+ if(!count){
+  if(!db.orders.length){const {data:old}=await c.from('toothtech_state').select('data').eq('user_id',sbUser.id).maybeSingle();if(old&&old.data&&Array.isArray(old.data.orders))applyRemote(old.data)}
+  setSyncMeta({hashes:{},setHash:null,since:null,sentDeleted:{}});
+ }else setSyncMeta({hashes:{},since:null});
+ setSyncMeta({v16User:sbUser.id});return true;
+}
+
+async function cloudPull(){
  const c=await cloudClient().catch(e=>{setSyncStatus('ошибка: '+e.message,'error');return null});if(!c||!sbUser)return;
- if(syncBusy)return;syncBusy=true;
+ if(syncBusy){clearTimeout(pullTimer);pullTimer=setTimeout(cloudPull,1500);return}
+ syncBusy=true;
  try{
-  const {data,error}=await c.from('toothtech_state').select('data,updated_at,device').eq('user_id',sbUser.id).maybeSingle();
-  if(error)throw error;const m=syncMeta();
-  if(!data){syncBusy=false;await cloudPush(true);return}
-  setSyncMeta({lastRemoteDevice:data.device||'',lastRemoteAt:data.updated_at});
-  if(data.updated_at===m.remoteAt){syncBusy=false;if(m.dirty)await cloudPush();else setSyncStatus('синхронизировано','ok');return}
-  if(!m.dirty){applyRemote(data.data);setSyncMeta({remoteAt:data.updated_at,dirty:false});setSyncStatus('обновлено · '+(data.device||''),'ok');syncBusy=false;return}
-  const merged=mergeDb(db,data.data);applyRemote(merged);setSyncMeta({remoteAt:data.updated_at,dirty:true});
-  syncBusy=false;await cloudPush(true);return;
- }catch(e){setSyncStatus('ошибка загрузки: '+(e.message||e),'error')}
+  await ensureV16(c);
+  const m=syncMeta(),since=m.since,hashes={...(m.hashes||{})};
+  let q1=c.from('orders').select('id,data,updated_at,deleted,device').eq('tech_id',sbUser.id).order('updated_at',{ascending:true}).limit(2000);
+  let q2=c.from('order_private').select('order_id,data,updated_at').eq('tech_id',sbUser.id).order('updated_at',{ascending:true}).limit(2000);
+  let q3=c.from('tech_settings').select('data,updated_at').eq('tech_id',sbUser.id);
+  if(since){q1=q1.gt('updated_at',since);q2=q2.gt('updated_at',since);q3=q3.gt('updated_at',since)}
+  const [r1,r2,r3]=await Promise.all([q1,q2,q3]);
+  for(const r of [r1,r2,r3])if(r.error)throw r.error;
+  const rows=r1.data||[],privs=new Map((r2.data||[]).map(p=>[p.order_id,p])),st=(r3.data||[])[0];
+  let maxAt=since||'',changed=false,needPush=false;const bump=t=>{if(t&&t>maxAt)maxAt=t};
+  db.deleted??={};
+  for(const r of rows){bump(r.updated_at);
+   const i=db.orders.findIndex(o=>o.id===r.id);
+   if(r.deleted){if(i>=0){db.orders.splice(i,1);changed=true}db.deleted[r.id]=db.deleted[r.id]||r.updated_at;delete hashes[r.id];continue}
+   if(db.deleted[r.id])continue;
+   const local=i>=0?db.orders[i]:null,p=privs.get(r.id);if(p)bump(p.updated_at);
+   const remote=joinOrder(r.data,p?p.data:(local?splitOrder(local).pr:{}));migrateOrder(remote);
+   if(!local){db.orders.unshift(remote);hashes[r.id]=orderHash(remote);changed=true;continue}
+   if(hashes[r.id]===orderHash(local)){db.orders[i]=remote;hashes[r.id]=orderHash(remote);changed=true}
+   else{db.orders[i]=mergeOrder(local,remote);changed=true;needPush=true}
+  }
+  for(const [id,p] of privs){bump(p.updated_at);if(rows.some(r=>r.id===id))continue;const i=db.orders.findIndex(o=>o.id===id);if(i<0)continue;const local=db.orders[i];
+   if(hashes[id]===orderHash(local)){const merged=joinOrder(splitOrder(local).sh,p.data);migrateOrder(merged);db.orders[i]=merged;hashes[id]=orderHash(merged);changed=true}else needPush=true}
+  let setHash=m.setHash;
+  if(st){bump(st.updated_at);if(!m.setHash||m.setHash===hashStr(JSON.stringify(settingsPart()))){for(const [k,v] of Object.entries(st.data||{}))if(!SETTINGS_SKIP.includes(k))db[k]=v;setHash=hashStr(JSON.stringify(settingsPart()));changed=true}else needPush=true}
+  if(changed){window.__ttSuppress=true;try{db.orders.forEach(migrateOrder);save()}finally{window.__ttSuppress=false}}
+  setSyncMeta({hashes,setHash,since:maxAt||null});
+  if(changed){const sc=$('detail')?.scrollTop;render();if($('detail')&&sc)$('detail').scrollTop=sc}
+  syncBusy=false;
+  await cloudPush(true);
+  if(!needPush)setSyncStatus('синхронизировано · '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),'ok');
+  return;
+ }catch(e){setSyncStatus(/relation|does not exist|schema cache/i.test(e.message||'')?'нужно запустить SQL V16 в Supabase':'ошибка загрузки: '+(e.message||e),'error')}
  syncBusy=false;
 }
 
-async function cloudPush(force){
+async function cloudPush(){
  const c=await cloudClient().catch(()=>null);if(!c||!sbUser)return;
- if(syncBusy){clearTimeout(syncTimer);syncTimer=setTimeout(()=>cloudPush(force),2000);return}
- syncBusy=true;setSyncStatus('отправляю…','pending');
+ if(syncBusy){clearTimeout(syncTimer);syncTimer=setTimeout(()=>cloudPush(),2000);return}
+ syncBusy=true;
  try{
-  const m=syncMeta();
-  if(!force){const {data:cur,error:e1}=await c.from('toothtech_state').select('updated_at').eq('user_id',sbUser.id).maybeSingle();if(e1)throw e1;
-   if(cur&&m.remoteAt&&cur.updated_at!==m.remoteAt){syncBusy=false;await cloudPull();return}}
-  const now=new Date().toISOString();
-  const {data,error}=await c.from('toothtech_state').upsert({user_id:sbUser.id,data:db,updated_at:now,device:deviceName()}).select('updated_at').single();
-  if(error)throw error;
+  await ensureV16(c);
+  const m=syncMeta(),hashes={...(m.hashes||{})},sentDeleted={...(m.sentDeleted||{})},dev=deviceName();
+  const rows=[],privs=[],newH={};
+  for(const o of db.orders){const h=orderHash(o);if(hashes[o.id]===h)continue;const {sh,pr}=splitOrder(o);
+   rows.push({id:o.id,tech_id:sbUser.id,doctor_key:o.doctor||null,data:sh,deleted:false,device:dev});privs.push({order_id:o.id,tech_id:sbUser.id,data:pr});newH[o.id]=h}
+  for(const id of Object.keys(db.deleted||{}))if(!sentDeleted[id]){rows.push({id,tech_id:sbUser.id,doctor_key:null,data:{},deleted:true,device:dev});sentDeleted[id]=true}
+  const setH=hashStr(JSON.stringify(settingsPart()));
+  if(!rows.length&&setH===m.setHash){syncBusy=false;setSyncStatus('синхронизировано · '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),'ok');return}
+  setSyncStatus('отправляю…','pending');
+  for(const part of chunks(rows,50)){const {error}=await c.from('orders').upsert(part,{onConflict:'id'});if(error)throw error}
+  for(const part of chunks(privs,50)){const {error}=await c.from('order_private').upsert(part,{onConflict:'order_id'});if(error)throw error}
+  if(setH!==m.setHash){const {error:e1}=await c.from('tech_settings').upsert({tech_id:sbUser.id,data:settingsPart()},{onConflict:'tech_id'});if(e1)throw e1;await c.from('tech_public').upsert({tech_id:sbUser.id,data:publicPart()},{onConflict:'tech_id'})}
   const today=localDay();
-  if(m.backupDay!==today){const {error:e2}=await c.from('toothtech_backups').insert({user_id:sbUser.id,data:db,device:deviceName()});if(!e2)setSyncMeta({backupDay:today})}
-  setSyncMeta({remoteAt:data.updated_at,dirty:false});
+  if(m.backupDay!==today){const {error:e2}=await c.from('toothtech_backups').insert({user_id:sbUser.id,data:db,device:dev});if(!e2)setSyncMeta({backupDay:today})}
+  setSyncMeta({hashes:{...hashes,...newH},sentDeleted,setHash:setH,dirty:false,lastRemoteDevice:dev,lastRemoteAt:new Date().toISOString()});
   setSyncStatus('синхронизировано · '+new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),'ok');
- }catch(e){setSyncStatus('не отправлено: '+(e.message||e),'error')}
+ }catch(e){setSyncStatus(/relation|does not exist|schema cache/i.test(e.message||'')?'нужно запустить SQL V16 в Supabase':'не отправлено: '+(e.message||e),'error')}
  syncBusy=false;
 }
+setInterval(()=>{if(sbUser&&document.visibilityState==='visible')cloudPull()},60000);
+
 function cloudPanel(){
  const m=syncMeta(),box=document.createElement('div');box.id='cloudPanel';box.className='cloud-panel';
  box.innerHTML=`<div class="row between"><h2>☁ Облако Supabase</h2><button class="btn" id="cloudClose" type="button">✕</button></div>
  <p class="muted" id="cloudStatus">${esc(syncState.text)}</p>
- ${sbUser?`<p>Вход выполнен: <b>${esc(sbUser.email)}</b></p>${syncMeta().lastRemoteDevice?`<p class="muted">Последнее изменение в облаке: ${esc(syncMeta().lastRemoteDevice)} · ${esc(showTime(syncMeta().lastRemoteAt))}</p>`:''}<div class="row"><button class="btn main" id="cloudSyncNow" type="button">Синхронизировать сейчас</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div><p class="muted">Наряды, прайсы и оплаты сохраняются в облако автоматически через пару секунд после изменения. Раз в день делается отдельная резервная копия. Фото и голосовые пока остаются только на этом устройстве.</p>`
+ ${sbUser?`<p>Вход выполнен: <b>${esc(sbUser.email)}</b></p>${syncMeta().lastRemoteDevice?`<p class="muted">Последняя отправка: ${esc(syncMeta().lastRemoteDevice)} · ${esc(showTime(syncMeta().lastRemoteAt))}</p>`:''}<div class="row"><button class="btn main" id="cloudSyncNow" type="button">Синхронизировать сейчас</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div><p class="muted">Каждый наряд сохраняется в облако отдельно через пару секунд после изменения; правки с разных устройств объединяются сами, проверка новых данных — раз в минуту. Раз в день делается отдельная резервная копия. Фото и голосовые пока остаются только на этом устройстве.</p>`
  :`<details ${m.url?'':'open'}><summary>1. Подключение проекта</summary><div class="field"><label>Project URL</label><input id="cloudUrl" placeholder="https://xxxx.supabase.co" value="${esc(m.url||'')}"></div><div class="field" style="margin-top:8px"><label>anon / publishable key</label><input id="cloudKey" placeholder="eyJ… или sb_publishable_…" value="${esc(m.key||'')}"></div></details>
  <h3 style="margin-top:14px">2. Вход</h3><div class="grid"><div class="field"><label>Почта</label><input id="cloudEmail" type="email" autocomplete="username"></div><div class="field"><label>Пароль</label><input id="cloudPass" type="password" autocomplete="current-password"></div></div>
  <div class="row" style="margin-top:10px"><button class="btn main" id="cloudLogin" type="button">Войти</button><button class="btn" id="cloudSignup" type="button">Создать аккаунт (один раз)</button></div><p class="inline-feedback" id="cloudMsg" role="status"></p>`}`;
