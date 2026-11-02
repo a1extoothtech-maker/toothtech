@@ -954,6 +954,19 @@ function applyRemote(data){
  finally{window.__ttSuppress=false}
  selected=null;render();
 }
+// V15.1: автоматическое слияние без вопросов
+function mergeDb(local,remote){
+ const out=JSON.parse(JSON.stringify(remote||{}));out.orders=Array.isArray(out.orders)?out.orders:[];
+ const deleted={...(remote?.deleted||{}),...(local?.deleted||{})};out.deleted=deleted;
+ const byId=new Map(out.orders.map(o=>[o.id,o]));
+ for(const lo of local?.orders||[]){const ro=byId.get(lo.id);if(!ro){out.orders.push(JSON.parse(JSON.stringify(lo)));continue}
+  const lc=JSON.parse(JSON.stringify(lo)),rc=JSON.parse(JSON.stringify(ro));migrateOrder(lc);migrateOrder(rc);
+  const m=mergeOrder(lc,rc);out.orders[out.orders.indexOf(ro)]=m}
+ out.orders=out.orders.filter(o=>!deleted[o.id]);
+ out.doctorPhones={...(remote?.doctorPhones||{}),...(local?.doctorPhones||{})};
+ if(local?.supplierPhone)out.supplierPhone=local.supplierPhone;
+ return out;
+}
 async function cloudPull(silent){
  const c=await cloudClient().catch(e=>{setSyncStatus('ошибка: '+e.message,'error');return null});if(!c||!sbUser)return;
  if(syncBusy)return;syncBusy=true;
@@ -961,14 +974,15 @@ async function cloudPull(silent){
   const {data,error}=await c.from('toothtech_state').select('data,updated_at,device').eq('user_id',sbUser.id).maybeSingle();
   if(error)throw error;const m=syncMeta();
   if(!data){syncBusy=false;await cloudPush(true);return}
+  setSyncMeta({lastRemoteDevice:data.device||'',lastRemoteAt:data.updated_at});
   if(data.updated_at===m.remoteAt){syncBusy=false;if(m.dirty)await cloudPush();else setSyncStatus('синхронизировано','ok');return}
-  if(!m.dirty||!m.remoteAt&&!db.orders.length){applyRemote(data.data);setSyncMeta({remoteAt:data.updated_at,dirty:false});setSyncStatus('загружено из облака · '+(data.device||''),'ok');return}
-  const takeRemote=confirm('В облаке есть более новые данные (с устройства: '+(data.device||'другое')+', '+showTime(data.updated_at)+'), а на этом устройстве тоже есть несохранённые в облако изменения.\n\nОК — взять данные из облака (текущие сначала скачаются файлом-копией).\nОтмена — отправить в облако данные этого устройства.');
-  if(takeRemote){await exportBackup('ToothTech_before_cloud');applyRemote(data.data);setSyncMeta({remoteAt:data.updated_at,dirty:false});setSyncStatus('загружено из облака','ok')}
-  else{setSyncMeta({remoteAt:data.updated_at});syncBusy=false;await cloudPush(true);return}
+  if(!m.dirty){applyRemote(data.data);setSyncMeta({remoteAt:data.updated_at,dirty:false});setSyncStatus('обновлено · '+(data.device||''),'ok');syncBusy=false;return}
+  const merged=mergeDb(db,data.data);applyRemote(merged);setSyncMeta({remoteAt:data.updated_at,dirty:true});
+  syncBusy=false;await cloudPush(true);return;
  }catch(e){setSyncStatus('ошибка загрузки: '+(e.message||e),'error')}
  syncBusy=false;
 }
+
 async function cloudPush(force){
  const c=await cloudClient().catch(()=>null);if(!c||!sbUser)return;
  if(syncBusy){clearTimeout(syncTimer);syncTimer=setTimeout(()=>cloudPush(force),2000);return}
@@ -991,7 +1005,7 @@ function cloudPanel(){
  const m=syncMeta(),box=document.createElement('div');box.id='cloudPanel';box.className='cloud-panel';
  box.innerHTML=`<div class="row between"><h2>☁ Облако Supabase</h2><button class="btn" id="cloudClose" type="button">✕</button></div>
  <p class="muted" id="cloudStatus">${esc(syncState.text)}</p>
- ${sbUser?`<p>Вход выполнен: <b>${esc(sbUser.email)}</b></p><div class="row"><button class="btn main" id="cloudSyncNow" type="button">Синхронизировать сейчас</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div><p class="muted">Наряды, прайсы и оплаты сохраняются в облако автоматически через пару секунд после изменения. Раз в день делается отдельная резервная копия. Фото и голосовые пока остаются только на этом устройстве.</p>`
+ ${sbUser?`<p>Вход выполнен: <b>${esc(sbUser.email)}</b></p>${syncMeta().lastRemoteDevice?`<p class="muted">Последнее изменение в облаке: ${esc(syncMeta().lastRemoteDevice)} · ${esc(showTime(syncMeta().lastRemoteAt))}</p>`:''}<div class="row"><button class="btn main" id="cloudSyncNow" type="button">Синхронизировать сейчас</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div><p class="muted">Наряды, прайсы и оплаты сохраняются в облако автоматически через пару секунд после изменения. Раз в день делается отдельная резервная копия. Фото и голосовые пока остаются только на этом устройстве.</p>`
  :`<details ${m.url?'':'open'}><summary>1. Подключение проекта</summary><div class="field"><label>Project URL</label><input id="cloudUrl" placeholder="https://xxxx.supabase.co" value="${esc(m.url||'')}"></div><div class="field" style="margin-top:8px"><label>anon / publishable key</label><input id="cloudKey" placeholder="eyJ… или sb_publishable_…" value="${esc(m.key||'')}"></div></details>
  <h3 style="margin-top:14px">2. Вход</h3><div class="grid"><div class="field"><label>Почта</label><input id="cloudEmail" type="email" autocomplete="username"></div><div class="field"><label>Пароль</label><input id="cloudPass" type="password" autocomplete="current-password"></div></div>
  <div class="row" style="margin-top:10px"><button class="btn main" id="cloudLogin" type="button">Войти</button><button class="btn" id="cloudSignup" type="button">Создать аккаунт (один раз)</button></div><p class="inline-feedback" id="cloudMsg" role="status"></p>`}`;
@@ -1099,7 +1113,7 @@ renderToday=function(){
 
 // ---------- удаление наряда ----------
 async function deleteOrder(o){
- db.orders=db.orders.filter(x=>x.id!==o.id);selected=null;save();render();
+ db.deleted??={};db.deleted[o.id]=new Date().toISOString();db.orders=db.orders.filter(x=>x.id!==o.id);selected=null;save();render();
  try{const d=await attachmentDb();const tr=d.transaction('files','readwrite'),st=tr.objectStore('files'),q=st.index('order').getAllKeys(o.id);q.onsuccess=()=>q.result.forEach(k=>st.delete(k));tr.oncomplete=()=>d.close()}catch(e){}
 }
 
@@ -1127,6 +1141,11 @@ render=function(){
  if(workspaceTab==='orders'){const rank={work:0,pause:1,done:2,paid:3};
   $('list').querySelectorAll('section.doctor').forEach(sec=>{const items=[...sec.querySelectorAll(':scope > .order')];items.map(el=>{const o=db.orders.find(x=>x.id===el.dataset.order),k=o?stKey(o):'work';el.classList.add('st-'+k);return {el,r:rank[k]}}).sort((a,b)=>a.r-b.r).forEach(x=>sec.appendChild(x.el))})}
 };
+
+
+// V15.1: в ленте видно, с какого устройства внесено изменение
+const logV15=log;log=function(o,type,text){logV15(o,type,text);const e=o.events[o.events.length-1];if(e&&!/·/.test(e.by))e.by+=' · '+deviceName()};
+const revisionV15=revision;revision=function(o,field,old,value){revisionV15(o,field,old,value);const r=o.revisions[o.revisions.length-1];if(r&&!/·/.test(r.by))r.by+=' · '+deviceName()};
 
 hydrate();render();cloudStart();
 </script></body></html>
