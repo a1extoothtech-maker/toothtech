@@ -500,6 +500,11 @@ html[data-tt-theme=dark] .tt-toast button{background:transparent!important;color
 html[data-tt-theme=dark] .tt-menu{background:#18181B;border-color:#2C2C32}
 html[data-tt-theme=dark] .tt-bar #newButton,html[data-tt-theme=dark] .tt-bar .btn.main{background:var(--tt-acc,#7A1F35)!important;border-color:var(--tt-acc,#7A1F35)!important;color:#fff!important}
 #list.hidden{display:none!important}
+.tt-debt{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;background:var(--tt-card,#fff);border:1px solid var(--tt-line,#E3E3E6);border-left:4px solid var(--tt-acc,#7A1F35);border-radius:12px;padding:12px 16px}
+.tt-debt span{font-size:12.5px;color:var(--tt-grey,#6B6C73);flex:1}
+.tt-debt b{font-family:'Unbounded','Manrope',sans-serif;font-size:19px;font-weight:600;color:var(--tt-acc,#7A1F35)}
+html[data-tt-theme=dark] .tt-debt b{color:#E0899C}
+.tt-debt small{color:var(--tt-grey,#6B6C73)}
 </style>
 </head><body><main class="wrap"><noscript><div style="margin:16px 0;padding:14px;border:2px solid #b5485c;border-radius:8px;background:#fdf1f3;font-size:14px;line-height:1.5"><b>Приложение открыто в режиме просмотра — программа не запущена.</b><br>Так бывает при открытии из Telegram, WhatsApp или приложения «Файлы» на iPhone. Откройте ToothTech по ссылке в Safari.</div></noscript><header class="top"><div><div class="logo">Tooth<b>Tech</b> <span class="tag">V16</span></div><div class="sub">Врач ↔ техник · презентационная версия</div><div class="goldline"></div></div><div class="row"><select id="role" style="width:190px"><option value="tech">Режим техника</option><option value="doctor">Режим врача</option></select><select id="docSelector" style="width:190px"></select></div></header><div class="panel"><div class="row between"><div><b id="welcome">Все активные заказы</b><div class="muted" id="description"></div></div><div class="row"><button class="btn" id="export" type="button" title="Все наряды, прайсы, расходы, фото и голосовые — одним файлом">⇩ Полная копия</button><button class="btn" id="importBtn" type="button" title="Восстановить копию или загрузить результаты врача">⇧ Загрузить файл</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn main" id="newButton">+ Новый заказ</button></div></div><div id="newForm" class="hidden section"><h3>Создание заказа: только 4 обязательных поля</h3><div class="grid"><div class="field"><label>Фамилия пациента *</label><input id="newPatient" placeholder="Иванов"></div><div class="field"><label>Клиника *</label><input id="newClinic" placeholder="Название клиники"></div><div class="field"><label>Дата приёма *</label><input id="newDate" type="date"></div><div class="field"><label>Вид конструкции *</label><input id="newConstruction" placeholder="Временный All-on-6"></div></div><div class="row" style="margin-top:12px"><button class="btn main" id="create">Создать черновик</button><button class="btn" id="cancelNew">Отмена</button></div></div></div><div id="list"></div><div id="modalBackdrop" class="modal-backdrop hidden"></div><section id="detail" class="panel hidden" role="dialog" aria-modal="true" aria-label="Заказ-наряд"></section><p class="footer">Наряды, прайсы и оплаты синхронизируются через облако (кнопка ☁). Фото, видео и голосовые пока хранятся только на том устройстве, где их добавили.</p></main><script>
 let toothClickTimer=null,bridgeAnchor=null,lastTap=null,manualDbl=0;
@@ -919,7 +924,7 @@ function renderAccounts(){
  $('workspacePane').querySelectorAll('[data-open-order]').forEach(b=>b.onclick=()=>{selected=b.dataset.openOrder;renderDetail()});
 }
 function printClinicOrder(o,tech){
- const showMoney=tech;
+ const showMoney=tech||o.clinic!=='Life-Stom';
  const w=window.open('','_blank');if(!w){alert('Разрешите всплывающие окна для печати наряда.');return}
  const day=d=>d?String(d).slice(8,10)+'.'+String(d).slice(5,7)+'.'+String(d).slice(0,4):'—';
  const sel=new Set((o.teeth||[]).map(String)),br=(o.bridges||[]).filter(g=>g.every(t=>sel.has(t)));
@@ -1697,21 +1702,28 @@ render = function(){ ttSetupBar(); renderV16(); ttDecorateOrders(); };
 const TT_SITE = 'https://a1extoothtech-maker.github.io/toothtech/';
 const MONEY_KEYS = ['payments', 'paid', 'receivedPayment', 'legacyPaymentMarked', 'paymentNoticeAcknowledged', 'doctorSent', 'base', 'steps', 'payer'];
 const MONEY_EVENTS = ['Стоимость', 'Оплата', 'Внутренние расходы', 'Этап изготовления', 'Расходы', 'Тариф'];
+const ttShares = o => !!o && o.clinic !== 'Life-Stom';
+const isInternalEvent = e => !!e && (e.private || ['Внутренние расходы', 'Расходы', 'Тариф'].includes(e.type));
 const isMoneyEvent = e => !!e && (e.private || MONEY_EVENTS.includes(e.type) || /₸/.test(String(e.text || '')));
 const isMoneyRev = r => !!r && (/цен|стоим|оплат|ставк|тариф|base|price|payer|плательщ/i.test(String(r.field || '')) || /₸/.test(String(r.old || '') + String(r.value || '')));
 if (!SETTINGS_SKIP.includes('archive')) SETTINGS_SKIP.push('archive');
 
 // ---------- общие данные без денег, деньги — в закрытой части ----------
 splitOrder = function (o) {
-  const priv = new Set([...PRIVATE_KEYS, ...MONEY_KEYS]), sh = {}, pr = {};
+  // Bai-Stom / Тулеш: врач видит цену, оплаты и остаток по своим работам; закрыты только расходы техника.
+  // Life-Stom: как раньше — цены и оплаты только у техника.
+  const share = ttShares(o);
+  const priv = new Set(share ? PRIVATE_KEYS : [...PRIVATE_KEYS, ...MONEY_KEYS]), sh = {}, pr = {};
   for (const [k, v] of Object.entries(o)) {
     if (k === 'events' || k === 'revisions' || k === 'workItems') continue;
     (priv.has(k) ? pr : sh)[k] = v;
   }
-  sh.workItems = (o.workItems || []).map(w => ({ id: w.id, name: w.name, teeth: w.teeth || [], kind: w.kind, qty: w.qty, unit: w.unit, supports: w.supports || [] }));
+  sh.workItems = share ? (o.workItems || []) : (o.workItems || []).map(w => ({ id: w.id, name: w.name, teeth: w.teeth || [], kind: w.kind, qty: w.qty, unit: w.unit, supports: w.supports || [] }));
   pr.workItems = o.workItems || [];
-  sh.events = (o.events || []).filter(e => !isMoneyEvent(e)); pr.events = (o.events || []).filter(isMoneyEvent);
-  sh.revisions = (o.revisions || []).filter(r => !isMoneyRev(r)); pr.revisions = (o.revisions || []).filter(isMoneyRev);
+  const hide = share ? isInternalEvent : isMoneyEvent;
+  sh.events = (o.events || []).filter(e => !hide(e)); pr.events = (o.events || []).filter(hide);
+  const hideRev = share ? (() => false) : isMoneyRev;
+  sh.revisions = (o.revisions || []).filter(r => !hideRev(r)); pr.revisions = (o.revisions || []).filter(hideRev);
   return { sh, pr };
 };
 function ttArrays(o) { for (const k of ['steps', 'payments', 'costs', 'events', 'revisions', 'unread', 'teeth', 'bridges', 'workItems', 'abutments']) if (!Array.isArray(o[k])) o[k] = []; return o; }
@@ -1797,7 +1809,7 @@ canView = function (o) { return role() === 'tech' || o.doctor === $('docSelector
 const paymentIndicatorV17 = paymentIndicator;
 paymentIndicator = function (o) { return role() === 'tech' ? paymentIndicatorV17(o) : ''; };
 const visibleEventV17 = visibleEvent;
-visibleEvent = function (e, o) { return role() === 'tech' || (!isMoneyEvent(e) && visibleEventV17(e, o)); };
+visibleEvent = function (e, o) { return role() === 'tech' || (!(ttShares(o) ? isInternalEvent(e) : isMoneyEvent(e)) && visibleEventV17(e, o)); };
 
 // ---------- облако: кто вошёл — техник или врач ----------
 let ttProf = null;
@@ -1882,7 +1894,7 @@ async function ttTechPull(c) {
 }
 async function ttTechPush(c) {
   await ensureV16(c);
-  const m = syncMeta(), hashes = { ...(m.hashes || {}) }, sentDeleted = { ...(m.sentDeleted || {}) }, dev = deviceName(), force = !m.v18split;
+  const m = syncMeta(), hashes = { ...(m.hashes || {}) }, sentDeleted = { ...(m.sentDeleted || {}) }, dev = deviceName(), force = m.splitVer !== 2;
   const rows = [], privs = [], newH = {};
   for (const o of [...db.orders, ...ttArchiveList()]) {
     const h = orderHash(o); if (!force && hashes[o.id] === h) continue;
@@ -1892,7 +1904,7 @@ async function ttTechPush(c) {
   }
   for (const id of Object.keys(db.deleted || {})) if (!sentDeleted[id]) { rows.push({ id, tech_id: sbUser.id, doctor_key: null, data: {}, deleted: true, device: dev }); sentDeleted[id] = true; }
   const setH = hashStr(JSON.stringify(settingsPart()));
-  if (!rows.length && setH === m.setHash) { if (force) setSyncMeta({ v18split: true }); return false; }
+  if (!rows.length && setH === m.setHash) { if (force) setSyncMeta({ splitVer: 2 }); return false; }
   setSyncStatus('отправляю…', 'pending');
   // наряд, затем его закрытая часть (цены, оплаты, расходы)
   for (const part of chunks(rows.filter(r => !r.deleted), 50)) {
@@ -1907,7 +1919,7 @@ async function ttTechPush(c) {
   }
   const today = localDay();
   if (m.backupDay !== today) { const { error: e2 } = await c.from('toothtech_backups').insert({ user_id: sbUser.id, data: db, device: dev }); if (!e2) setSyncMeta({ backupDay: today }); }
-  setSyncMeta({ hashes: { ...hashes, ...newH }, sentDeleted, setHash: setH, dirty: false, lastRemoteDevice: dev, lastRemoteAt: new Date().toISOString(), v18split: true });
+  setSyncMeta({ hashes: { ...hashes, ...newH }, sentDeleted, setHash: setH, dirty: false, lastRemoteDevice: dev, lastRemoteAt: new Date().toISOString(), splitVer: 2 });
   return true;
 }
 
@@ -2064,10 +2076,12 @@ renderDetail = function () {
   const o = order(), D = $('detail'); if (!o || D.classList.contains('hidden')) return;
   const tech = role() === 'tech';
   if (!tech) {
-    D.querySelectorAll('.payment-compact,.steps-compact,.costs-section,#costsBox,.tariff-note').forEach(e => e.remove());
-    const sum = D.querySelector('.order-summary'); if (sum) sum.innerHTML = '<span>' + esc(stageLabel(o) || status(o)) + '</span><span>Сдача ' + esc(o.due ? fmtDay(o.due) : 'не указана') + '</span>';
-    const wi = D.querySelector('#workItems'); if (wi) wi.innerHTML = '<h3>Работы</h3>' + ((o.workItems || []).map(w => '<div class="work-item">' + esc(w.name) + ' · ' + esc(w.qty) + ' ' + esc(w.unit || 'ед.') + '<div class="muted">' + esc((w.teeth || []).join(', ')) + '</div></div>').join('') || '<p class="muted">Работы уточняются у техника.</p>');
-    D.querySelectorAll('*').forEach(el => { if (el.isConnected && el.children.length === 0 && /₸/.test(el.textContent)) (el.closest('.work-item,.entry,li') || el).remove(); });
+    D.querySelectorAll('.costs-section,#costsBox,#orderCosts,.tariff-note').forEach(e => e.remove());
+    const share = ttShares(o);
+    if (!share) D.querySelectorAll('.payment-compact,.steps-compact').forEach(e => e.remove());
+    const sum = D.querySelector('.order-summary'); if (sum) sum.innerHTML = '<span>' + esc(o.delivered ? 'Сдано' : stageLabel(o) || status(o)) + '</span><span>Сдача ' + esc(o.due ? fmtDay(o.due) : 'не указана') + '</span>' + (share ? '<b>' + fmt(total(o)) + '</b>' + (balance(o) > 0 ? '<span class="balance">К оплате ' + fmt(balance(o)) + '</span>' : (total(o) > 0 ? '<span>Оплачено</span>' : '')) : '');
+    const wi = D.querySelector('#workItems'); if (wi) wi.innerHTML = '<h3>Работы' + (share && total(o) ? ' · ' + fmt(total(o)) : '') + '</h3>' + ((o.workItems || []).map(w => '<div class="work-item"><div class="row between"><span>' + esc(w.name) + '</span>' + (share ? '<b>' + fmt((Number(w.qty) || 0) * (Number(w.price) || 0)) + '</b>' : '') + '</div><div class="muted">' + esc((w.teeth || []).join(', ')) + ' · ' + esc(w.qty) + ' ' + esc(w.unit || 'ед.') + (share ? ' × ' + fmt(Number(w.price) || 0) : '') + '</div></div>').join('') || '<p class="muted">Работы уточняются у техника.</p>');
+    if (!share) D.querySelectorAll('*').forEach(el => { if (el.isConnected && el.children.length === 0 && /₸/.test(el.textContent)) (el.closest('.work-item,.entry,li') || el).remove(); });
   }
   // старое поле «Сообщение» заменено перепиской
   $('textEvent')?.closest('.field')?.remove(); $('addText')?.remove();
@@ -2129,7 +2143,7 @@ cloudPanel = function () {
   const d = ttDoc();
   if (d && sbUser) {
     const box = document.createElement('div'); box.id = 'cloudPanel'; box.className = 'cloud-panel';
-    box.innerHTML = '<div class="row between"><h2>Кабинет врача · ' + esc(d.name) + '</h2><button class="btn" id="cloudClose" type="button">✕</button></div><p class="muted" id="cloudStatus">' + esc(syncState.text) + '</p><p>Вход: <b>' + esc(sbUser.email) + '</b></p><p class="muted">Здесь только ваши наряды: этапы, сроки, цвет, зубная формула и переписка с техником. Новые данные подтягиваются раз в минуту.</p><div class="row"><button class="btn main" id="cloudSyncNow" type="button">Обновить</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div>';
+    box.innerHTML = '<div class="row between"><h2>Кабинет врача · ' + esc(d.name) + '</h2><button class="btn" id="cloudClose" type="button">✕</button></div><p class="muted" id="cloudStatus">' + esc(syncState.text) + '</p><p>Вход: <b>' + esc(sbUser.email) + '</b></p><p class="muted">Здесь только ваши наряды: этапы, сроки, цвет, зубная формула, стоимость, оплаты и переписка с техником. Новые данные подтягиваются раз в минуту.</p><div class="row"><button class="btn main" id="cloudSyncNow" type="button">Обновить</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div>';
     document.body.appendChild(box); document.body.classList.add('modal-open');
     const close = () => { box.remove(); document.body.classList.remove('modal-open'); };
     $('cloudClose').onclick = close;
@@ -2144,10 +2158,10 @@ cloudPanel = function () {
 
 // ---------- доступ врачей (у техника) ----------
 function ttPass() { const a = 'abcdefghijkmnpqrstuvwxyz', n = '23456789'; let s = ''; for (let i = 0; i < 4; i++) s += a[Math.floor(Math.random() * a.length)]; for (let i = 0; i < 4; i++) s += n[Math.floor(Math.random() * n.length)]; return s; }
-function ttShareText(d, email, pass) { return 'ToothTech — ваши наряды\nСсылка: ' + TT_SITE + '\nПочта: ' + email + '\nПароль: ' + pass + '\n\nОткройте ссылку → кнопка «Облако» → «Войти». Вы увидите только свои работы: этапы, сроки, цвет и переписку с техником.'; }
+function ttShareText(d, email, pass) { return 'ToothTech — ваши наряды\nСсылка: ' + TT_SITE + '\nПочта: ' + email + '\nПароль: ' + pass + '\n\nОткройте ссылку → кнопка «Облако» → «Войти». Вы увидите только свои работы: этапы, сроки, цвет, стоимость и оплату, переписку с техником.'; }
 async function ttAccessSection() {
   const panel = $('cloudPanel'); if (!panel) return;
-  panel.insertAdjacentHTML('beforeend', '<section class="tt-access" id="ttAccess"><h3>Доступ врачей</h3><p class="muted">Каждый врач входит под своей почтой и видит только свои наряды — без цен, оплат и расчётов.</p><div id="ttAccList"><p class="muted">Загружаю…</p></div></section>');
+  panel.insertAdjacentHTML('beforeend', '<section class="tt-access" id="ttAccess"><h3>Доступ врачей</h3><p class="muted">Каждый врач входит под своей почтой и видит только свои наряды — видит стоимость и остаток по своим работам, но не ваши расходы, прайсы и расчёты.</p><div id="ttAccList"><p class="muted">Загружаю…</p></div></section>');
   const c = await cloudClient();
   let linked = [];
   const r1 = await c.rpc('doctor_accounts');
@@ -2312,7 +2326,7 @@ function ttSectionTab(el) {
 function ttApplyTabs(o, D) {
   const tech = role() === 'tech', stage = D.querySelector('.stage-section'); if (!stage) return;
   if (ttTab.id !== o.id) ttTab = { id: o.id, tab: ttUnread(o.id) ? 'chat' : 'order' };
-  const tabs = tech ? [['order', 'Наряд'], ['chat', 'Переписка'], ['money', 'Деньги'], ['hist', 'История']] : [['order', 'Наряд'], ['chat', 'Переписка'], ['hist', 'История']];
+  const tabs = tech || ttShares(o) ? [['order', 'Наряд'], ['chat', 'Переписка'], ['money', tech ? 'Деньги' : 'Оплата'], ['hist', 'История']] : [['order', 'Наряд'], ['chat', 'Переписка'], ['hist', 'История']];
   const n = (ttMsgs()[o.id] || []).length, un = ttUnread(o.id);
   D.querySelector('.tt-tabs')?.remove();
   stage.insertAdjacentHTML('afterend', '<div class="tt-tabs" role="tablist">' + tabs.map(([k, l]) => '<button type="button" role="tab" data-tab="' + k + '" aria-selected="' + (ttTab.tab === k) + '">' + l + (k === 'chat' && (un || n) ? ' <i>' + (un || n) + '</i>' : '') + '</button>').join('') + '</div>');
@@ -2342,7 +2356,7 @@ renderDetail = function () {
     const det = document.createElement('details'); det.className = 'tt-stage-all'; det.innerHTML = '<summary>Все этапы · изменить вручную</summary>'; rest.forEach(x => det.appendChild(x));
     const nx = ttNext(o);
     head.insertAdjacentHTML('afterend', '<div class="tt-progress ' + (stageReady(o) || o.delivered ? 'ready' : '') + '"><i style="width:' + (o.delivered ? 100 : pct) + '%"></i></div>' +
-      (nx ? '<div class="tt-next"><button type="button" class="btn tt-next-btn ' + (nx.cls || '') + '" id="ttNextBtn">' + esc(nx.label) + '</button><span class="tt-next-hint">' + esc(nx.hint) + '</span></div>' : '<p class="tt-next-hint">' + (o.delivered ? 'Наряд закрыт: сдан и оплачен.' : '') + '</p>'));
+      (nx ? '<div class="tt-next"><button type="button" class="btn tt-next-btn ' + (nx.cls || '') + '" id="ttNextBtn">' + esc(nx.label) + '</button><span class="tt-next-hint">' + esc(nx.hint) + '</span></div>' : '<p class="tt-next-hint">' + (o.delivered ? (total(o) > 0 ? 'Наряд закрыт: сдан и оплачен.' : 'Сдано. Сумма в наряде 0 ₸ — добавьте работы во вкладке «Наряд», чтобы учесть оплату.') : '') + '</p>'));
     st.appendChild(det);
     $('ttNextBtn') && ($('ttNextBtn').onclick = () => ttDoNext(o));
   }
@@ -2357,7 +2371,7 @@ function ttDecorateV19() {
   if (workspaceTab !== 'orders' || ttArchiveOpen) return;
   const tech = role() === 'tech', list = $('list');
   if (!ttSwipeBound) { list.addEventListener('click', e => { const c = e.target.closest('.order'); if (c && c.dataset.noclick) { e.stopPropagation(); e.preventDefault(); } }, true); ttSwipeBound = true; }
-  if (!tech) return;
+  if (!tech) { ttDoctorMoney(list); return; }
   list.querySelectorAll('.order[data-order]').forEach(el => {
     const o = db.orders.find(x => x.id === el.dataset.order); if (!o) return;
     const box = el.querySelector('.order-status'), k = stKey(o);
@@ -2538,6 +2552,18 @@ ttUpdateChat = function () {
   const o = order(), b = document.querySelector('.tt-tabs [data-tab=chat]');
   if (o && b) { const un = ttUnread(o.id), n = (ttMsgs()[o.id] || []).length; b.innerHTML = 'Переписка' + (un || n ? ' <i>' + (un || n) + '</i>' : ''); }
 };
+
+// врач: остаток по каждой работе и общий долг
+function ttDoctorMoney(list) {
+  let debt = 0, n = 0;
+  list.querySelectorAll('.order[data-order]').forEach(el => {
+    const o = db.orders.find(x => x.id === el.dataset.order); if (!o || !ttShares(o)) return;
+    const left = balance(o); if (o.delivered && left > 0) { debt += left; n++; }
+    const inf = el.querySelector('.info'); if (inf && total(o) > 0) inf.insertAdjacentHTML('beforeend', ' · <b>' + (left > 0 ? (o.delivered ? 'к оплате ' : 'стоимость ') + fmt(left) : 'оплачено') + '</b>');
+  });
+  $('ttDebt')?.remove();
+  if (debt > 0) list.insertAdjacentHTML('afterbegin', '<div class="tt-debt" id="ttDebt"><span>К оплате за сданные работы</span><b>' + fmt(debt) + '</b><small>' + n + ' ' + (n === 1 ? 'работа' : n < 5 ? 'работы' : 'работ') + '</small></div>');
+}
 
 hydrate();render();cloudStart();
 </script></body></html>
