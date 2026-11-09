@@ -203,6 +203,303 @@ header.top{display:none!important}
 .tt-wm{display:flex;flex-direction:column;gap:5px;min-width:0}
 .tt-sub{font-size:8.5px;letter-spacing:2.6px;color:#A9AEB6;white-space:nowrap;text-transform:uppercase}
 @media(max-width:720px){.tt-sub,.tt-brand .tt-sep{display:none}.tt-mark{height:32px;width:38px}.tt-brand{gap:8px}}
+
+/* ===== V18 · кабинет врача · архив · «Готова к сдаче» · заметная кнопка ===== */
+:root{--tt-ready:#17744D;--tt-ready-bg:#EAF6EF}
+.tag.st-ready{background:var(--tt-ready)!important;color:#fff!important;border:1px solid var(--tt-ready)!important;font-weight:700}
+.order.st-ready{border-left:4px solid var(--tt-ready)!important;background:var(--tt-ready-bg)}
+#list .order.st-ready:hover{background:#E0F1E7}
+.today-item.st-ready{border-left:4px solid var(--tt-ready)}
+.today-group.ready h3{color:var(--tt-ready)}
+.stage-chip.ready.current{background:var(--tt-ready)!important;border-color:var(--tt-ready)!important;color:#fff!important}
+/* заметная «Сохранить и закрыть» */
+#detail #completeOrder{display:none!important}
+.tt-savebar{position:sticky;bottom:-20px;z-index:3;margin:18px -20px -20px;padding:12px 20px;background:rgba(255,255,255,.96);border-top:1px solid var(--tt-line,#e3e3e6);display:flex;align-items:center;gap:12px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.tt-savebar .tt-sb-note{flex:1;font-size:11.5px;color:var(--tt-grey,#6B6C73);min-width:0}
+.tt-savebar .tt-save{background:var(--tt-acc,#7A1F35)!important;border-color:var(--tt-acc,#7A1F35)!important;color:#fff!important;font-weight:700;font-size:15px;padding:12px 22px;border-radius:10px;min-height:48px;box-shadow:0 6px 16px rgba(122,31,53,.25)}
+.tt-savebar .tt-save:hover{background:var(--tt-acc2,#A3283F)!important}
+@media(max-width:720px){.tt-savebar{bottom:-14px;margin:14px -12px -14px;padding:10px 12px}.tt-savebar .tt-sb-note{display:none}.tt-savebar .tt-save{flex:1}}
+/* архив */
+.tt-arch-btn{margin-left:auto;border:1px dashed #C9C9CE;background:transparent;border-radius:20px;padding:5px 12px;font-size:12px;color:var(--tt-grey,#6B6C73);min-height:30px}
+.tt-arch-btn:hover{border-color:#8E8F96;color:var(--tt-ink,#17171A)}
+.tt-archive{background:#fff;border:1px solid var(--tt-line,#e3e3e6);border-radius:12px;padding:6px 14px 10px}
+.tt-archive .tt-arch-head{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #EEEEF0}
+.tt-archive .tt-arch-head h3{margin:0;font-family:'Unbounded','Manrope',sans-serif;font-weight:600;font-size:14px;letter-spacing:.4px;flex:1}
+.tt-arch-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #EEEEF0;flex-wrap:wrap}
+.tt-arch-row:first-of-type{border-top:0}
+.tt-arch-row .who{flex:1;min-width:200px;display:flex;flex-direction:column;gap:2px}
+.tt-arch-row .who small{color:var(--tt-grey,#6B6C73)}
+.tt-arch-row .acts{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.danger-zone .tt-arch-note{font-size:11.5px;color:var(--tt-grey,#6B6C73)}
+.tt-toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:200;background:var(--tt-ink,#17171A);color:#fff;border-radius:10px;padding:10px 12px 10px 16px;display:flex;gap:14px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);font-size:13px;max-width:calc(100vw - 32px)}
+.tt-toast button{background:transparent;border:1px solid #4A4A52;color:#fff;border-radius:7px;padding:5px 10px;font-weight:600}
+/* сообщения */
+.tt-chat .tt-msgs{display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto;padding:4px 0 8px}
+.tt-msg{max-width:82%;padding:8px 11px;border-radius:12px;font-size:13px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+.tt-msg small{display:block;font-size:10.5px;opacity:.7;margin-top:3px}
+.tt-msg.them{align-self:flex-start;background:#F1F1F3;border-bottom-left-radius:4px}
+.tt-msg.me{align-self:flex-end;background:#F3E6EB;color:#4A1220;border-bottom-right-radius:4px}
+.tt-chat .tt-send{display:flex;gap:8px;align-items:flex-end}
+.tt-chat .tt-send textarea{flex:1;min-height:44px;max-height:140px;resize:vertical}
+.tt-chat .tt-send .btn{min-height:44px}
+.tt-msg-badge{display:inline-flex;align-items:center;gap:4px;background:var(--tt-acc,#7A1F35);color:#fff;border-radius:20px;padding:2px 8px;font-size:11px;font-weight:700;margin-right:6px}
+/* доступ врачей (панель облака) */
+.tt-access{margin-top:18px;border-top:1px solid var(--tt-line,#e3e3e6);padding-top:14px}
+.tt-access h3{margin:0 0 4px}
+.tt-acc-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #EEEEF0;flex-wrap:wrap}
+.tt-acc-row:first-of-type{border-top:0}
+.tt-acc-row .nm{font-weight:700;min-width:90px}
+.tt-acc-row .st{flex:1;min-width:160px;font-size:12px;color:var(--tt-grey,#6B6C73)}
+.tt-acc-row .st.on{color:var(--tt-ready)}
+.tt-acc-form{width:100%;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:8px;align-items:end}
+.tt-acc-form label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:var(--tt-grey,#6B6C73)}
+.tt-acc-share{width:100%;background:#F7F7F8;border:1px solid #E3E3E6;border-radius:8px;padding:10px 12px;font-size:12.5px;white-space:pre-wrap}
+@media(max-width:600px){.tt-acc-form{grid-template-columns:1fr}}
+/* режим врача */
+body.tt-doc #role,body.tt-doc #docSelector{display:none!important}
+body.tt-doc .tt-bar .tt-sub{color:#D9C08C}
+
+.tt-bar .btn[style*="display: none"],.tt-bar select[style*="display: none"]{display:none!important}
+body.tt-doc #export,body.tt-doc #importBtn{display:none!important}
+.order-status{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.order-status .tag{max-width:100%}
+
+/* V19 · тёмная тема (сгенерировано из светлой) */
+:where(html[data-tt-theme="dark"]) button,:where(html[data-tt-theme="dark"]) input,:where(html[data-tt-theme="dark"]) textarea,:where(html[data-tt-theme="dark"]) select{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) button:focus-visible,:where(html[data-tt-theme="dark"]) input:focus,:where(html[data-tt-theme="dark"]) select:focus,:where(html[data-tt-theme="dark"]) textarea:focus{outline:2px solid #67545a!important}
+:where(html[data-tt-theme="dark"]) .field label{color:#b0aeb4!important}
+:where(html[data-tt-theme="dark"]) .btn{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .btn:hover{background:#272427!important}
+:where(html[data-tt-theme="dark"]) .btn.warn{color:#cfa0a8!important;background:#2a1b1e!important}
+:where(html[data-tt-theme="dark"]) .tag,:where(html[data-tt-theme="dark"]) .pill{background:#272527!important;color:#bcb4b8!important}
+:where(html[data-tt-theme="dark"]) .order:hover{background:#272528!important}
+:where(html[data-tt-theme="dark"]) .alert{border-left:2px solid #726454!important;background:#2c261b!important}
+:where(html[data-tt-theme="dark"]) .entry{border-bottom:1px solid #39363a!important}
+:where(html[data-tt-theme="dark"]) #detail:not(.hidden){background:#1d1d1d!important;border:1px solid #3f3d41!important}
+:where(html[data-tt-theme="dark"]) #detail>.row:first-child{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .tooth:hover{background:#272325!important}
+:where(html[data-tt-theme="dark"]) .tooth.active{background:#2c2327!important;color:#d0a8b4!important;border-color:#5a4a50!important}
+:where(html[data-tt-theme="dark"]) .tooth.midline:before{border-left:1px solid #474245!important}
+:where(html[data-tt-theme="dark"]) .media-compact #record{background:#252122!important}
+@media print{:where(html[data-tt-theme="dark"]) body{background:#1d1d1d!important}}
+:where(html[data-tt-theme="dark"]) #detail #record:hover,:where(html[data-tt-theme="dark"]) #detail #photoPicker:hover{background:#2f2529!important}
+:where(html[data-tt-theme="dark"]) #detail #stopRecord{color:#db96a6!important;background:#2f1a20!important}
+:where(html[data-tt-theme="dark"]) #detail .payment-compact{background:#251d21!important;border:1px solid #47393f!important}
+:where(html[data-tt-theme="dark"]) #detail #sent[aria-pressed="true"]{background:#242d28!important;color:#b6d7c3!important;border-color:#48594e!important}
+:where(html[data-tt-theme="dark"]) .payment-feedback{color:#c0b0b7!important}
+:where(html[data-tt-theme="dark"]) .payment-feedback.sent{color:#b6d7c3!important}
+:where(html[data-tt-theme="dark"]) .tooth-body{stroke:#676165!important}
+:where(html[data-tt-theme="dark"]) .tooth-neck{stroke:#676165!important}
+:where(html[data-tt-theme="dark"]) #detail .tooth.active{color:#d1a8b5!important}
+:where(html[data-tt-theme="dark"]) #detail .tooth .num{color:#c3bcc1!important}
+:where(html[data-tt-theme="dark"]) #detail .tooth.bridge-anchor{background:#2a1f24!important}
+:where(html[data-tt-theme="dark"]) #detail .tooth.bridge-member .num{border-bottom:2px solid #735c65!important}
+:where(html[data-tt-theme="dark"]) .formula-tools{color:#bcabb2!important}
+:where(html[data-tt-theme="dark"]) .order-summary{background:#252124!important;color:#bab0b6!important}
+:where(html[data-tt-theme="dark"]) .order-summary .balance{color:#d1a8b5!important}
+:where(html[data-tt-theme="dark"]) details>summary{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .works-section label,:where(html[data-tt-theme="dark"]) .payment-compact label{color:#b7b1b5!important}
+:where(html[data-tt-theme="dark"]) .inline-feedback{color:#d099a6!important}
+:where(html[data-tt-theme="dark"]) .money-grid b{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .payment-entry{border-bottom:1px solid #43393d!important}
+:where(html[data-tt-theme="dark"]) .delivery-row{border-top:1px solid #443a3f!important}
+:where(html[data-tt-theme="dark"]) .workspace-nav button.selected{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .price-row{border-top:1px solid #39363a!important}
+:where(html[data-tt-theme="dark"]) .ledger-row{border-top:1px solid #3c373b!important}
+:where(html[data-tt-theme="dark"]) .text-link{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .tariff-fields label,:where(html[data-tt-theme="dark"]) .costs-section label{color:#b6acb2!important}
+:where(html[data-tt-theme="dark"]) .pending{color:#dbbe99!important}
+:where(html[data-tt-theme="dark"]) .signal-sent{background:#3a2e16!important;color:#e5cea7!important;border-color:#645537!important}
+:where(html[data-tt-theme="dark"]) .signal-paid{background:#212e26!important;color:#b4e1c9!important;border-color:#445a4c!important}
+:where(html[data-tt-theme="dark"]) .signal-partial{background:#1b202d!important;color:#9eacc9!important;border-color:#353e4e!important}
+:where(html[data-tt-theme="dark"]) .signal-unpaid{background:#262427!important;color:#b2aeb5!important;border-color:#3d3b40!important}
+:where(html[data-tt-theme="dark"]) #detail .payment-compact[data-payment="paid"]{background:#1b271d!important}
+:where(html[data-tt-theme="dark"]) .construction-chip{background:#2d2529!important;color:#d1b0bc!important;border:1px solid #4d3f46!important}
+:where(html[data-tt-theme="dark"]) .construction-chip:hover{background:#362c31!important}
+:where(html[data-tt-theme="dark"]) .construction-custom summary{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .production-toggle[aria-pressed="false"]{background:#252226!important;color:#b2aeb5!important;border-color:#413d44!important}
+:where(html[data-tt-theme="dark"]) .production-badge{border:1px solid #484145!important}
+:where(html[data-tt-theme="dark"]) .production-badge[aria-pressed="true"]{background:#362a30!important;color:#d4afbf!important;border-color:#634f58!important}
+:where(html[data-tt-theme="dark"]) .production-badge[aria-pressed="false"]{background:#232124!important;color:#afaab1!important}
+:where(html[data-tt-theme="dark"]) .order .construction-name{color:#b2aeb5!important}
+:where(html[data-tt-theme="dark"]) .construction-choice>label,:where(html[data-tt-theme="dark"]) .custom-construction-label{color:#b0aeb4!important}
+:where(html[data-tt-theme="dark"]) .formula-batch-row{border:1px solid #413a3e!important;background:#231c20!important}
+:where(html[data-tt-theme="dark"]) .formula-batch-row>label{color:#b9b1b7!important}
+:where(html[data-tt-theme="dark"]) .formula-batch-title{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .formula-batch-total{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) header.top select{border-bottom:1px solid #574d50!important}
+:where(html[data-tt-theme="dark"]) #detail .field input{border:1px solid #41393b!important;background:#2b1010!important}
+:where(html[data-tt-theme="dark"]) #detail .media-compact #photoPicker{background:#2b1d22!important;color:#d8acbf!important}
+:where(html[data-tt-theme="dark"]) .backup-note{color:#adacb1!important}
+:where(html[data-tt-theme="dark"]) .backup-note.stale{color:#d099a6!important}
+:where(html[data-tt-theme="dark"]) .scope button{background:#1d1d1d!important;color:#b2aeb5!important}
+:where(html[data-tt-theme="dark"]) .overdue{color:#dd939b!important}
+:where(html[data-tt-theme="dark"]) .due-today{color:#e3c7a0!important}
+:where(html[data-tt-theme="dark"]) .stage-tag{color:#d1b0bc!important}
+:where(html[data-tt-theme="dark"]) .stage-chip{background:#252225!important;border:1px solid #403b3e!important}
+:where(html[data-tt-theme="dark"]) .stage-chip.done{background:#2d2528!important;color:#d1b0bc!important;border-color:#4a3e44!important}
+:where(html[data-tt-theme="dark"]) .wa-section>summary{color:#a8debd!important}
+:where(html[data-tt-theme="dark"]) .today-item{border-top:1px solid #39363a!important}
+:where(html[data-tt-theme="dark"]) .today-item:hover{background:#272528!important}
+:where(html[data-tt-theme="dark"]) .today-item span{color:#c1bcc1!important}
+:where(html[data-tt-theme="dark"]) .today-group.late h3{color:#dd939b!important}
+:where(html[data-tt-theme="dark"]) .today-group.today h3{color:#e3c7a0!important}
+:where(html[data-tt-theme="dark"]) .today-group.ready h3{color:#a9d4ba!important}
+:where(html[data-tt-theme="dark"]) .today-group.pay h3,:where(html[data-tt-theme="dark"]) .today-group.debt h3{color:#9eacc9!important}
+:where(html[data-tt-theme="dark"]) .rt{border-top:1px solid #39363a!important}
+:where(html[data-tt-theme="dark"]) .rt.sel{background:#2a2225!important}
+:where(html[data-tt-theme="dark"]) .rt b{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .act-form label{color:#b7b1b5!important}
+:where(html[data-tt-theme="dark"]) .cloud-btn[data-kind=ok]{color:#b4e1c9!important;border-color:#445a4c!important;background:#1b2921!important}
+:where(html[data-tt-theme="dark"]) .cloud-btn[data-kind=pending]{color:#e5cea7!important;border-color:#645537!important}
+:where(html[data-tt-theme="dark"]) .cloud-btn[data-kind=error]{color:#df96a4!important;border-color:#57393f!important;background:#2c161a!important}
+:where(html[data-tt-theme="dark"]) .cloud-panel{background:#1d1d1d!important;border:1px solid #3f3d41!important}
+:where(html[data-tt-theme="dark"]) .cloud-panel summary{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .pay-line{color:#b7b1b5!important}
+:where(html[data-tt-theme="dark"]) .pay-line b{color:#d7d6da!important}
+:where(html[data-tt-theme="dark"]) .tag.st-work{background:#2e2126!important;color:#e6a8b7!important;border:1px solid #4f3e45!important}
+:where(html[data-tt-theme="dark"]) .tag.st-pause{background:#282729!important;color:#b8b4ba!important;border:1px solid #424044!important}
+:where(html[data-tt-theme="dark"]) .tag.st-done{background:#3a2e16!important;color:#e5cea7!important;border:1px solid #645537!important}
+:where(html[data-tt-theme="dark"]) .tag.st-paid{background:#212e26!important;color:#b4e1c9!important;border:1px solid #445a4c!important}
+:where(html[data-tt-theme="dark"]) .order.st-pause{border-left:3px solid #4e4b4d!important;background:#252425!important}
+:where(html[data-tt-theme="dark"]) .order.st-pause .patient-name{color:#b8b4ba!important}
+:where(html[data-tt-theme="dark"]) .today-group.paused h3{color:#b2aeb5!important}
+:where(html[data-tt-theme="dark"]) .buy-alert{border:1px solid #645537!important;background:#342a14!important;color:#e5cea7!important}
+:where(html[data-tt-theme="dark"]) .ab-section .ab-code{color:#e6a8b7!important}
+:where(html[data-tt-theme="dark"]) .ab-row{border-top:1px solid #39363a!important}
+:where(html[data-tt-theme="dark"]) .ab-h button{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .ab-st.ab-buy{background:#3a2e16!important;color:#e5cea7!important;border-color:#645537!important}
+:where(html[data-tt-theme="dark"]) .ab-st.ab-have{background:#212e26!important;color:#b4e1c9!important;border-color:#445a4c!important}
+:where(html[data-tt-theme="dark"]) .ab-del:hover{color:#df96a4!important}
+:where(html[data-tt-theme="dark"]) .shade-ok{color:#b2aeb5!important}
+:where(html[data-tt-theme="dark"]) .shade-ok.on{color:#b4e1c9!important}
+:where(html[data-tt-theme="dark"]) .text-link.danger{color:#df96a4!important}
+:where(html[data-tt-theme="dark"]) #delAsk{color:#df96a4!important}
+:where(html[data-tt-theme="dark"]) .tt-bar .cloud-btn[data-kind=error] .dot{background:#6c2933!important}
+:where(html[data-tt-theme="dark"]) .tt-toppanel #newForm:not(.hidden){background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .workspace-nav{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) #list .doctor{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) #list .order{border-top:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) #list .order:hover{background:#202022!important}
+:where(html[data-tt-theme="dark"]) .tt-docs button{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .tt-docs button i{background:#262628!important}
+:where(html[data-tt-theme="dark"]) .tt-kpi{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .tt-kpi.gold{border-color:#534a38!important;background:#2b261a!important}
+:where(html[data-tt-theme="dark"]) .tt-table{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) .tt-table details{border-top:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) .tt-table .th{background:#202022!important;border-bottom:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) .tt-rows .ledger-row{border-top:1px dashed #363639!important}
+:where(html[data-tt-theme="dark"]) .today-group{background:#1d1d1d!important}
+:where(html[data-tt-theme="dark"]) #list .order.st-ready:hover{background:#233128!important}
+:where(html[data-tt-theme="dark"]) .tt-savebar{background:rgba(29,29,29,0.96)!important;border-top:1px solid var(--tt-line,#3b3b3e)!important}
+:where(html[data-tt-theme="dark"]) .tt-savebar .tt-sb-note{color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .tt-arch-btn{border:1px dashed #464649!important;color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .tt-arch-btn:hover{border-color:#606063!important;color:var(--tt-ink,#dfdfe3)!important}
+:where(html[data-tt-theme="dark"]) .tt-archive{background:#1d1d1d!important;border:1px solid var(--tt-line,#3b3b3e)!important}
+:where(html[data-tt-theme="dark"]) .tt-archive .tt-arch-head{border-bottom:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) .tt-arch-row{border-top:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) .tt-arch-row .who small{color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .danger-zone .tt-arch-note{color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .tt-msg.them{background:#232326!important}
+:where(html[data-tt-theme="dark"]) .tt-msg.me{background:#2e2126!important;color:#edc0cb!important}
+:where(html[data-tt-theme="dark"]) .tt-access{border-top:1px solid var(--tt-line,#3b3b3e)!important}
+:where(html[data-tt-theme="dark"]) .tt-acc-row{border-top:1px solid #363639!important}
+:where(html[data-tt-theme="dark"]) .tt-acc-row .st{color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .tt-acc-form label{color:var(--tt-grey,#b3b4b8)!important}
+:where(html[data-tt-theme="dark"]) .tt-acc-share{background:#202022!important;border:1px solid #3b3b3e!important}
+
+/* ===== V19 · быстрая запись · следующий шаг · вкладки · меню · скрыть суммы · тёмная тема ===== */
+/* шапка: меню вместо лишних кнопок */
+.tt-bar #role,.tt-bar #export,.tt-bar #importBtn{display:none!important}
+.tt-icon-btn{width:36px;padding:6px!important;justify-content:center}
+.tt-menu{position:fixed;z-index:120;top:calc(58px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));width:min(340px,calc(100vw - 24px));background:var(--tt-card,#fff);color:var(--tt-ink,#17171A);border:1px solid var(--tt-line,#E3E3E6);border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.22);padding:14px;display:flex;flex-direction:column;gap:14px}
+.tt-menu h4{margin:0 0 6px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--tt-grey,#6B6C73);font-weight:600}
+.tt-seg{display:flex;gap:4px;background:var(--tt-bg,#F3F3F4);border-radius:10px;padding:3px}
+.tt-seg button{flex:1;border:0;background:transparent;border-radius:8px;padding:8px 6px;font-size:12.5px;color:var(--tt-grey,#6B6C73);font-weight:500}
+.tt-seg button[aria-pressed=true]{background:var(--tt-card,#fff);color:var(--tt-ink,#17171A);box-shadow:0 1px 3px rgba(0,0,0,.12);font-weight:700}
+.tt-menu .tt-mrow{display:flex;gap:8px;flex-wrap:wrap}
+.tt-menu .tt-mrow .btn{flex:1;justify-content:center}
+.tt-menu #export,.tt-menu #importBtn{display:inline-flex!important;align-items:center;gap:6px}
+.tt-menu svg{width:16px;height:16px}
+.tt-docview{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;background:#FBF6EA;border:1px solid #E4D7BC;border-radius:12px;padding:10px 14px;font-size:13px}
+.tt-docview b{flex:1}
+/* скрыть суммы */
+body.tt-hide-money .tt-money{filter:blur(7px);-webkit-user-select:none;user-select:none;transition:filter .15s}
+.tt-eye[aria-pressed=true]{color:var(--tt-gold,#B89B62)!important;border-color:#4A4232!important}
+/* следующий шаг */
+.tt-next{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 10px}
+.tt-next-btn{background:var(--tt-ink,#17171A)!important;color:#fff!important;border-color:var(--tt-ink,#17171A)!important;font-weight:700;font-size:14px;padding:11px 18px;border-radius:10px;min-height:46px}
+.tt-next-btn.ready{background:var(--tt-ready,#17744D)!important;border-color:var(--tt-ready,#17744D)!important}
+.tt-next-btn.pay{background:var(--tt-gold,#B89B62)!important;border-color:var(--tt-gold,#B89B62)!important;color:#17171A!important}
+.tt-next-hint{font-size:12px;color:var(--tt-grey,#6B6C73)}
+.tt-progress{height:6px;border-radius:6px;background:var(--tt-bg,#F3F3F4);overflow:hidden;margin:2px 0 6px}
+.tt-progress i{display:block;height:100%;background:var(--tt-acc,#7A1F35);border-radius:6px}
+.tt-progress.ready i{background:var(--tt-ready,#17744D)}
+.tt-stage-all>summary{cursor:pointer;font-size:12px;color:var(--tt-grey,#6B6C73);padding:4px 0;list-style:none}
+.tt-stage-all>summary::-webkit-details-marker{display:none}
+.tt-stage-all>summary:before{content:'▸ '}.tt-stage-all[open]>summary:before{content:'▾ '}
+/* вкладки в наряде */
+.tt-tabs{display:flex;gap:4px;margin:4px 0 6px;background:var(--tt-bg,#F3F3F4);border-radius:11px;padding:4px;position:sticky;top:-20px;z-index:2}
+.tt-tabs button{flex:1;border:0;background:transparent;border-radius:8px;padding:9px 6px;font-size:13px;font-weight:600;color:var(--tt-grey,#6B6C73);display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.tt-tabs button[aria-selected=true]{background:var(--tt-card,#fff);color:var(--tt-ink,#17171A);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tt-tabs button i{font-style:normal;font-size:10.5px;background:var(--tt-acc,#7A1F35);color:#fff;border-radius:9px;padding:1px 6px}
+#detail .tt-tabhide{display:none!important}
+@media(max-width:720px){.tt-tabs{top:-14px}.tt-tabs button{font-size:12px;padding:8px 4px}}
+/* список: быстрые действия и свайпы */
+.tt-quick-act{border:1px solid var(--tt-ready,#17744D);background:transparent;color:var(--tt-ready,#17744D);border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:700;min-height:28px}
+.tt-quick-act.pay{border-color:var(--tt-gold,#B89B62);color:#7A5F27}
+.tt-quick-act:hover{background:var(--tt-ready-bg,#EAF6EF)}
+#list .order{touch-action:pan-y}
+#list .order[data-swipe=next]{box-shadow:inset 6px 0 0 var(--tt-ready,#17744D)}
+#list .order[data-swipe=pause]{box-shadow:inset -6px 0 0 #8E8F96}
+/* быстрая запись */
+.tt-quick{display:flex;flex-direction:column;gap:8px;margin:4px 0 12px}
+.tt-q-row{display:flex;gap:8px}
+.tt-q-row input{flex:1;font-size:16px!important;padding:12px 14px!important;border-radius:11px!important;border:1.5px solid var(--tt-acc,#7A1F35)!important;min-height:48px}
+.tt-q-row .btn{min-width:48px;min-height:48px;justify-content:center;font-size:18px}
+#ttMic.rec{background:var(--tt-acc,#7A1F35)!important;color:#fff!important;animation:ttpulse 1.2s infinite}
+@keyframes ttpulse{50%{opacity:.6}}
+.tt-q-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:26px}
+.tt-q-chips span{display:inline-flex;gap:5px;align-items:center;background:var(--tt-bg,#F3F3F4);border:1px solid var(--tt-line,#E3E3E6);border-radius:20px;padding:3px 10px;font-size:12px}
+.tt-q-chips span small{color:var(--tt-grey,#6B6C73);font-size:11px}
+.tt-q-chips span.miss{border-color:var(--tt-acc,#7A1F35);color:var(--tt-acc,#7A1F35)}
+.tt-q-chips span.auto{border-style:dashed}
+.tt-q-help{margin:0;font-size:11.5px}
+.tt-q-more>summary{cursor:pointer;font-size:12.5px;color:var(--tt-grey,#6B6C73);padding:6px 0;font-weight:600}
+/* тише: убрать дубли оплаты из списка и сводки */
+#list .payment-badge,#list .payment-indicator,.order-summary .payment-badge{display:none!important}
+/* общие поверхности через переменные — для тёмной темы */
+:root{--tt-card:#fff}
+html[data-tt-theme=dark]{--tt-ink:#ECECEE;--tt-grey:#9C9DA5;--tt-line:#2C2C32;--tt-bg:#0E0E10;--tt-card:#18181B;--line:#2C2C32;--muted:#9C9DA5;--soft:#1B191C;--ink:#E7E4E8;--tt-ready:#2E9E6B;--tt-ready-bg:#11241B;color-scheme:dark;color:#E6E6E9;background:#0E0E10}
+html[data-tt-theme=dark] body{background:#0E0E10!important;color:#E6E6E9}
+html[data-tt-theme=dark] body :is(input,select,textarea):not([type=checkbox]):not([type=radio]):not(#ttQuick){background:#141417!important;color:#ECECEE!important;border-color:#33333A!important}
+html[data-tt-theme=dark] #ttQuick{background:#141417!important;color:#ECECEE!important}
+html[data-tt-theme=dark] input::placeholder,html[data-tt-theme=dark] textarea::placeholder{color:#6E6F77}
+html[data-tt-theme=dark] :is(main.wrap,#detail,.tt-menu,.cloud-panel) .btn:not(.main):not(.tt-save):not(.tt-next-btn):not(.warn){background:#1E1E22!important;color:#E6E6E9!important;border-color:#34343B!important}
+html[data-tt-theme=dark] .tt-bar{box-shadow:0 1px 0 #26262B}
+html[data-tt-theme=dark] .tt-savebar{background:rgba(24,24,27,.96)!important;border-top-color:#2C2C32!important}
+html[data-tt-theme=dark] #detail{background:#18181B!important;color:#E6E6E9}
+html[data-tt-theme=dark] .modal-backdrop{background:rgba(0,0,0,.6)!important}
+html[data-tt-theme=dark] .tt-msg.them{background:#232328;color:#E6E6E9}
+html[data-tt-theme=dark] .tt-msg.me{background:#3A1722;color:#F6DCE3}
+html[data-tt-theme=dark] .order.st-ready{background:#11241B!important}
+html[data-tt-theme=dark] #list .order.st-ready:hover{background:#15301F!important}
+html[data-tt-theme=dark] #list .order:hover{background:#1F1F23!important}
+html[data-tt-theme=dark] .tt-docview{background:#221D12;border-color:#4A4232;color:#E9DDBF}
+html[data-tt-theme=dark] .tt-quick-act.pay{color:#D9C08C}
+html[data-tt-theme=dark] .tt-toast{background:#ECECEE;color:#17171A}
+html[data-tt-theme=dark] .tt-toast button{color:#17171A;border-color:#B5B6BC}
+html[data-tt-theme=dark] .tt-next-btn:not(.ready):not(.pay){background:#ECECEE!important;color:#17171A!important;border-color:#ECECEE!important}
+html[data-tt-theme=dark] .workspace-nav button.selected,html[data-tt-theme=dark] .tt-docs button[aria-pressed=true],html[data-tt-theme=dark] .scope button.selected{background:#ECECEE!important;color:#17171A!important;border-color:#ECECEE!important}
+html[data-tt-theme=dark] .tt-acc-share{background:#141417;border-color:#2C2C32}
+html[data-tt-theme=dark] a,html[data-tt-theme=dark] .text-link{color:#E0899C}
+html[data-tt-theme=dark] .tt-bar,html[data-tt-theme=dark] body::before{background:#141416!important}
+html[data-tt-theme=dark] .tt-bar .tt-logo{color:#ECECEE}
+html[data-tt-theme=dark] .tt-kpi.debt b,html[data-tt-theme=dark] .tt-table .debt{color:#E0899C!important}
+html[data-tt-theme=dark] .tt-toast button{background:transparent!important;color:#17171A!important;border-color:#B5B6BC!important}
+html[data-tt-theme=dark] .tt-menu{background:#18181B;border-color:#2C2C32}
+html[data-tt-theme=dark] .tt-bar #newButton,html[data-tt-theme=dark] .tt-bar .btn.main{background:var(--tt-acc,#7A1F35)!important;border-color:var(--tt-acc,#7A1F35)!important;color:#fff!important}
+#list.hidden{display:none!important}
 </style>
 </head><body><main class="wrap"><noscript><div style="margin:16px 0;padding:14px;border:2px solid #b5485c;border-radius:8px;background:#fdf1f3;font-size:14px;line-height:1.5"><b>Приложение открыто в режиме просмотра — программа не запущена.</b><br>Так бывает при открытии из Telegram, WhatsApp или приложения «Файлы» на iPhone. Откройте ToothTech по ссылке в Safari.</div></noscript><header class="top"><div><div class="logo">Tooth<b>Tech</b> <span class="tag">V16</span></div><div class="sub">Врач ↔ техник · презентационная версия</div><div class="goldline"></div></div><div class="row"><select id="role" style="width:190px"><option value="tech">Режим техника</option><option value="doctor">Режим врача</option></select><select id="docSelector" style="width:190px"></select></div></header><div class="panel"><div class="row between"><div><b id="welcome">Все активные заказы</b><div class="muted" id="description"></div></div><div class="row"><button class="btn" id="export" type="button" title="Все наряды, прайсы, расходы, фото и голосовые — одним файлом">⇩ Полная копия</button><button class="btn" id="importBtn" type="button" title="Восстановить копию или загрузить результаты врача">⇧ Загрузить файл</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn main" id="newButton">+ Новый заказ</button></div></div><div id="newForm" class="hidden section"><h3>Создание заказа: только 4 обязательных поля</h3><div class="grid"><div class="field"><label>Фамилия пациента *</label><input id="newPatient" placeholder="Иванов"></div><div class="field"><label>Клиника *</label><input id="newClinic" placeholder="Название клиники"></div><div class="field"><label>Дата приёма *</label><input id="newDate" type="date"></div><div class="field"><label>Вид конструкции *</label><input id="newConstruction" placeholder="Временный All-on-6"></div></div><div class="row" style="margin-top:12px"><button class="btn main" id="create">Создать черновик</button><button class="btn" id="cancelNew">Отмена</button></div></div></div><div id="list"></div><div id="modalBackdrop" class="modal-backdrop hidden"></div><section id="detail" class="panel hidden" role="dialog" aria-modal="true" aria-label="Заказ-наряд"></section><p class="footer">Наряды, прайсы и оплаты синхронизируются через облако (кнопка ☁). Фото, видео и голосовые пока хранятся только на том устройстве, где их добавили.</p></main><script>
 let toothClickTimer=null,bridgeAnchor=null,lastTap=null,manualDbl=0;
@@ -622,7 +919,7 @@ function renderAccounts(){
  $('workspacePane').querySelectorAll('[data-open-order]').forEach(b=>b.onclick=()=>{selected=b.dataset.openOrder;renderDetail()});
 }
 function printClinicOrder(o,tech){
- const showMoney=tech||o.clinic!=='Life-Stom';
+ const showMoney=tech;
  const w=window.open('','_blank');if(!w){alert('Разрешите всплывающие окна для печати наряда.');return}
  const day=d=>d?String(d).slice(8,10)+'.'+String(d).slice(5,7)+'.'+String(d).slice(0,4):'—';
  const sel=new Set((o.teeth||[]).map(String)),br=(o.bridges||[]).filter(g=>g.every(t=>sel.has(t)));
@@ -1394,6 +1691,853 @@ renderAccounts = function(){
 
 const renderV16 = render;
 render = function(){ ttSetupBar(); renderV16(); ttDecorateOrders(); };
+
+
+// ===== V18: кабинет врача · деньги только у техника · архив · «Готова к сдаче» · переписка =====
+const TT_SITE = 'https://a1extoothtech-maker.github.io/toothtech/';
+const MONEY_KEYS = ['payments', 'paid', 'receivedPayment', 'legacyPaymentMarked', 'paymentNoticeAcknowledged', 'doctorSent', 'base', 'steps', 'payer'];
+const MONEY_EVENTS = ['Стоимость', 'Оплата', 'Внутренние расходы', 'Этап изготовления', 'Расходы', 'Тариф'];
+const isMoneyEvent = e => !!e && (e.private || MONEY_EVENTS.includes(e.type) || /₸/.test(String(e.text || '')));
+const isMoneyRev = r => !!r && (/цен|стоим|оплат|ставк|тариф|base|price|payer|плательщ/i.test(String(r.field || '')) || /₸/.test(String(r.old || '') + String(r.value || '')));
+if (!SETTINGS_SKIP.includes('archive')) SETTINGS_SKIP.push('archive');
+
+// ---------- общие данные без денег, деньги — в закрытой части ----------
+splitOrder = function (o) {
+  const priv = new Set([...PRIVATE_KEYS, ...MONEY_KEYS]), sh = {}, pr = {};
+  for (const [k, v] of Object.entries(o)) {
+    if (k === 'events' || k === 'revisions' || k === 'workItems') continue;
+    (priv.has(k) ? pr : sh)[k] = v;
+  }
+  sh.workItems = (o.workItems || []).map(w => ({ id: w.id, name: w.name, teeth: w.teeth || [], kind: w.kind, qty: w.qty, unit: w.unit, supports: w.supports || [] }));
+  pr.workItems = o.workItems || [];
+  sh.events = (o.events || []).filter(e => !isMoneyEvent(e)); pr.events = (o.events || []).filter(isMoneyEvent);
+  sh.revisions = (o.revisions || []).filter(r => !isMoneyRev(r)); pr.revisions = (o.revisions || []).filter(isMoneyRev);
+  return { sh, pr };
+};
+function ttArrays(o) { for (const k of ['steps', 'payments', 'costs', 'events', 'revisions', 'unread', 'teeth', 'bridges', 'workItems', 'abutments']) if (!Array.isArray(o[k])) o[k] = []; return o; }
+joinOrder = function (sh, pr) {
+  sh = sh || {}; pr = pr || {};
+  const o = { ...sh, ...pr };
+  o.workItems = Array.isArray(pr.workItems) ? pr.workItems : (sh.workItems || []);
+  o.events = unionBy(sh.events, pr.events, evKey).sort((a, b) => timeKey(a.time).localeCompare(timeKey(b.time)));
+  o.revisions = unionBy(sh.revisions, pr.revisions, revKey).sort((a, b) => timeKey(a.time).localeCompare(timeKey(b.time)));
+  return ttArrays(o);
+};
+
+// ---------- архив вместо удаления ----------
+function ttArchiveList() { if (!Array.isArray(db.archive)) db.archive = []; return db.archive; }
+(function migrateV18() {
+  const arch = ttArchiveList(), moving = db.orders.filter(o => o.archived);
+  if (moving.length) { db.orders = db.orders.filter(o => !o.archived); arch.unshift(...moving); save(); }
+})();
+function ttFind(id) {
+  let i = db.orders.findIndex(o => o.id === id); if (i >= 0) return { arr: db.orders, i };
+  const a = ttArchiveList(); i = a.findIndex(o => o.id === id); return i >= 0 ? { arr: a, i } : null;
+}
+function ttPlace(o, at) {
+  const want = o.archived ? ttArchiveList() : db.orders;
+  if (at && at.arr === want) { at.arr[at.i] = o; return; }
+  if (at) at.arr.splice(at.i, 1);
+  want.unshift(o);
+}
+function ttDrop(id) { const at = ttFind(id); if (at) at.arr.splice(at.i, 1); return !!at; }
+function ttToast(text, actionLabel, action) {
+  document.querySelector('.tt-toast')?.remove();
+  const t = document.createElement('div'); t.className = 'tt-toast'; t.setAttribute('role', 'status');
+  t.innerHTML = '<span>' + esc(text) + '</span>' + (actionLabel ? '<button type="button">' + esc(actionLabel) + '</button>' : '');
+  document.body.appendChild(t);
+  if (actionLabel) t.querySelector('button').onclick = () => { t.remove(); action(); };
+  setTimeout(() => t.remove(), 7000);
+}
+function ttArchive(o) {
+  if (role() !== 'tech') return;
+  o.archived = true; o.archivedAt = new Date().toISOString(); log(o, 'Архив', 'Наряд убран в архив');
+  db.orders = db.orders.filter(x => x !== o); ttArchiveList().unshift(o);
+  selected = null; save(); render();
+  ttToast('«' + o.patient + '» — в архиве', 'Вернуть', () => ttRestore(o));
+}
+function ttRestore(o) {
+  o.archived = false; o.archivedAt = null; log(o, 'Архив', 'Возвращён из архива');
+  db.archive = ttArchiveList().filter(x => x !== o); db.orders.unshift(o);
+  save(); render();
+}
+function ttPurge(o) {
+  db.deleted ??= {}; db.deleted[o.id] = new Date().toISOString();
+  db.archive = ttArchiveList().filter(x => x !== o); save(); render();
+  try { attachmentDb().then(d => { const tr = d.transaction('files', 'readwrite'), st = tr.objectStore('files'), q = st.index('order').getAllKeys(o.id); q.onsuccess = () => q.result.forEach(k => st.delete(k)); tr.oncomplete = () => d.close(); }); } catch (e) {}
+}
+let ttArchiveOpen = false;
+function ttRenderArchive() {
+  const list = $('list'), arch = ttArchiveList();
+  list.innerHTML = '<section class="tt-archive"><div class="tt-arch-head"><h3>Архив · ' + arch.length + '</h3><button type="button" class="btn" id="ttArchBack">← К нарядам</button></div>' +
+    (arch.length ? arch.map(o => '<div class="tt-arch-row" data-arch="' + esc(o.id) + '"><div class="who"><b>' + esc(o.patient) + '</b><small>' + esc(o.construction || '') + ' · ' + esc(doc(o).name) + ' · ' + esc(o.clinic || '') + '</small><small>В архиве с ' + esc(o.archivedAt ? fmtDay(o.archivedAt.slice(0, 10)) : '—') + '</small></div><div class="acts"><button type="button" class="btn main" data-restore>Восстановить</button><button type="button" class="text-link danger" data-purge>Удалить навсегда</button><span data-ask hidden>Удалить навсегда вместе с фото? <button type="button" class="btn warn" data-yes>Да</button> <button type="button" class="btn" data-no>Нет</button></span></div></div>').join('')
+      : '<p class="muted" style="padding:14px 0">Архив пуст. Сюда попадают наряды, которые убрали из списка. Отсюда их можно вернуть.</p>') + '</section>';
+  $('ttArchBack').onclick = () => { ttArchiveOpen = false; render(); };
+  list.querySelectorAll('[data-arch]').forEach(row => {
+    const o = arch.find(x => x.id === row.dataset.arch); if (!o) return;
+    row.querySelector('[data-restore]').onclick = () => { ttRestore(o); ttToast('«' + o.patient + '» снова в нарядах'); };
+    row.querySelector('[data-purge]').onclick = e => { e.target.hidden = true; row.querySelector('[data-ask]').hidden = false; };
+    row.querySelector('[data-no]').onclick = () => { row.querySelector('[data-purge]').hidden = false; row.querySelector('[data-ask]').hidden = true; };
+    row.querySelector('[data-yes]').onclick = () => ttPurge(o);
+  });
+}
+
+// ---------- статус «Готова к сдаче» ----------
+stKey = function (o) { return o.delivered ? (isPaid(o) ? 'paid' : 'done') : o.paused ? 'pause' : stageReady(o) ? 'ready' : 'work'; };
+productionBadge = function (o) {
+  const k = stKey(o), tech = role() === 'tech';
+  const label = { work: '● В работе', ready: '✓ Готова к сдаче', pause: '⏸ На паузе', done: tech ? 'Сдано · ждёт оплату' : '✓ Сдано', paid: '✓ Сдано · оплачено' }[k];
+  const shown = !tech && k === 'paid' ? '✓ Сдано' : label;
+  if (!tech || o.delivered) return '<span class="tag st-' + k + '">' + shown + '</span>';
+  return '<button type="button" class="tag production-badge st-' + k + '" data-production-order="' + esc(o.id) + '" title="' + (o.paused ? 'Вернуть в работу' : 'Поставить на паузу') + '">' + label + '</button>';
+};
+
+// ---------- врач видит только свои наряды и без денег ----------
+canView = function (o) { return role() === 'tech' || o.doctor === $('docSelector').value; };
+const paymentIndicatorV17 = paymentIndicator;
+paymentIndicator = function (o) { return role() === 'tech' ? paymentIndicatorV17(o) : ''; };
+const visibleEventV17 = visibleEvent;
+visibleEvent = function (e, o) { return role() === 'tech' || (!isMoneyEvent(e) && visibleEventV17(e, o)); };
+
+// ---------- облако: кто вошёл — техник или врач ----------
+let ttProf = null;
+const ttDoc = () => syncMeta().docMode || null;
+async function ttProfile(c) {
+  if (ttProf && ttProf.uid === sbUser.id) return ttProf;
+  const { data, error } = await c.from('profiles').select('role,tech_id,doctor_key,name').eq('user_id', sbUser.id).maybeSingle();
+  if (error) throw error;
+  ttProf = { uid: sbUser.id, role: data?.role || 'tech', tech: data?.tech_id || null, key: data?.doctor_key || null, name: data?.name || '' };
+  return ttProf;
+}
+function ttEnterDoc(p) {
+  const cur = ttDoc();
+  if (cur && cur.uid === p.uid) return true;
+  if (!cur && db.orders.length && !confirm('На этом устройстве есть наряды техника. Войти как врач? Наряды техника скроются с этого устройства, в облаке они останутся.')) return false;
+  db.orders = []; db.archive = []; db.deleted = {};
+  window.__ttSuppress = true; try { save(); } finally { window.__ttSuppress = false; }
+  const d = doctors.find(x => x.id === p.key);
+  setSyncMeta({ docMode: { uid: p.uid, key: p.key, tech: p.tech, name: d ? d.name : (p.name || 'Врач') }, dHashes: {}, dSince: null, msgSince: null });
+  try { localStorage.removeItem('tt_msgs'); localStorage.removeItem('tt_msg_seen'); } catch (e) {}
+  return true;
+}
+function ttLeaveDoc() {
+  if (!ttDoc()) return;
+  db.orders = []; db.archive = []; db.deleted = {};
+  window.__ttSuppress = true; try { save(); } finally { window.__ttSuppress = false; }
+  setSyncMeta({ docMode: null, dHashes: {}, dSince: null, msgSince: null, v16User: null, hashes: {}, since: null });
+  try { localStorage.removeItem('tt_msgs'); localStorage.removeItem('tt_msg_seen'); } catch (e) {}
+  $('role').value = 'tech'; document.body.classList.remove('tt-doc');
+}
+function ttSyncDocUI() {
+  const d = ttDoc();
+  document.body.classList.toggle('tt-doc', !!d);
+  const sub0 = document.querySelector('.tt-bar .tt-sub');
+  if (!d) { if (sub0 && sub0.dataset.doc) { sub0.textContent = 'A.A.A · Dental Lab · Казахстан'; delete sub0.dataset.doc; } return; }
+  $('role').value = 'doctor';
+  if (![...$('docSelector').options].some(op => op.value === d.key)) $('docSelector').insertAdjacentHTML('beforeend', '<option value="' + esc(d.key) + '">' + esc(d.name) + '</option>');
+  $('docSelector').value = d.key;
+  if (sub0) { sub0.textContent = 'Кабинет врача · ' + d.name; sub0.dataset.doc = '1'; }
+}
+
+// ---------- синхронизация техника (с архивом и закрытыми деньгами) ----------
+async function ttTechPull(c) {
+  await ensureV16(c);
+  const m = syncMeta(), since = m.since, hashes = { ...(m.hashes || {}) };
+  let q1 = c.from('orders').select('id,data,updated_at,deleted,device').eq('tech_id', sbUser.id).order('updated_at', { ascending: true }).limit(2000);
+  let q2 = c.from('order_private').select('order_id,data,updated_at').eq('tech_id', sbUser.id).order('updated_at', { ascending: true }).limit(2000);
+  let q3 = c.from('tech_settings').select('data,updated_at').eq('tech_id', sbUser.id);
+  if (since) { q1 = q1.gt('updated_at', since); q2 = q2.gt('updated_at', since); q3 = q3.gt('updated_at', since); }
+  const [r1, r2, r3] = await Promise.all([q1, q2, q3]);
+  for (const r of [r1, r2, r3]) if (r.error) throw r.error;
+  const rows = r1.data || [], privs = new Map((r2.data || []).map(p => [p.order_id, p])), st = (r3.data || [])[0];
+  let maxAt = since || '', changed = false, needPush = false; const bump = t => { if (t && t > maxAt) maxAt = t; };
+  db.deleted ??= {};
+  for (const r of rows) {
+    bump(r.updated_at);
+    if (r.deleted) { if (ttDrop(r.id)) changed = true; db.deleted[r.id] = db.deleted[r.id] || r.updated_at; delete hashes[r.id]; continue; }
+    if (db.deleted[r.id]) continue;
+    const at = ttFind(r.id), local = at ? at.arr[at.i] : null, p = privs.get(r.id); if (p) bump(p.updated_at);
+    const remote = joinOrder(r.data, p ? p.data : (local ? splitOrder(local).pr : {})); migrateOrder(remote);
+    if (!remote.payer) remote.payer = remote.clinic || '';
+    let res;
+    if (!local || hashes[r.id] === orderHash(local)) { res = remote; hashes[r.id] = orderHash(remote); }
+    else { res = mergeOrder(local, remote); needPush = true; }
+    ttPlace(res, at); changed = true;
+  }
+  for (const [id, p] of privs) {
+    bump(p.updated_at); if (rows.some(r => r.id === id)) continue;
+    const at = ttFind(id); if (!at) continue; const local = at.arr[at.i];
+    if (hashes[id] === orderHash(local)) { const merged = joinOrder(splitOrder(local).sh, p.data); migrateOrder(merged); ttPlace(merged, at); hashes[id] = orderHash(merged); changed = true; }
+    else needPush = true;
+  }
+  let setHash = m.setHash;
+  if (st) {
+    bump(st.updated_at);
+    if (!m.setHash || m.setHash === hashStr(JSON.stringify(settingsPart()))) { for (const [k, v] of Object.entries(st.data || {})) if (!SETTINGS_SKIP.includes(k)) db[k] = v; setHash = hashStr(JSON.stringify(settingsPart())); changed = true; }
+    else needPush = true;
+  }
+  if (changed) { window.__ttSuppress = true; try { db.orders.forEach(migrateOrder); save(); } finally { window.__ttSuppress = false; } }
+  setSyncMeta({ hashes, setHash, since: maxAt || null });
+  return { changed, needPush };
+}
+async function ttTechPush(c) {
+  await ensureV16(c);
+  const m = syncMeta(), hashes = { ...(m.hashes || {}) }, sentDeleted = { ...(m.sentDeleted || {}) }, dev = deviceName(), force = !m.v18split;
+  const rows = [], privs = [], newH = {};
+  for (const o of [...db.orders, ...ttArchiveList()]) {
+    const h = orderHash(o); if (!force && hashes[o.id] === h) continue;
+    const { sh, pr } = splitOrder(o);
+    rows.push({ id: o.id, tech_id: sbUser.id, doctor_key: o.doctor || null, data: sh, deleted: false, device: dev });
+    privs.push({ order_id: o.id, tech_id: sbUser.id, data: pr }); newH[o.id] = h;
+  }
+  for (const id of Object.keys(db.deleted || {})) if (!sentDeleted[id]) { rows.push({ id, tech_id: sbUser.id, doctor_key: null, data: {}, deleted: true, device: dev }); sentDeleted[id] = true; }
+  const setH = hashStr(JSON.stringify(settingsPart()));
+  if (!rows.length && setH === m.setHash) { if (force) setSyncMeta({ v18split: true }); return false; }
+  setSyncStatus('отправляю…', 'pending');
+  // наряд, затем его закрытая часть (цены, оплаты, расходы)
+  for (const part of chunks(rows.filter(r => !r.deleted), 50)) {
+    const ids = new Set(part.map(r => r.id)), pp = privs.filter(p => ids.has(p.order_id));
+    const { error } = await c.from('orders').upsert(part, { onConflict: 'id' }); if (error) throw error;
+    const { error: e2 } = await c.from('order_private').upsert(pp, { onConflict: 'order_id' }); if (e2) throw e2;
+  }
+  for (const part of chunks(rows.filter(r => r.deleted), 50)) { const { error } = await c.from('orders').upsert(part, { onConflict: 'id' }); if (error) throw error; }
+  if (setH !== m.setHash) {
+    const { error: e1 } = await c.from('tech_settings').upsert({ tech_id: sbUser.id, data: settingsPart() }, { onConflict: 'tech_id' }); if (e1) throw e1;
+    await c.from('tech_public').upsert({ tech_id: sbUser.id, data: publicPart() }, { onConflict: 'tech_id' });
+  }
+  const today = localDay();
+  if (m.backupDay !== today) { const { error: e2 } = await c.from('toothtech_backups').insert({ user_id: sbUser.id, data: db, device: dev }); if (!e2) setSyncMeta({ backupDay: today }); }
+  setSyncMeta({ hashes: { ...hashes, ...newH }, sentDeleted, setHash: setH, dirty: false, lastRemoteDevice: dev, lastRemoteAt: new Date().toISOString(), v18split: true });
+  return true;
+}
+
+// ---------- синхронизация врача ----------
+let ttDocFullCheck = null;
+async function ttDocPull(c) {
+  const m = syncMeta(), since = m.dSince, hashes = { ...(m.dHashes || {}) };
+  let q = c.from('orders').select('id,data,updated_at,deleted').eq('doctor_user', sbUser.id).order('updated_at', { ascending: true }).limit(2000);
+  if (since) q = q.gt('updated_at', since);
+  const { data: rows, error } = await q; if (error) throw error;
+  let maxAt = since || '', changed = false, needPush = false;
+  for (const r of rows || []) {
+    if (r.updated_at > maxAt) maxAt = r.updated_at;
+    if (r.deleted) { if (ttDrop(r.id)) changed = true; delete hashes[r.id]; continue; }
+    const remote = ttArrays({ ...r.data }); migrateOrder(remote); (remote.workItems || []).forEach(w => { if (w.price == null) w.price = 0; });
+    const at = ttFind(r.id), local = at ? at.arr[at.i] : null;
+    let res;
+    if (!local || hashes[r.id] === orderHash(local)) { res = remote; hashes[r.id] = orderHash(remote); }
+    else { res = mergeOrder(local, remote); needPush = true; }
+    ttPlace(res, at); changed = true;
+  }
+  if (ttDocFullCheck !== sbUser.id) {
+    const { data: ids, error: e2 } = await c.from('orders').select('id').eq('doctor_user', sbUser.id).limit(5000);
+    if (!e2) { const keep = new Set((ids || []).map(x => x.id)); for (const o of [...db.orders, ...ttArchiveList()]) if (!keep.has(o.id) && hashes[o.id]) { ttDrop(o.id); delete hashes[o.id]; changed = true; } ttDocFullCheck = sbUser.id; }
+  }
+  if (changed) { window.__ttSuppress = true; try { save(); } finally { window.__ttSuppress = false; } }
+  setSyncMeta({ dHashes: hashes, dSince: maxAt || null });
+  return { changed, needPush };
+}
+async function ttDocPush(c) {
+  const m = syncMeta(), P = m.docMode, hashes = { ...(m.dHashes || {}) }, dev = deviceName();
+  const dirty = [...db.orders, ...ttArchiveList()].filter(o => hashes[o.id] !== orderHash(o));
+  if (!dirty.length) return false;
+  setSyncStatus('отправляю…', 'pending');
+  const { data: cur, error } = await c.from('orders').select('id,data').in('id', dirty.map(o => o.id)); if (error) throw error;
+  const curMap = new Map((cur || []).map(r => [r.id, r.data])), rows = [], newH = {};
+  for (const o of dirty) {
+    let x = o; const r = curMap.get(o.id);
+    if (r) { const inc = { ...r }; migrateOrder(inc); x = mergeOrder(o, inc); migrateOrder(x); ttPlace(x, ttFind(o.id)); }
+    rows.push({ id: x.id, tech_id: P.tech, doctor_key: P.key, doctor_user: sbUser.id, data: splitOrder(x).sh, device: dev });
+    newH[x.id] = orderHash(x);
+  }
+  for (const part of chunks(rows, 50)) { const { error: e } = await c.from('orders').upsert(part, { onConflict: 'id' }); if (e) throw e; }
+  window.__ttSuppress = true; try { save(); } finally { window.__ttSuppress = false; }
+  setSyncMeta({ dHashes: { ...hashes, ...newH }, dirty: false, lastRemoteDevice: dev, lastRemoteAt: new Date().toISOString() });
+  return true;
+}
+
+const ttOk = () => setSyncStatus('синхронизировано · ' + new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), 'ok');
+const ttErr = (e, pref) => setSyncStatus(/relation|does not exist|schema cache/i.test(e.message || '') ? 'нужно запустить SQL в Supabase' : pref + (e.message || e), 'error');
+cloudPull = async function () {
+  const c = await cloudClient().catch(e => { setSyncStatus('ошибка: ' + e.message, 'error'); return null; }); if (!c || !sbUser) return;
+  if (syncBusy) { clearTimeout(pullTimer); pullTimer = setTimeout(cloudPull, 1500); return; }
+  syncBusy = true;
+  try {
+    const p = await ttProfile(c);
+    if (p.role === 'doctor') {
+      if (!ttEnterDoc(p)) { syncBusy = false; await sb.auth.signOut(); sbUser = null; setSyncStatus('вход не выполнен', 'off'); return; }
+      const r = await ttDocPull(c), mc = await ttFetchMsgs(c);
+      syncBusy = false; ttRerender(r.changed || mc);
+      await cloudPush(); if (!r.needPush) ttOk(); return;
+    }
+    if (ttDoc()) ttLeaveDoc();
+    const r = await ttTechPull(c), mc = await ttFetchMsgs(c);
+    syncBusy = false; ttRerender(r.changed || mc);
+    await cloudPush(); if (!r.needPush) ttOk(); return;
+  } catch (e) { ttErr(e, 'ошибка загрузки: '); }
+  syncBusy = false;
+};
+cloudPush = async function () {
+  const c = await cloudClient().catch(() => null); if (!c || !sbUser) return;
+  if (syncBusy) { clearTimeout(syncTimer); syncTimer = setTimeout(() => cloudPush(), 2000); return; }
+  syncBusy = true;
+  try {
+    const p = await ttProfile(c);
+    if (p.role === 'doctor') { if (ttDoc()) await ttDocPush(c); }
+    else await ttTechPush(c);
+    ttOk();
+  } catch (e) { ttErr(e, 'не отправлено: '); }
+  syncBusy = false;
+};
+function ttRerender(changed) {
+  if (!changed) return;
+  const sc = $('detail')?.scrollTop;
+  const a = document.activeElement, typing = a && /TEXTAREA|INPUT|SELECT/.test(a.tagName) && a.type !== 'checkbox';
+  if (typing) { ttUpdateChat(); clearTimeout(ttRerender.t); ttRerender.t = setTimeout(() => ttRerender(true), 4000); return; }
+  render(); if ($('detail') && sc) $('detail').scrollTop = sc;
+}
+
+// ---------- переписка внутри наряда ----------
+const ttLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } };
+const ttSetLS = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+const ttMsgs = () => ttLS('tt_msgs', {});
+function ttUnread(id) {
+  const seen = ttLS('tt_msg_seen', {})[id] || '', me = sbUser?.id;
+  return (ttMsgs()[id] || []).filter(x => x.author !== me && x.created_at > seen).length;
+}
+function ttMarkSeen(id) {
+  const list = ttMsgs()[id] || []; if (!list.length) return;
+  const seen = ttLS('tt_msg_seen', {}); seen[id] = list[list.length - 1].created_at; ttSetLS('tt_msg_seen', seen);
+}
+async function ttFetchMsgs(c) {
+  const m = syncMeta();
+  let q = c.from('order_messages').select('id,order_id,author,author_role,author_name,body,created_at').order('created_at', { ascending: true }).limit(1000);
+  if (m.msgSince) q = q.gt('created_at', m.msgSince);
+  const { data, error } = await q; if (error || !data || !data.length) return false;
+  const all = ttMsgs();
+  for (const x of data) { const l = all[x.order_id] ||= []; if (!l.some(y => y.id === x.id)) l.push(x); }
+  ttSetLS('tt_msgs', all); setSyncMeta({ msgSince: data[data.length - 1].created_at });
+  return true;
+}
+function ttChatHTML(o) {
+  const me = sbUser?.id, docM = ttDoc(), tech = role() === 'tech';
+  const title = tech ? 'Переписка с врачом · ' + doc(o).name : 'Переписка с техником';
+  if (!sbUser) return '<section class="section tt-chat" id="ttChat"><h3>' + esc(title) + '</h3><p class="muted">Переписка работает, когда вы вошли в облако. ' + (tech ? 'Врач увидит сообщения после того, как получит доступ: Облако → Доступ врачей.' : '') + '</p></section>';
+  const list = ttMsgs()[o.id] || [];
+  const bubbles = list.map(x => '<div class="tt-msg ' + (x.author === me ? 'me' : 'them') + '">' + esc(x.body) + '<small>' + esc(x.author_name || (x.author_role === 'doctor' ? 'Врач' : 'Техник')) + ' · ' + esc(showTime(x.created_at)) + '</small></div>').join('');
+  return '<section class="section tt-chat" id="ttChat"><h3>' + esc(title) + (list.length ? ' <span class="tag">' + list.length + '</span>' : '') + '</h3><div class="tt-msgs" id="ttMsgs">' + (bubbles || '<p class="muted">Сообщений пока нет. Напишите вопрос или уточнение по этой работе — ' + (tech ? 'врач' : 'техник') + ' увидит его в этом наряде.</p>') + '</div><div class="tt-send"><textarea id="ttMsgText" placeholder="Сообщение по этому наряду…" aria-label="Сообщение"></textarea><button type="button" class="btn main" id="ttMsgSend">Отправить</button></div><p class="inline-feedback" id="ttMsgInfo" role="status"></p></section>';
+}
+function ttBindChat(o) {
+  const box = $('ttMsgs'); if (box) box.scrollTop = box.scrollHeight;
+  ttMarkSeen(o.id);
+  const btn = $('ttMsgSend'); if (!btn) return;
+  btn.onclick = async () => {
+    const body = $('ttMsgText').value.trim(); if (!body) return;
+    btn.disabled = true; $('ttMsgInfo').textContent = 'Отправляю…';
+    try {
+      const c = await cloudClient();
+      const known = ttDoc() ? (syncMeta().dHashes || {})[o.id] : (syncMeta().hashes || {})[o.id];
+      if (!known) await cloudPush();
+      const d = ttDoc();
+      const { data, error } = await c.from('order_messages').insert({ order_id: o.id, author_role: d ? 'doctor' : 'tech', author_name: d ? d.name : 'Техник', body }).select().single();
+      if (error) throw error;
+      const all = ttMsgs(); (all[o.id] ||= []).push(data); ttSetLS('tt_msgs', all);
+      $('ttMsgText').value = ''; ttUpdateChat();
+    } catch (e) { $('ttMsgInfo').textContent = 'Не отправлено: ' + (e.message || e); btn.disabled = false; }
+  };
+}
+function ttUpdateChat() {
+  const o = order(), old = $('ttChat'); if (!o || !old) return;
+  const draft = $('ttMsgText')?.value || '', focused = document.activeElement === $('ttMsgText');
+  old.outerHTML = ttChatHTML(o); if ($('ttMsgText')) { $('ttMsgText').value = draft; if (focused) $('ttMsgText').focus(); }
+  ttBindChat(o);
+}
+setInterval(async () => {
+  if (!sbUser || document.visibilityState !== 'visible' || !selected || !$('ttChat')) return;
+  try { const c = await cloudClient(); if (await ttFetchMsgs(c)) ttUpdateChat(); } catch (e) {}
+}, 15000);
+
+// ---------- карточка наряда ----------
+const renderDetailV17 = renderDetail;
+renderDetail = function () {
+  renderDetailV17();
+  const o = order(), D = $('detail'); if (!o || D.classList.contains('hidden')) return;
+  const tech = role() === 'tech';
+  if (!tech) {
+    D.querySelectorAll('.payment-compact,.steps-compact,.costs-section,#costsBox,.tariff-note').forEach(e => e.remove());
+    const sum = D.querySelector('.order-summary'); if (sum) sum.innerHTML = '<span>' + esc(stageLabel(o) || status(o)) + '</span><span>Сдача ' + esc(o.due ? fmtDay(o.due) : 'не указана') + '</span>';
+    const wi = D.querySelector('#workItems'); if (wi) wi.innerHTML = '<h3>Работы</h3>' + ((o.workItems || []).map(w => '<div class="work-item">' + esc(w.name) + ' · ' + esc(w.qty) + ' ' + esc(w.unit || 'ед.') + '<div class="muted">' + esc((w.teeth || []).join(', ')) + '</div></div>').join('') || '<p class="muted">Работы уточняются у техника.</p>');
+    D.querySelectorAll('*').forEach(el => { if (el.isConnected && el.children.length === 0 && /₸/.test(el.textContent)) (el.closest('.work-item,.entry,li') || el).remove(); });
+  }
+  // старое поле «Сообщение» заменено перепиской
+  $('textEvent')?.closest('.field')?.remove(); $('addText')?.remove();
+  const mh = D.querySelector('.section.attachments h3'); if (mh && /Материалы/.test(mh.textContent)) mh.textContent = 'Фото и голосовые';
+  // переписка — сразу под нарядом
+  const first = D.querySelector('.section'); if (first && !$('ttChat')) { first.insertAdjacentHTML('afterend', ttChatHTML(o)); ttBindChat(o); }
+  // архив вместо удаления
+  const dz = D.querySelector('.danger-zone');
+  if (dz && tech) { dz.innerHTML = '<button type="button" class="text-link" id="ttArch">🗄 Убрать в архив</button> <span class="tt-arch-note">— наряд пропадёт из списков; вернуть можно в «Наряды → Архив».</span>'; $('ttArch').onclick = () => ttArchive(o); }
+  // заметная кнопка
+  D.querySelector('.tt-savebar')?.remove();
+  D.insertAdjacentHTML('beforeend', '<div class="tt-savebar"><span class="tt-sb-note">Изменения сохраняются сразу' + (sbUser ? ' и уходят в облако' : '') + '.</span><button type="button" class="btn tt-save" id="ttSaveClose">✓ Сохранить и закрыть</button></div>');
+  $('ttSaveClose').onclick = () => { if (tech) completeOrderForm(o); else { save(); selected = null; render(); } if (sbUser) { clearTimeout(syncTimer); cloudPush(); } };
+};
+
+// ---------- список нарядов ----------
+function ttDecorateV18() {
+  if (workspaceTab !== 'orders') return;
+  const tech = role() === 'tech';
+  if (ttArchiveOpen && tech) { ttRenderArchive(); return; }
+  if (!tech) { $('list').querySelectorAll('section.doctor').forEach(s => { if (s.querySelector('.order')) s.style.display = ''; }); $('ttEmpty')?.remove(); }
+  const rank = { ready: 0, work: 1, pause: 2, done: 3, paid: 4 };
+  $('list').querySelectorAll('section.doctor').forEach(sec => {
+    const items = [...sec.querySelectorAll(':scope > .order')].map(el => {
+      const o = db.orders.find(x => x.id === el.dataset.order), k = o ? stKey(o) : 'work';
+      el.classList.remove('st-work', 'st-pause', 'st-done', 'st-paid', 'st-ready'); el.classList.add('st-' + k);
+      const stg = k === 'ready' ? el.querySelector('.stage-tag') : null;
+      if (stg) { const pv = stg.previousSibling; if (pv && pv.nodeType === 3) pv.textContent = pv.textContent.replace(/\s·\s$/, ''); stg.remove(); }
+      const inf = el.querySelector('.info'); if (inf && inf.lastChild && inf.lastChild.nodeType === 3) inf.lastChild.textContent = inf.lastChild.textContent.replace(/\s·\s*$/, '');
+      const n = o ? ttUnread(o.id) : 0;
+      if (n) el.querySelector('.order-status')?.insertAdjacentHTML('afterbegin', '<span class="tt-msg-badge" title="Новые сообщения">💬 ' + n + '</span>');
+      return { el, r: rank[k] ?? 1, due: o?.due || '9999' };
+    });
+    items.sort((a, b) => a.r - b.r || a.due.localeCompare(b.due)).forEach(x => sec.appendChild(x.el));
+  });
+  if (tech) {
+    const box = $('ttDocs'), n = ttArchiveList().length;
+    if (box && n && !box.querySelector('.tt-arch-btn')) { box.insertAdjacentHTML('beforeend', '<button type="button" class="tt-arch-btn" id="ttArchOpen">🗄 Архив · ' + n + '</button>'); $('ttArchOpen').onclick = () => { ttArchiveOpen = true; render(); }; }
+  }
+}
+const renderTodayV17 = renderToday;
+renderToday = function () {
+  renderTodayV17();
+  const list = db.orders.filter(o => ttUnread(o.id));
+  if (!list.length) return;
+  const html = '<section class="today-group msgs"><h3>Новые сообщения <span class="tag">' + list.length + '</span></h3>' + list.map(o => '<button type="button" class="today-item" data-open-order="' + esc(o.id) + '"><b>' + esc(o.patient) + '</b><span>' + esc(((ttMsgs()[o.id] || []).slice(-1)[0] || {}).body || '') + '</span><small>' + esc(doc(o).name) + ' · 💬 ' + ttUnread(o.id) + '</small></button>').join('') + '</section>';
+  const head = $('workspacePane').querySelector('.pane-header'); if (!head) return;
+  head.insertAdjacentHTML('afterend', html);
+  $('workspacePane').querySelectorAll('.msgs [data-open-order]').forEach(b => b.onclick = () => { selected = b.dataset.openOrder; renderDetail(); });
+};
+
+// ---------- кнопка облака и панель ----------
+ensureCloudButton = function () {
+  if (!$('cloudBtn')) { $('importBtn').insertAdjacentHTML('beforebegin', '<button class="btn cloud-btn" id="cloudBtn" type="button" data-kind="off">☁ Облако</button>'); $('cloudBtn').onclick = () => cloudPanel(); setSyncStatus(syncState.text, syncState.kind); }
+  $('cloudBtn').style.display = role() === 'tech' || ttDoc() ? '' : 'none';
+};
+const cloudPanelV16 = cloudPanel;
+cloudPanel = function () {
+  const d = ttDoc();
+  if (d && sbUser) {
+    const box = document.createElement('div'); box.id = 'cloudPanel'; box.className = 'cloud-panel';
+    box.innerHTML = '<div class="row between"><h2>Кабинет врача · ' + esc(d.name) + '</h2><button class="btn" id="cloudClose" type="button">✕</button></div><p class="muted" id="cloudStatus">' + esc(syncState.text) + '</p><p>Вход: <b>' + esc(sbUser.email) + '</b></p><p class="muted">Здесь только ваши наряды: этапы, сроки, цвет, зубная формула и переписка с техником. Новые данные подтягиваются раз в минуту.</p><div class="row"><button class="btn main" id="cloudSyncNow" type="button">Обновить</button><button class="btn" id="cloudLogout" type="button">Выйти</button></div>';
+    document.body.appendChild(box); document.body.classList.add('modal-open');
+    const close = () => { box.remove(); document.body.classList.remove('modal-open'); };
+    $('cloudClose').onclick = close;
+    $('cloudSyncNow').onclick = async () => { await cloudPull(); const s = $('cloudStatus'); if (s) s.textContent = syncState.text; };
+    $('cloudLogout').onclick = async () => { if (!confirm('Выйти? Наряды скроются с этого устройства.')) return; await sb.auth.signOut(); sbUser = null; ttProf = null; ttLeaveDoc(); setSyncStatus('вход не выполнен', 'off'); close(); render(); };
+    return;
+  }
+  cloudPanelV16();
+  const lo = $('cloudLogout'); if (lo) { const old = lo.onclick; lo.onclick = async () => { await old(); ttProf = null; }; }
+  if (sbUser && !d) ttAccessSection();
+};
+
+// ---------- доступ врачей (у техника) ----------
+function ttPass() { const a = 'abcdefghijkmnpqrstuvwxyz', n = '23456789'; let s = ''; for (let i = 0; i < 4; i++) s += a[Math.floor(Math.random() * a.length)]; for (let i = 0; i < 4; i++) s += n[Math.floor(Math.random() * n.length)]; return s; }
+function ttShareText(d, email, pass) { return 'ToothTech — ваши наряды\nСсылка: ' + TT_SITE + '\nПочта: ' + email + '\nПароль: ' + pass + '\n\nОткройте ссылку → кнопка «Облако» → «Войти». Вы увидите только свои работы: этапы, сроки, цвет и переписку с техником.'; }
+async function ttAccessSection() {
+  const panel = $('cloudPanel'); if (!panel) return;
+  panel.insertAdjacentHTML('beforeend', '<section class="tt-access" id="ttAccess"><h3>Доступ врачей</h3><p class="muted">Каждый врач входит под своей почтой и видит только свои наряды — без цен, оплат и расчётов.</p><div id="ttAccList"><p class="muted">Загружаю…</p></div></section>');
+  const c = await cloudClient();
+  let linked = [];
+  const r1 = await c.rpc('doctor_accounts');
+  if (!r1.error) linked = r1.data || [];
+  else { const r2 = await c.from('profiles').select('doctor_key,name').eq('tech_id', sbUser.id).eq('role', 'doctor'); linked = (r2.data || []).map(x => ({ ...x, email: (db.doctorAccess || {})[x.doctor_key]?.email || '' })); }
+  const byKey = new Map(linked.map(x => [x.doctor_key, x]));
+  const L = $('ttAccList'); if (!L) return;
+  L.innerHTML = doctors.map(d => { const a = byKey.get(d.id); return '<div class="tt-acc-row" data-acc="' + d.id + '"><span class="nm">' + esc(d.name) + '</span><span class="st ' + (a ? 'on' : '') + '">' + (a ? '✓ есть доступ · ' + esc(a.email || 'почта не записана') : 'нет доступа') + '</span>' + (a ? '<button type="button" class="text-link danger" data-off>Отключить</button>' : '<button type="button" class="btn main" data-give>Выдать доступ</button>') + '</div>'; }).join('');
+  L.querySelectorAll('[data-acc]').forEach(row => {
+    const d = doctors.find(x => x.id === row.dataset.acc);
+    const give = row.querySelector('[data-give]');
+    if (give) give.onclick = () => {
+      give.remove();
+      row.insertAdjacentHTML('beforeend', '<div class="tt-acc-form"><label>Почта врача<input type="email" data-em placeholder="например, ' + d.id + '.toothtech@gmail.com" autocomplete="off"></label><label>Пароль<input type="text" data-pw value="' + ttPass() + '" autocomplete="off"></label><button type="button" class="btn main" data-make>Создать</button></div><p class="inline-feedback" data-msg role="status"></p>');
+      row.querySelector('[data-make]').onclick = async () => {
+        const email = row.querySelector('[data-em]').value.trim().toLowerCase(), pass = row.querySelector('[data-pw]').value.trim(), msg = t => row.querySelector('[data-msg]').textContent = t;
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg('Укажите почту в виде имя@домен.'); return; }
+        if (pass.length < 6) { msg('Пароль — от 6 символов.'); return; }
+        msg('Создаю аккаунт…');
+        const m = syncMeta(), tmp = window.supabase.createClient(m.url, m.key, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false, storageKey: 'tt_tmp_' + Date.now() } });
+        const { data: su, error: se } = await tmp.auth.signUp({ email, password: pass });
+        const exists = se && /already|registered|exists/i.test(se.message || '');
+        if (se && !exists) { msg('Не удалось создать: ' + se.message); return; }
+        const { error: le } = await c.rpc('link_doctor', { p_email: email, p_key: d.id, p_name: d.name });
+        if (le) { msg('Аккаунт есть, но не привязан: ' + le.message); return; }
+        db.doctorAccess ??= {}; db.doctorAccess[d.id] = { email, at: new Date().toISOString() }; save();
+        const text = exists ? 'ToothTech — ваши наряды\nСсылка: ' + TT_SITE + '\nПочта: ' + email + '\nПароль: тот, что вы задали раньше.' : ttShareText(d, email, pass);
+        const unconfirmed = !exists && su && !su.session;
+        row.querySelector('.tt-acc-form').outerHTML = '<div class="tt-acc-share" data-share>' + esc(text) + '</div><div class="row"><button type="button" class="btn main" data-copy>Скопировать</button><button type="button" class="btn" data-wa>Отправить в WhatsApp</button></div>';
+        msg(exists ? 'Такая почта уже была — привязал её к врачу ' + d.name + '.' : unconfirmed ? 'Готово, но в Supabase включено подтверждение почты: выключите Authentication → Sign In / Providers → Email → Confirm email, иначе врач не войдёт.' : 'Готово. Отправьте врачу эти данные.');
+        row.querySelector('.st').className = 'st on'; row.querySelector('.st').textContent = '✓ есть доступ · ' + email;
+        row.querySelector('[data-copy]').onclick = async () => { try { await navigator.clipboard.writeText(text); msg('Скопировано.'); } catch (e) { msg('Выделите текст и скопируйте вручную.'); } };
+        row.querySelector('[data-wa]').onclick = () => window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+      };
+    };
+    const off = row.querySelector('[data-off]');
+    if (off) off.onclick = async () => {
+      if (!confirm('Отключить доступ врачу ' + d.name + '? Он перестанет видеть наряды. Наряды не удалятся.')) return;
+      const { error } = await c.rpc('unlink_doctor', { p_key: d.id });
+      if (error) { alert(/function|does not exist|schema/i.test(error.message) ? 'Нужно один раз запустить SQL V18 в Supabase.' : 'Ошибка: ' + error.message); return; }
+      if (db.doctorAccess) { delete db.doctorAccess[d.id]; save(); }
+      row.querySelector('.st').className = 'st'; row.querySelector('.st').textContent = 'доступ отключён'; off.remove();
+    };
+  });
+}
+
+// ---------- новый наряд у врача: без плательщика ----------
+function ttDocNewForm() {
+  const pay = $('newPayer')?.closest('.field'); if (pay) pay.style.display = role() === 'tech' ? '' : 'none';
+}
+
+// ---------- общий рендер ----------
+const renderV17 = render;
+render = function () {
+  ttSyncDocUI();
+  if (role() !== 'tech') ttArchiveOpen = false;
+  renderV17();
+  ttDecorateV18(); ttDocNewForm(); ttSyncDocUI();
+};
+
+
+// ===== V19: быстрая запись · «следующий шаг» · вкладки · действия в списке · меню · скрыть суммы · тёмная тема =====
+const ttPrefs = () => ttLS('tt_prefs', {});
+const ttSetPref = (k, v) => { const p = ttPrefs(); p[k] = v; ttSetLS('tt_prefs', p); };
+const TT_SVG = {
+  menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  eyeOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10.6 10.6 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6C3.8 8.4 2 12 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>'
+};
+
+// ---------- тема ----------
+const ttDarkMQ = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+function ttApplyTheme() {
+  const t = ttPrefs().theme || 'light';
+  const dark = t === 'dark' || (t === 'auto' && ttDarkMQ && ttDarkMQ.matches);
+  document.documentElement.dataset.ttTheme = dark ? 'dark' : 'light';
+}
+ttDarkMQ?.addEventListener?.('change', ttApplyTheme);
+ttApplyTheme();
+
+// ---------- скрыть суммы ----------
+function ttMarkMoney(root) {
+  const w = document.createTreeWalker(root || document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => /₸/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP });
+  let n; while ((n = w.nextNode())) { const el = n.parentElement; if (el && !el.classList.contains('tt-money') && !el.closest('.tt-menu')) el.classList.add('tt-money'); }
+}
+function ttApplyHide() {
+  const on = !!ttPrefs().hideMoney;
+  document.body.classList.toggle('tt-hide-money', on);
+  const b = $('ttEye'); if (b) { b.setAttribute('aria-pressed', on); b.title = on ? 'Суммы скрыты — показать' : 'Скрыть суммы'; b.innerHTML = on ? TT_SVG.eyeOff : TT_SVG.eye; }
+}
+let ttMoneyT = null;
+new MutationObserver(() => { clearTimeout(ttMoneyT); ttMoneyT = setTimeout(() => ttMarkMoney(), 40); }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+
+// ---------- меню в шапке ----------
+function ttSetupMenu() {
+  const act = $('ttActions'); if (!act || $('ttMenuBtn')) return;
+  act.insertAdjacentHTML('afterbegin', '<button type="button" class="btn tt-icon-btn tt-eye" id="ttEye" aria-pressed="false"></button>');
+  $('newButton').insertAdjacentHTML('beforebegin', '<button type="button" class="btn tt-icon-btn" id="ttMenuBtn" title="Меню" aria-haspopup="true" aria-expanded="false">' + TT_SVG.menu + '</button>');
+  $('ttEye').onclick = () => { ttSetPref('hideMoney', !ttPrefs().hideMoney); ttApplyHide(); };
+  $('ttMenuBtn').onclick = e => { e.stopPropagation(); $('ttMenu') ? ttCloseMenu() : ttOpenMenu(); };
+  ttApplyHide();
+}
+function ttCloseMenu() { const m = $('ttMenu'); if (!m) return; $('ttMenuStash').append($('export'), $('importBtn')); m.remove(); $('ttMenuBtn')?.setAttribute('aria-expanded', 'false'); }
+function ttOpenMenu() {
+  if (!$('ttMenuStash')) document.body.insertAdjacentHTML('beforeend', '<div id="ttMenuStash" hidden></div>');
+  const tech = role() === 'tech', d = ttDoc(), theme = ttPrefs().theme || 'light', hide = !!ttPrefs().hideMoney;
+  const m = document.createElement('div'); m.className = 'tt-menu'; m.id = 'ttMenu'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', 'Меню');
+  m.innerHTML = '<div><h4>Тема</h4><div class="tt-seg" data-seg="theme">' + [['light', 'Светлая'], ['dark', 'Тёмная'], ['auto', 'Как в телефоне']].map(([k, l]) => '<button type="button" data-v="' + k + '" aria-pressed="' + (theme === k) + '">' + l + '</button>').join('') + '</div></div>' +
+    (d ? '' : '<div><h4>Суммы на экране</h4><div class="tt-seg" data-seg="money"><button type="button" data-v="0" aria-pressed="' + !hide + '">Показывать</button><button type="button" data-v="1" aria-pressed="' + hide + '">Скрыть</button></div></div>') +
+    (!d && tech ? '<div><h4>Посмотреть глазами врача</h4><div class="tt-mrow">' + doctors.map(x => '<button type="button" class="btn" data-asdoc="' + x.id + '">' + esc(x.name) + '</button>').join('') + '</div></div>' : '') +
+    (!d && !tech ? '<div><h4>Режим</h4><div class="tt-mrow"><button type="button" class="btn main" data-astech>Вернуться в режим техника</button></div></div>' : '') +
+    (!d && tech ? '<div><h4>Резервная копия</h4><div class="tt-mrow" id="ttMenuBackup"></div></div>' : '');
+  document.body.appendChild(m); $('ttMenuBtn').setAttribute('aria-expanded', 'true');
+  if ($('ttMenuBackup')) { $('ttMenuBackup').append($('export'), $('importBtn')); $('export').querySelector('.lbl') && ($('export').querySelector('.lbl').textContent = 'Скачать копию'); $('importBtn').querySelector('.lbl') && ($('importBtn').querySelector('.lbl').textContent = 'Загрузить файл'); }
+  m.querySelectorAll('[data-seg=theme] button').forEach(b => b.onclick = () => { ttSetPref('theme', b.dataset.v); ttApplyTheme(); m.querySelectorAll('[data-seg=theme] button').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  m.querySelectorAll('[data-seg=money] button').forEach(b => b.onclick = () => { ttSetPref('hideMoney', b.dataset.v === '1'); ttApplyHide(); m.querySelectorAll('[data-seg=money] button').forEach(x => x.setAttribute('aria-pressed', x === b)); });
+  m.querySelectorAll('[data-asdoc]').forEach(b => b.onclick = () => { ttCloseMenu(); $('role').value = 'doctor'; $('docSelector').value = b.dataset.asdoc; selected = null; render(); });
+  m.querySelector('[data-astech]')?.addEventListener('click', () => { ttCloseMenu(); $('role').value = 'tech'; selected = null; render(); });
+}
+document.addEventListener('click', e => { const m = $('ttMenu'); if (m && !m.contains(e.target) && e.target.id !== 'ttMenuBtn') ttCloseMenu(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') ttCloseMenu(); });
+function ttDocViewBanner() {
+  $('ttDocView')?.remove();
+  if (role() === 'tech' || ttDoc()) return;
+  const name = doc({ doctor: $('docSelector').value }).name;
+  $('workspaceNav')?.insertAdjacentHTML('beforebegin', '<div class="tt-docview" id="ttDocView"><span>👁</span><b>Так видит наряды врач ' + esc(name) + '</b><button type="button" class="btn" id="ttBackTech">Вернуться в режим техника</button></div>');
+  $('ttBackTech').onclick = () => { $('role').value = 'tech'; selected = null; render(); };
+}
+
+// ---------- следующий шаг ----------
+function ttSnapshot(o) { const s = JSON.stringify(o); return () => { const at = ttFind(o.id); if (!at) return; const back = JSON.parse(s); ttPlace(back, at); save(); render(); if (selected === back.id) renderDetail(); }; }
+function ttNext(o) {
+  if (role() !== 'tech' || !o || o.archived) return null;
+  if (o.paused) return { label: '▶ Вернуть в работу', hint: 'Наряд на паузе', run: () => toggleProduction(o) };
+  if (!o.delivered) {
+    const plan = stagePlan(o), idx = stageIdx(o);
+    if (idx < 0) return { label: '▶ Начать: ' + plan[0], hint: 'Первый этап', run: () => setStage(o, 0) };
+    if (idx < plan.length) return { label: '✓ ' + plan[idx] + ' — готово', hint: 'Дальше: ' + (plan[idx + 1] || 'готова к сдаче'), run: () => setStage(o, idx + 1) };
+    return { cls: 'ready', label: '✓ Сдать работу', hint: 'Работа готова — отметить сдачу врачу', run: () => { o.delivered = true; o.deliveredAt = new Date().toISOString(); o.paid = false; log(o, 'Сдача', 'Работа сдана'); save(); render(); } };
+  }
+  const left = balance(o);
+  if (left > 0) return { cls: 'pay', label: '₸ Оплата получена · ' + fmt(left), hint: 'Внесёт платёж на весь остаток. Частичная оплата — во вкладке «Деньги»', run: () => { o.payments.push({ id: uid(), amount: left, date: localDay(), note: 'Полная оплата', createdAt: new Date().toISOString(), by: actor() }); o.legacyPaymentMarked = false; o.paymentNoticeAcknowledged = true; log(o, 'Оплата', 'Получено ' + fmt(left) + ' · ' + localDay()); save(); render(); } };
+  return null;
+}
+function ttDoNext(o, quiet) {
+  const n = ttNext(o); if (!n) return;
+  const undo = ttSnapshot(o); n.run();
+  if (selected === o.id) renderDetail();
+  ttToast((quiet ? o.patient + ': ' : '') + n.label.replace(/^[✓▶₸]\s*/, ''), 'Отменить', undo);
+}
+
+// ---------- вкладки в наряде ----------
+let ttTab = { id: null, tab: 'order' };
+function ttSectionTab(el) {
+  if (el.matches('#ttChat,#waBox')) return 'chat';
+  if (el.matches('.events-scroll')) return 'hist';
+  const h = (el.querySelector('h3,summary')?.textContent || '');
+  if (el.matches('.payment-compact,#costsBox,.costs-section,.tariff-note') || /Расход|Себестоим|Оплат|Расч[её]т/i.test(h)) return 'money';
+  if (/Лента|История/i.test(h)) return 'hist';
+  return 'order';
+}
+function ttApplyTabs(o, D) {
+  const tech = role() === 'tech', stage = D.querySelector('.stage-section'); if (!stage) return;
+  if (ttTab.id !== o.id) ttTab = { id: o.id, tab: ttUnread(o.id) ? 'chat' : 'order' };
+  const tabs = tech ? [['order', 'Наряд'], ['chat', 'Переписка'], ['money', 'Деньги'], ['hist', 'История']] : [['order', 'Наряд'], ['chat', 'Переписка'], ['hist', 'История']];
+  const n = (ttMsgs()[o.id] || []).length, un = ttUnread(o.id);
+  D.querySelector('.tt-tabs')?.remove();
+  stage.insertAdjacentHTML('afterend', '<div class="tt-tabs" role="tablist">' + tabs.map(([k, l]) => '<button type="button" role="tab" data-tab="' + k + '" aria-selected="' + (ttTab.tab === k) + '">' + l + (k === 'chat' && (un || n) ? ' <i>' + (un || n) + '</i>' : '') + '</button>').join('') + '</div>');
+  const kids = [...D.children], start = kids.indexOf(D.querySelector('.tt-tabs'));
+  kids.forEach((el, i) => { if (i <= start || el.classList.contains('tt-savebar')) return; el.classList.toggle('tt-tabhide', ttSectionTab(el) !== ttTab.tab); });
+  D.querySelectorAll('.tt-tabs [data-tab]').forEach(b => b.onclick = () => { ttTab.tab = b.dataset.tab; ttApplyTabs(o, D); if (b.dataset.tab === 'chat') { ttMarkSeen(o.id); const box = $('ttMsgs'); if (box) box.scrollTop = box.scrollHeight; } });
+}
+
+// ---------- карточка наряда ----------
+const renderDetailV18 = renderDetail;
+renderDetail = function () {
+  const o0 = order(); if (o0 && ttTab.id !== o0.id) ttTab = { id: o0.id, tab: ttUnread(o0.id) ? 'chat' : 'order' };
+  const seen0 = ttLS('tt_msg_seen', {});
+  renderDetailV18();
+  if (ttTab.tab !== 'chat') ttSetLS('tt_msg_seen', seen0);
+  const o = order(), D = $('detail'); if (!o || D.classList.contains('hidden')) return;
+  const tech = role() === 'tech';
+  // спокойная сводка
+  const sum = D.querySelector('.order-summary');
+  if (sum && tech) sum.innerHTML = '<span>' + esc(o.paused ? 'На паузе' : o.delivered ? (isPaid(o) ? 'Сдано · оплачено' : 'Сдано · ждёт оплату') : stageLabel(o) || status(o)) + '</span><span>Сдача ' + esc(o.due ? fmtDay(o.due) : 'не указана') + '</span><b>' + fmt(total(o)) + '</b>' + (balance(o) > 0 ? '<span class="balance">Остаток ' + fmt(balance(o)) + '</span>' : '');
+  // прогресс + следующий шаг; ряд этапов — в свёрнутом блоке
+  const st = D.querySelector('.stage-section');
+  if (st && tech) {
+    const plan = stagePlan(o), idx = Math.min(stageIdx(o), plan.length), pct = Math.max(0, Math.round((idx < 0 ? 0 : idx) / plan.length * 100));
+    const head = st.querySelector('.row.between');
+    const rest = [...st.children].filter(x => x !== head);
+    const det = document.createElement('details'); det.className = 'tt-stage-all'; det.innerHTML = '<summary>Все этапы · изменить вручную</summary>'; rest.forEach(x => det.appendChild(x));
+    const nx = ttNext(o);
+    head.insertAdjacentHTML('afterend', '<div class="tt-progress ' + (stageReady(o) || o.delivered ? 'ready' : '') + '"><i style="width:' + (o.delivered ? 100 : pct) + '%"></i></div>' +
+      (nx ? '<div class="tt-next"><button type="button" class="btn tt-next-btn ' + (nx.cls || '') + '" id="ttNextBtn">' + esc(nx.label) + '</button><span class="tt-next-hint">' + esc(nx.hint) + '</span></div>' : '<p class="tt-next-hint">' + (o.delivered ? 'Наряд закрыт: сдан и оплачен.' : '') + '</p>'));
+    st.appendChild(det);
+    $('ttNextBtn') && ($('ttNextBtn').onclick = () => ttDoNext(o));
+  }
+  ttApplyTabs(o, D);
+};
+
+// ---------- список: «Сдать», «Оплачено», свайпы ----------
+paymentIndicator = function (o, full) { return full && role() === 'tech' ? paymentIndicatorV17(o, true) : ''; };
+let ttSwipeBound = false;
+function ttDecorateV19() {
+  ttDocViewBanner();
+  if (workspaceTab !== 'orders' || ttArchiveOpen) return;
+  const tech = role() === 'tech', list = $('list');
+  if (!ttSwipeBound) { list.addEventListener('click', e => { const c = e.target.closest('.order'); if (c && c.dataset.noclick) { e.stopPropagation(); e.preventDefault(); } }, true); ttSwipeBound = true; }
+  if (!tech) return;
+  list.querySelectorAll('.order[data-order]').forEach(el => {
+    const o = db.orders.find(x => x.id === el.dataset.order); if (!o) return;
+    const box = el.querySelector('.order-status'), k = stKey(o);
+    if (box && k === 'ready') box.insertAdjacentHTML('beforeend', '<button type="button" class="tt-quick-act" data-qa="next">Сдать</button>');
+    if (box && k === 'done' && balance(o) > 0) box.insertAdjacentHTML('beforeend', '<button type="button" class="tt-quick-act pay" data-qa="next">₸ Оплачено</button>');
+    el.querySelectorAll('[data-qa]').forEach(b => b.onclick = e => { e.stopPropagation(); ttDoNext(o, true); });
+    let sx = 0, sy = 0, dx = 0, on = false;
+    el.addEventListener('touchstart', e => { const t = e.touches[0]; sx = t.clientX; sy = t.clientY; dx = 0; on = true; el.style.transition = 'none'; }, { passive: true });
+    el.addEventListener('touchmove', e => {
+      if (!on) return; const t = e.touches[0]; dx = t.clientX - sx; const dy = t.clientY - sy;
+      if (Math.abs(dy) > 14 && Math.abs(dy) > Math.abs(dx)) { on = false; el.style.transform = ''; el.dataset.swipe = ''; return; }
+      el.style.transform = 'translateX(' + Math.round(dx * 0.45) + 'px)'; el.dataset.swipe = dx > 70 ? 'next' : dx < -70 ? 'pause' : '';
+    }, { passive: true });
+    el.addEventListener('touchend', () => {
+      if (!on) return; on = false; el.style.transition = 'transform .2s'; el.style.transform = '';
+      const a = el.dataset.swipe; el.dataset.swipe = '';
+      if (!a) return; el.dataset.noclick = '1'; setTimeout(() => delete el.dataset.noclick, 450);
+      if (a === 'next') ttDoNext(o, true);
+      else if (!o.delivered) { const undo = ttSnapshot(o); toggleProduction(o); ttToast(o.patient + ': ' + (o.paused ? 'на паузе' : 'снова в работе'), 'Отменить', undo); }
+    });
+  });
+}
+
+// ---------- быстрая запись ----------
+const TT_WD = { пн: 1, понедельник: 1, вт: 2, вторник: 2, ср: 3, среда: 3, среду: 3, чт: 4, четверг: 4, пт: 5, пятница: 5, пятницу: 5, сб: 6, суббота: 6, субботу: 6, вс: 0, воскресенье: 0 };
+const TT_MON = ['январ', 'феврал', 'март', 'апрел', 'ма', 'июн', 'июл', 'август', 'сентябр', 'октябр', 'ноябр', 'декабр'];
+const TT_SYN = [[/^(цирк|циркон|zr|zro2|диоксид|zirk)/, 'циркон'], [/^(мк|мет|металлокер)/, 'металлокерам'], [/^бюгел/, 'бюгел'], [/^(пмма|pmma)/, 'pmma'], [/^(времен|времянк|временн)/, 'времен'], [/^(импл|имплант)/, 'имплант'], [/^(емакс|имакс|emax|e\.max|е\.макс|дисиликат)/, 'emax'], [/^винир/, 'винир'], [/^вкладк/, 'вкладк'], [/^(аллон|олон|all-?on|алон)/, 'all-on'], [/^коронк/, 'коронк'], [/^мост/, 'мост'], [/^(съ[её]мн)/, 'съ'], [/^(тибейс|ti-?base|титан)/, 'титан'], [/^(абатмент|абат)/, 'абатмент'], [/^(печат|принт)/, 'печат'], [/^(фрез)/, 'фрез']];
+const TT_STOP = new Set(['к', 'до', 'на', 'в', 'во', 'по', 'и', 'с', 'для', 'сдача', 'сдать', 'срок', 'цвет', 'зуб', 'зубы', 'пациент', 'пациентка', 'врач', 'клиника', 'от', 'это']);
+const ttAddDays = (n) => { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + n); if (d.getDay() === 0) d.setDate(d.getDate() + 1); return d.toISOString().slice(0, 10); };
+function ttNextWd(wd) { const d = new Date(); d.setHours(12, 0, 0, 0); let k = (wd - d.getDay() + 7) % 7; if (k === 0) k = 7; d.setDate(d.getDate() + k); return d.toISOString().slice(0, 10); }
+function ttDateDM(dd, mm, yy) { const now = new Date(); let y = yy ? (yy < 100 ? 2000 + yy : yy) : now.getFullYear(); const d = new Date(y, mm - 1, dd, 12); if (!yy && d < new Date(now.getFullYear(), now.getMonth(), now.getDate() - 30)) d.setFullYear(y + 1); return isNaN(d) || d.getMonth() !== mm - 1 ? null : d.toISOString().slice(0, 10); }
+function ttDocMatch(w) {
+  if (/^(алексюк|олексюк|виталий|витал)/.test(w)) return 'oleksyuk';
+  if (/^(бекжан|бек)/.test(w)) return doctors.some(d => d.id === 'bekzhan') ? 'bekzhan' : null;
+  if (/^влад($|у|а|ом|е)$/.test(w)) return doctors.some(d => d.id === 'vlad') ? 'vlad' : null;
+  const d = doctors.find(x => x.name.length >= 4 && w.startsWith(x.name.toLowerCase().slice(0, 4))); return d ? d.id : null;
+}
+function ttClinicMatch(w) { if (/^(bai|бай|байстом|bai-stom)/.test(w)) return 'Bai-Stom'; if (/^тулеш/.test(w)) return 'Тулеш'; if (/^(life|лайф|лайфстом|life-stom)/.test(w)) return 'Life-Stom'; return null; }
+function ttDefaultDays(name) { const n = (name || '').toLowerCase(); if (/all-on|аll-on/.test(n)) return 14; if (/бюгел/.test(n)) return 21; if (/металлокерам/.test(n)) return 10; if (/пмма|времен|печат/.test(n)) return 3; return 7; }
+function ttParse(text) {
+  const r = { teeth: [], rest: [] };
+  let t = ' ' + String(text || '').replace(/[,;]+/g, ' ').replace(/\s+/g, ' ') + ' ';
+  t = t.replace(/\s([абсдabcd])\s([1-4](?:[.,]5)?)(?=\s)/gi, ' $1$2');
+  t = t.replace(/\b([1-4])([1-8])\s*[-–—]\s*([1-4])([1-8])\b/g, (m, q, a, q2, b) => {
+    if (q === q2) { const lo = Math.min(+a, +b), hi = Math.max(+a, +b); return Array.from({ length: hi - lo + 1 }, (_, i) => q + (lo + i)).join(' '); }
+    const jaw = x => (x === '1' || x === '2') ? 'up' : 'low'; if (jaw(q) !== jaw(q2)) return m;
+    const out = []; for (let i = +a; i >= 1; i--) out.push(q + i); for (let i = 1; i <= +b; i++) out.push(q2 + i); return out.join(' ');
+  });
+  let m;
+  if ((m = t.match(/через\s+(\d+)\s*(дн\S*|день)/i))) { r.due = ttAddDays(+m[1]); t = t.replace(m[0], ' '); }
+  else if ((m = t.match(/через\s+(неделю|2\s*недели|две\s*недели)/i))) { r.due = ttAddDays(/2|две/.test(m[1]) ? 14 : 7); t = t.replace(m[0], ' '); }
+  if (!r.due && (m = t.match(/\s(\d{1,2})[./](\d{1,2})(?:[./](\d{2,4}))?(?=\s)/))) { const d = ttDateDM(+m[1], +m[2], m[3] ? +m[3] : 0); if (d) { r.due = d; t = t.replace(m[0], ' '); } }
+  if (!r.due && (m = t.match(/\s(\d{1,2})\s+(январ|феврал|март|апрел|ма[йя]|июн|июл|август|сентябр|октябр|ноябр|декабр)\S*/i))) { const mi = TT_MON.findIndex(x => m[2].toLowerCase().startsWith(x)); const d = ttDateDM(+m[1], mi + 1, 0); if (d) { r.due = d; t = t.replace(m[0], ' '); } }
+  for (const w0 of t.split(' ').filter(Boolean)) {
+    const w = w0.toLowerCase().replace(/[.!?:]+$/, '');
+    if (!w || TT_STOP.has(w)) continue;
+    if (/^[1-4][1-8]$/.test(w)) { if (!r.teeth.includes(w)) r.teeth.push(w); continue; }
+    const sh = w.replace(/^а/, 'a').replace(/^в/, 'b').replace(/^с/, 'c').replace(/^д/, 'd').replace(',', '.');
+    if (/^[abcd][1-4](\.5)?$/.test(sh)) { r.shade = sh.toUpperCase(); continue; }
+    if (/^(bl|вл)[1-4]$/.test(w)) { r.shade = 'BL' + w.slice(-1); continue; }
+    if (w === 'сегодня') { r.due = localDay(); continue; } if (w === 'завтра') { r.due = ttAddDays(1); continue; } if (w === 'послезавтра') { r.due = ttAddDays(2); continue; }
+    if (TT_WD[w] !== undefined) { r.due = ttNextWd(TT_WD[w]); continue; }
+    const d = ttDocMatch(w); if (d) { r.doctor = d; continue; }
+    const c = ttClinicMatch(w); if (c) { r.clinic = c; continue; }
+    r.rest.push(w0);
+  }
+  // конструкция по словарю прайса
+  const keyOf = w => { const lw = w.toLowerCase(); for (const [re, k] of TT_SYN) if (re.test(lw)) return k; return lw.length >= 4 ? lw.slice(0, 5) : null; };
+  const names = constructionChoices(), used = new Set(), freq = new Map();
+  db.orders.forEach(o => (o.constructionTypes || [o.construction]).forEach(n => n && freq.set(n, (freq.get(n) || 0) + 1)));
+  let best = null, bestScore = 0;
+  names.forEach((name, i) => {
+    const ln = name.toLowerCase().replace(/[«»"()]/g, ' '); let sc = 0; const hit = new Set();
+    r.rest.forEach((w, j) => { const k = keyOf(w); if (!k) return; const pos = ln.indexOf(k); if (pos < 0) return; sc += pos === 0 ? 3 : /[\s/+:,.-]/.test(ln[pos - 1]) ? 2 : 1; hit.add(j); });
+    const f = freq.get(name) || 0;
+    if (sc > bestScore || (sc === bestScore && sc > 0 && best && (f > best.f || (f === best.f && name.length < best.name.length)))) { bestScore = sc; best = { name, i, hit, f }; }
+  });
+  if (best && bestScore > 0) { r.construction = best.name; best.hit.forEach(j => used.add(j)); }
+  const left = r.rest.filter((w, j) => !used.has(j));
+  const nameIdx = left.findIndex(w => /^[A-Za-zА-Яа-яЁёӘәҒғҚқҢңӨөҰұҮүҺһІі-]{2,}$/.test(w) && !keyOf(w)?.match(/^(циркон|металлокерам|бюгел|pmma|времен|имплант|emax|винир|вкладк|all-on|коронк|мост|съ|титан|абатмент|печат|фрез)$/));
+  if (nameIdx >= 0) {
+    const parts = [left[nameIdx]]; if (left[nameIdx + 1] && /^[А-ЯЁA-Z]/.test(left[nameIdx + 1])) parts.push(left[nameIdx + 1]);
+    r.patient = parts.map(p => p[0].toUpperCase() + p.slice(1)).join(' ');
+    left.splice(nameIdx, parts.length);
+  }
+  if (!r.construction && left.length) r.custom = left.join(' ');
+  return r;
+}
+let ttQuickExtra = null;
+function ttLastDoc() { try { return localStorage.getItem('tt_last_doc') || ''; } catch (e) { return ''; } }
+function ttTopConstruction(docId) {
+  const c = new Map(); db.orders.filter(o => o.doctor === docId).forEach(o => (o.constructionTypes || [o.construction]).forEach(n => n && c.set(n, (c.get(n) || 0) + 1)));
+  return [...c].sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+}
+function ttSetSelect(id, v) { const s = $(id); if (!s || v == null) return; if (![...s.options].some(o => o.value === v)) return; s.value = v; s.dispatchEvent(new Event('change', { bubbles: true })); }
+function ttQuickUpdate() {
+  const q = $('ttQuick'); if (!q) return;
+  const p = ttParse(q.value), tech = role() === 'tech';
+  const docId = tech ? (p.doctor || $('newDoctor').value || ttLastDoc()) : $('docSelector').value;
+  if (tech && docId) { if ($('newDoctor').value !== docId) ttSetSelect('newDoctor', docId); }
+  if (p.clinic) ttSetSelect('newClinic', p.clinic), ($('newPayer') && ttSetSelect('newPayer', p.clinic));
+  if (p.patient) { $('newPatient').value = p.patient; ttQuickUpdate.pat = p.patient; } else if (ttQuickUpdate.pat && $('newPatient').value === ttQuickUpdate.pat) { $('newPatient').value = ''; ttQuickUpdate.pat = ''; }
+  if (!$('newDate').value) $('newDate').value = localDay();
+  let cons = p.construction || '', consAuto = false;
+  if (cons) { ttSetSelect('constructionSelect', cons); ttQuickUpdate.cons = cons; }
+  else if (ttQuickUpdate.cons && $('constructionSelect')?.value === ttQuickUpdate.cons) { $('constructionSelect').value = ''; $('constructionSelect').dispatchEvent(new Event('change', { bubbles: true })); ttQuickUpdate.cons = ''; }
+  if (p.custom && !p.construction) { $('customConstruction').value = p.custom; $('customConstruction').dispatchEvent(new Event('input')); }
+  else if (p.construction && $('customConstruction').value && !p.custom) { $('customConstruction').value = ''; $('customConstruction').dispatchEvent(new Event('input')); }
+  if (!cons && !p.custom && !$('newConstruction').value) { const top = ttTopConstruction(docId); if (top) { cons = top; consAuto = true; } }
+  const consName = cons || p.custom || $('newConstruction').value;
+  const due = p.due || (consName ? ttAddDays(ttDefaultDays(consName)) : '');
+  ttQuickExtra = { teeth: p.teeth, shade: p.shade || '', due, dueAuto: !p.due, consAuto: consAuto ? cons : '' };
+  const chip = (label, val, cls) => '<span class="' + (cls || '') + '"><small>' + label + '</small>' + esc(val) + '</span>';
+  const dn = doctors.find(d => d.id === docId)?.name;
+  $('ttQChips').innerHTML = (p.patient || $('newPatient').value ? chip('Пациент', p.patient || $('newPatient').value) : chip('', 'Нужна фамилия', 'miss')) +
+    (dn ? chip('Врач', dn, p.doctor ? '' : 'auto') : '') +
+    (consName ? chip('Работа', consName.length > 46 ? consName.slice(0, 44) + '…' : consName, consAuto ? 'auto' : '') : chip('', 'Укажите работу', 'miss')) +
+    (p.teeth.length ? chip('Зубы', p.teeth.join(', ')) : '') +
+    (due ? chip('Сдача', fmtDay(due), p.due ? '' : 'auto') : '') +
+    (p.shade ? chip('Цвет', p.shade) : '');
+}
+function ttSetupQuick() {
+  const f = $('newForm'); if (!f || $('ttQuick')) return;
+  const grid = f.querySelector('.grid'); if (!grid) return;
+  const h = f.querySelector('h3'); if (h) h.textContent = 'Новый наряд';
+  h.insertAdjacentHTML('afterend', '<div class="tt-quick"><div class="tt-q-row"><input id="ttQuick" autocomplete="off" enterkeyhint="done" placeholder="Иванов 36 цирконий Бекжан пятница A2" aria-label="Быстрая запись наряда"><button type="button" class="btn" id="ttMic" title="Надиктовать" hidden>🎙</button></div><div class="tt-q-chips" id="ttQChips" aria-live="polite"></div><p class="muted tt-q-help">Пишите как в тетрадке: фамилия, зубы, работа, врач, срок, цвет — в любом порядке. Пунктирные значения подставлены сами.</p></div>');
+  const det = document.createElement('details'); det.className = 'tt-q-more'; det.innerHTML = '<summary>Все поля</summary>'; grid.parentNode.insertBefore(det, grid); det.appendChild(grid);
+  const cr = $('create'); if (cr) cr.textContent = 'Создать наряд';
+  $('ttQuick').addEventListener('input', ttQuickUpdate);
+  $('ttQuick').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('create').click(); } });
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (SR) {
+    const mic = $('ttMic'); mic.hidden = false; let rec = null;
+    mic.onclick = () => {
+      if (rec) { rec.stop(); return; }
+      rec = new SR(); rec.lang = 'ru-RU'; rec.interimResults = true; rec.continuous = false;
+      const base = $('ttQuick').value.trim();
+      rec.onresult = e => { let s = ''; for (const x of e.results) s += x[0].transcript; $('ttQuick').value = (base ? base + ' ' : '') + s; ttQuickUpdate(); };
+      rec.onend = () => { mic.classList.remove('rec'); rec = null; };
+      rec.onerror = () => { mic.classList.remove('rec'); rec = null; };
+      try { rec.start(); mic.classList.add('rec'); } catch (e) { rec = null; }
+    };
+  }
+  $('newButton').addEventListener('click', () => setTimeout(() => { if ($('newForm').classList.contains('hidden')) return; $('ttQuick').value = ''; ttQuickUpdate(); $('ttQuick').focus(); }, 30));
+}
+const createClinicOrderV18 = createClinicOrder;
+createClinicOrder = function () {
+  if ($('ttQuick')) {
+    ttQuickUpdate();
+    if (!$('newPatient').value.trim()) { $('ttQChips').innerHTML = '<span class="miss">Нужна фамилия пациента</span>'; $('ttQuick').focus(); return; }
+    if (!$('newConstruction').value.trim() && ttQuickExtra?.consAuto) ttSetSelect('constructionSelect', ttQuickExtra.consAuto);
+    if (!$('newConstruction').value.trim()) { $('ttQChips').insertAdjacentHTML('beforeend', '<span class="miss">Укажите работу: например «цирконий» или «металлокерамика»</span>'); return; }
+  }
+  const before = selected, extra = ttQuickExtra;
+  createClinicOrderV18();
+  if (selected && selected !== before) {
+    const o = order();
+    if (o && extra) { if (extra.teeth?.length) o.teeth = [...extra.teeth]; if (extra.shade) o.shade = extra.shade; if (extra.due && !o.due) o.due = extra.due; save(); renderDetail(); }
+    try { localStorage.setItem('tt_last_doc', o.doctor); } catch (e) {}
+    if ($('ttQuick')) { $('ttQuick').value = ''; ttQuickExtra = null; }
+  }
+};
+
+// ---------- общий рендер ----------
+const renderV18 = render;
+render = function () {
+  renderV18();
+  ttSetupMenu(); ttSetupQuick(); ttDecorateV19(); ttApplyHide();
+};
+
+// переписка во вкладке: обновление не должно показывать её на других вкладках
+const ttUpdateChatV18 = ttUpdateChat;
+ttUpdateChat = function () {
+  const onChat = ttTab.tab === 'chat', seen = ttLS('tt_msg_seen', {});
+  ttUpdateChatV18();
+  const c = $('ttChat'); if (!c) return;
+  if (!onChat) { c.classList.add('tt-tabhide'); ttSetLS('tt_msg_seen', seen); }
+  const o = order(), b = document.querySelector('.tt-tabs [data-tab=chat]');
+  if (o && b) { const un = ttUnread(o.id), n = (ttMsgs()[o.id] || []).length; b.innerHTML = 'Переписка' + (un || n ? ' <i>' + (un || n) + '</i>' : ''); }
+};
 
 hydrate();render();cloudStart();
 </script></body></html>
