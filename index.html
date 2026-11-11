@@ -508,6 +508,75 @@ html[data-tt-theme=dark] .tt-debt b{color:#E0899C}
 .tt-mark{width:40px!important;height:41px!important}
 @media(max-width:720px){.tt-mark{width:32px!important;height:33px!important}}
 </style>
+<style id="ttV20css">
+/* ===== V20: себестоимость · подрядчики · «чистыми» ===== */
+.ttc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 6px}
+.ttc-grid>div{border:1px solid var(--tt-line);border-radius:10px;padding:9px 11px;background:var(--tt-card,#fff);display:flex;flex-direction:column;gap:3px;min-width:0}
+.ttc-grid small{font-size:11px;color:var(--tt-grey)}
+.ttc-grid b{font-size:17px;font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.ttc-grid .net{border-color:var(--tt-ready,#17744D);background:var(--tt-ready-bg,#EAF6EF)}
+.ttc-grid .net b{color:var(--tt-ready,#17744D)}
+.ttc-grid .net.minus{border-color:var(--tt-acc2,#A3283F);background:transparent}
+.ttc-grid .net.minus b{color:var(--tt-acc2,#A3283F)}
+.ttc-due{margin:2px 0 0;font-size:12px}
+.ttc-add{display:grid;grid-template-columns:minmax(0,1fr) 68px 104px auto auto;gap:6px;align-items:center;margin:12px 0 4px;padding:10px;border:1px dashed var(--tt-line);border-radius:10px}
+.ttc-add input,.ttc-add select{margin:0!important;min-height:38px}
+.ttc-add #ttcName,.ttc-add #ttcMsg{grid-column:1/-1}
+.ttc-add #ttcMsg{margin:0}
+.ttc-add #ttcMsg:empty{display:none}
+.ttc-redo{display:flex!important;align-items:center;gap:6px;font-size:12px!important;white-space:nowrap;color:var(--tt-ink)!important;cursor:pointer}
+.ttc-redo input{width:auto!important;min-height:0!important;margin:0!important;padding:0}
+.costs-section .cost-item>summary{line-height:1.5;padding:7px 0;color:var(--tt-ink)}
+.ttc-val{float:right;margin-left:10px;font-variant-numeric:tabular-nums}
+.ttc-nm{font-weight:600}
+.ttc-sub{display:block;font-size:11.5px;padding-left:14px}
+.ttc-tag{display:inline-block;font-style:normal;font-size:10px;line-height:1.5;border-radius:9px;padding:0 7px;margin-left:6px;background:var(--tt-bg,#F3F3F4);color:var(--tt-grey);font-weight:600;vertical-align:middle}
+.ttc-tag.redo{background:#FBEFD9;color:#8A5A00}
+.ttc-off{font-size:12px;margin:8px 0 0}
+.ttc-off .text-link{font-size:12px}
+.ttc-top{color:var(--tt-grey)}
+.ttc-top b{color:var(--tt-ready,#17744D)}
+.ttc-kpis{margin-top:-8px}
+.tt-kpi em{font-style:normal;font-size:11px;color:var(--tt-grey);line-height:1.35}
+.tt-kpi.ttc-net{border-color:var(--tt-ready,#17744D);background:var(--tt-ready-bg,#EAF6EF)}
+.tt-kpi.ttc-net b{color:var(--tt-ready,#17744D)}
+.ttc-vendors h3{font-size:14px;font-weight:600;margin:0 0 8px}
+.ttc-vendor{background:var(--tt-card,#fff);border:1px solid var(--tt-line);border-radius:12px;margin-bottom:8px;overflow:hidden}
+.ttc-vendor>summary{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1.1fr);gap:10px;align-items:center;padding:11px 14px;cursor:pointer;list-style:none;font-size:13px;color:var(--tt-ink)}
+.ttc-vendor>summary::-webkit-details-marker{display:none}
+.ttc-vendor .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--tt-grey)}
+.ttc-vendor .n.debt{color:var(--tt-acc);font-weight:700}
+.ttc-vbody{padding:2px 14px 12px;border-top:1px solid var(--tt-line)}
+.ttc-line{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:7px 0;border-top:1px dashed var(--tt-line);font-size:12.5px}
+.ttc-vbody .ttc-line:first-child{border-top:0}
+.ttc-line .d{color:var(--tt-grey);font-variant-numeric:tabular-nums}
+.ttc-line .op{display:block;color:var(--tt-grey);font-size:11.5px}
+.ttc-line b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.ttc-vact{gap:8px;margin-top:10px}
+.ttc-months{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(4,minmax(0,1fr));gap:7px 10px;font-size:12.5px;padding:8px 0;align-items:baseline}
+.ttc-months .h{font-size:10.5px;color:var(--tt-grey);text-transform:uppercase;letter-spacing:.5px}
+.ttc-months .n{text-align:right;font-variant-numeric:tabular-nums}
+.ttc-months small{font-size:10.5px}
+.ttc-auto{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--tt-line);font-size:12px}
+.ttc-auto label{display:flex;align-items:center;gap:8px}
+.ttc-auto input[type=date]{width:auto}
+.ttc-auto p{flex-basis:100%;margin:0}
+html[data-tt-theme=dark] .ttc-tag.redo{background:#3A2E12;color:#E5C37A}
+html[data-tt-theme=dark] .ttc-grid .net.minus,html[data-tt-theme=dark] .tt-kpi.ttc-net{background:var(--tt-ready-bg)!important}
+html[data-tt-theme=dark] .ttc-grid .net.minus{background:transparent!important}
+@media(max-width:600px){
+.ttc-add{grid-template-columns:1fr 1fr}
+.ttc-add select,.ttc-add .btn{grid-column:1/-1}
+.ttc-grid b{font-size:15px}
+.ttc-vendor>summary{grid-template-columns:minmax(0,1fr) auto}
+.ttc-vendor>summary .n:not(.debt){display:none}
+.ttc-months{grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr));font-size:12px}
+.ttc-months>:nth-child(5n+2){display:none}
+}
+.ttc-add .ttc-cap{grid-column:1/-1;font-size:11.5px}
+.costs-section .cost-tpl-row{font-size:11.5px;padding:10px 0 0}
+@media(max-width:600px){.ttc-months .h{font-size:9.5px;letter-spacing:0;overflow:hidden;text-overflow:ellipsis}}
+</style>
 </head><body><main class="wrap"><noscript><div style="margin:16px 0;padding:14px;border:2px solid #b5485c;border-radius:8px;background:#fdf1f3;font-size:14px;line-height:1.5"><b>Приложение открыто в режиме просмотра — программа не запущена.</b><br>Так бывает при открытии из Telegram, WhatsApp или приложения «Файлы» на iPhone. Откройте ToothTech по ссылке в Safari.</div></noscript><header class="top"><div><div class="logo">Tooth<b>Tech</b> <span class="tag">V16</span></div><div class="sub">Врач ↔ техник · презентационная версия</div><div class="goldline"></div></div><div class="row"><select id="role" style="width:190px"><option value="tech">Режим техника</option><option value="doctor">Режим врача</option></select><select id="docSelector" style="width:190px"></select></div></header><div class="panel"><div class="row between"><div><b id="welcome">Все активные заказы</b><div class="muted" id="description"></div></div><div class="row"><button class="btn" id="export" type="button" title="Все наряды, прайсы, расходы, фото и голосовые — одним файлом">⇩ Полная копия</button><button class="btn" id="importBtn" type="button" title="Восстановить копию или загрузить результаты врача">⇧ Загрузить файл</button><input type="file" id="importFile" accept=".json,application/json" hidden><button class="btn main" id="newButton">+ Новый заказ</button></div></div><div id="newForm" class="hidden section"><h3>Создание заказа: только 4 обязательных поля</h3><div class="grid"><div class="field"><label>Фамилия пациента *</label><input id="newPatient" placeholder="Иванов"></div><div class="field"><label>Клиника *</label><input id="newClinic" placeholder="Название клиники"></div><div class="field"><label>Дата приёма *</label><input id="newDate" type="date"></div><div class="field"><label>Вид конструкции *</label><input id="newConstruction" placeholder="Временный All-on-6"></div></div><div class="row" style="margin-top:12px"><button class="btn main" id="create">Создать черновик</button><button class="btn" id="cancelNew">Отмена</button></div></div></div><div id="list"></div><div id="modalBackdrop" class="modal-backdrop hidden"></div><section id="detail" class="panel hidden" role="dialog" aria-modal="true" aria-label="Заказ-наряд"></section><p class="footer">Наряды, прайсы и оплаты синхронизируются через облако (кнопка ☁). Фото, видео и голосовые пока хранятся только на том устройстве, где их добавили.</p></main><script>
 let toothClickTimer=null,bridgeAnchor=null,lastTap=null,manualDbl=0;
 const jawRows=[['18','17','16','15','14','13','12','11','21','22','23','24','25','26','27','28'],['48','47','46','45','44','43','42','41','31','32','33','34','35','36','37','38']];
@@ -2567,5 +2636,381 @@ function ttDoctorMoney(list) {
   if (debt > 0) list.insertAdjacentHTML('afterbegin', '<div class="tt-debt" id="ttDebt"><span>К оплате за сданные работы</span><b>' + fmt(debt) + '</b><small>' + n + ' ' + (n === 1 ? 'работа' : n < 5 ? 'работы' : 'работ') + '</small></div>');
 }
 
-hydrate();render();cloudStart();
+// ===== V20: себестоимость сама · подрядчики · «чистыми» =====
+// Расходы по шаблонам подставляются в наряд автоматически (одна строка на операцию),
+// основания Ti-base считаются по записи оснований, выплата подрядчику — одной кнопкой.
+const TT_COST_SKIP = ['Life-Stom']; // сдельная работа: расходы несёт клиника
+const TT_V_MILL = 'Фрезеровка и печать', TT_V_CAST = 'Литейщик', TT_V_BASE = 'Основания', TT_V_SHIP = 'Доставка';
+let ttCostsReady = false, ttCostBackfill = false, ttCostBusy = false, ttVendorOpen = null;
+const ttLow = s => String(s == null ? '' : s).toLocaleLowerCase();
+const ttR2 = n => Math.round(n * 100) / 100;
+const ttAutoOn = () => !!db.costAuto && db.costAuto.on !== false;
+
+// ---------- шаблоны: цены и подрядчики по умолчанию (только в пустые поля) ----------
+function ttCostTplMigrate() {
+  const T = costTemplates(), DEF = ['диоксид циркония', 'металлокерамика', 'pmma', '3d-печать', 'all-on'];
+  // запускается один раз; повторно — только если с другого устройства пришли незаполненные шаблоны
+  const raw = T.some(t => DEF.includes(ttLow(t.key).trim()) && t.rate == null && !String(t.provider || '').trim());
+  if (db.costTplVer === 'v20' && !raw) return false;
+  const fill = (t, rate, provider, per) => { if (t.rate == null) { t.rate = rate; if (per) t.per = per; } if (!String(t.provider || '').trim()) t.provider = provider; };
+  let cast = -1;
+  T.forEach((t, i) => {
+    const k = ttLow(t.key).trim(), op = ttLow(t.op).trim();
+    if (k === 'диоксид циркония') fill(t, 9000, TT_V_MILL);
+    else if (k === 'металлокерамика' && (op === 'литьё / печать каркаса' || op === 'литье / печать каркаса')) { t.op = 'Литьё каркаса'; fill(t, 1500, TT_V_CAST); cast = i; }
+    else if (k === 'pmma') fill(t, 1000, TT_V_MILL);
+    else if (k === '3d-печать') fill(t, 500, TT_V_MILL);
+    else if (k === 'all-on') fill(t, 1000, TT_V_MILL, 'unit');
+  });
+  const has = id => T.some(t => t.id === id), row = (id, key, op, provider, per, rate) => ({ id, key, op, provider, per, rate, state: 'actual' });
+  if (cast >= 0 && !has('tt-frameprint')) T.splice(cast + 1, 0, row('tt-frameprint', 'Металлокерамика', 'Печать каркаса', TT_V_MILL, 'unit', 500));
+  if (!has('tt-tibase')) T.push(row('tt-tibase', 'титановое основание', 'Титановое основание (Ti-base)', TT_V_BASE, 'unit', 2800));
+  if (!has('tt-delivery')) T.push(row('tt-delivery', '', 'Доставка', TT_V_SHIP, 'work', 3000));
+  db.costTplVer = 'v20';
+  return true;
+}
+
+// ---------- какие наряды считаем сами ----------
+function ttCostEligible(o) {
+  if (!o || o.archived || !db.costAuto || TT_COST_SKIP.includes(o.clinic)) return false;
+  return !o.delivered || String(o.received || '') >= String(db.costAuto.from || '');
+}
+function ttUnits(w) {
+  if (w.kind === 'whole' || w.unit === 'работа') return (w.teeth || []).length || (/all-?on/i.test(w.name || '') ? 12 : Number(w.qty) || 1);
+  return Number(w.qty) || 1;
+}
+function ttOrderUnits(o) { return (o.teeth || []).length || (o.workItems || []).reduce((s, w) => s + ttUnits(w), 0) || 1; }
+function ttAbutCount(o) { return (o.abutments || []).reduce((s, a) => s + (['buy', 'have'].includes(a.tmp) ? 1 : 0) + (['buy', 'have'].includes(a.fin) ? 1 : 0), 0); }
+function ttRedoSum(o) { return ttR2((o.costs || []).filter(c => c.redo && !c.off && c.payer === 'self' && c.state === 'actual' && c.rate != null).reduce((s, c) => s + expenseValue(c), 0)); }
+
+// что должно стоять в наряде по шаблонам: одна строка на операцию
+function ttCostWant(o) {
+  const want = new Map(), costs = o.costs || [], reg = (o.abutments || []).length > 0;
+  for (const t of costTemplates()) {
+    const key = ttLow(t.key).trim(); if (!key) continue;
+    let qty = 0;
+    for (const w of o.workItems || []) {
+      if (!ttLow(w.name).includes(key)) continue;
+      if (costs.some(c => c.tag === 'tpl:' + t.id + ':' + w.id)) continue; // уже подставлено старой кнопкой
+      qty += t.per === 'unit' ? ttUnits(w) : (w.kind === 'whole' ? Number(w.qty) || 1 : 1);
+    }
+    if (t.id === 'tt-tibase' && reg) qty = ttAbutCount(o); // есть запись оснований — считаем по ней
+    if (qty > 0) want.set('auto:' + t.id, { t, qty });
+  }
+  return want;
+}
+function ttAutoCosts(o, backfill) {
+  const res = { ch: 0, added: [] };
+  if (!ttCostEligible(o)) return res;
+  if (!Array.isArray(o.costs)) o.costs = [];
+  for (const c of o.costs) { // строки, подставленные раньше кнопкой без цены: дозаполняем из шаблона
+    if (c.auto || c.rate != null || !/^tpl:/.test(c.tag || '')) continue;
+    const t = costTemplates().find(t => c.tag.startsWith('tpl:' + t.id + ':')); if (!t || t.rate == null) continue;
+    c.rate = t.rate; if (c.state === 'planned') c.state = 'actual'; if (!c.date) c.date = o.received || localDay();
+    if ((!c.provider || c.provider === 'Не указан') && String(t.provider || '').trim()) c.provider = t.provider.trim();
+    res.ch++;
+  }
+  const want = ttCostWant(o), seen = new Map();
+  for (const c of [...o.costs]) { // одна и та же авто-строка с двух устройств → оставить одну
+    if (!c.auto || !c.tag) continue;
+    const p = seen.get(c.tag); if (!p) { seen.set(c.tag, c); continue; }
+    const drop = (c.payments || []).length && !(p.payments || []).length ? p : c;
+    if ((drop.payments || []).length) continue;
+    o.costs = o.costs.filter(x => x !== drop); if (drop === p) seen.set(c.tag, c); res.ch++;
+  }
+  for (const [tag, d] of want) {
+    const c = seen.get(tag);
+    if (!c) {
+      const rate = d.t.rate == null ? null : d.t.rate;
+      const line = { id: tag, tag, auto: true, name: d.t.op || 'Расход', provider: String(d.t.provider || '').trim() || 'Не указан', qty: d.qty, rate, payer: 'self', state: rate === null ? 'planned' : 'actual', date: backfill ? (o.received || localDay()) : localDay(), payments: [] };
+      o.costs.push(line); res.added.push(line); res.ch++; continue;
+    }
+    if (c.off || c.qtyFixed || c.qty === d.qty) continue;
+    if (c.rate != null && expensePaid(c) > d.qty * c.rate) continue; // не опускать ниже уже выплаченного
+    c.qty = d.qty; res.ch++;
+  }
+  for (const c of [...o.costs]) { // работа убрана или переименована → авто-строка больше не нужна
+    if (!c.auto || !c.tag || want.has(c.tag)) continue;
+    if (!c.off && (c.qtyFixed || (c.payments || []).length)) continue;
+    o.costs = o.costs.filter(x => x !== c); res.ch++;
+  }
+  if (res.added.length) o.events.push({ by: 'Авто', type: 'Внутренние расходы', text: 'Себестоимость по шаблону: ' + res.added.map(c => c.name + ' × ' + c.qty).join('; '), time: now(), private: true });
+  return res;
+}
+function ttAutoCostsAll(backfill) {
+  const r = { changed: 0, orders: 0, sum: 0 };
+  if (!ttCostsReady || ttCostBusy || role() !== 'tech' || ttDoc() || !ttAutoOn()) return r;
+  ttCostBusy = true;
+  try {
+    for (const o of db.orders) {
+      const x = ttAutoCosts(o, backfill); r.changed += x.ch;
+      if (x.added.length) { r.orders++; r.sum += x.added.reduce((s, c) => s + (expenseValue(c) || 0), 0); }
+    }
+  } finally { ttCostBusy = false; }
+  return r;
+}
+const costMatchesV19 = costMatches;
+costMatches = function (o) { return ttCostEligible(o) && ttAutoOn() ? [] : costMatchesV19(o); };
+
+// ---------- слияние с другим устройством: расходы и выплаты не теряются ----------
+function ttMergeCosts(a, b) {
+  a = Array.isArray(a) ? a : []; b = Array.isArray(b) ? b : [];
+  if (!a.length || !b.length) return a.length ? a : b;
+  const m = new Map(a.map(c => [c.id, c]));
+  for (const c of b) {
+    const p = m.get(c.id);
+    if (!p) { m.set(c.id, c); continue; }
+    const pays = new Map();
+    for (const x of [...(p.payments || []), ...(c.payments || [])]) { const q = pays.get(x.id); pays.set(x.id, q ? { ...q, voided: !!(q.voided || x.voided) } : x); }
+    m.set(c.id, { ...p, ...(c.off && !p.off ? { off: true, payer: 'none', state: 'off' } : {}), payments: [...pays.values()] });
+  }
+  return [...m.values()];
+}
+const mergeOrderV19 = mergeOrder;
+mergeOrder = function (local, inc) { const out = mergeOrderV19(local, inc); out.costs = ttMergeCosts(local.costs, inc.costs); return out; };
+
+// ---------- новый наряд: работы по зубной формуле добавляются сразу ----------
+function ttAutoWorks(o) {
+  if (!o || (o.workItems || []).length) return null;
+  const prices = db.prices[o.clinic] || [], d = formulaBatchDefaults(o, prices);
+  if (!d.rows.length || d.rows.some(r => !r.tariffId)) return null; // только работы из прайса
+  const plan = planFormulaBatch(o, d.rows, prices);
+  if (plan.errors.length || !plan.items.length) return null;
+  for (const item of plan.items) o.workItems.push({ id: uid(), ...item });
+  const sum = plan.items.reduce((s, w) => s + w.qty * w.price, 0);
+  log(o, 'Работы', 'Работы добавлены сразу по зубной формуле: ' + [...new Set(plan.items.map(w => w.name))].join('; ') + ' · ' + fmt(sum));
+  return { sum, pending: plan.items.some(w => w.pending) };
+}
+const createClinicOrderV19 = createClinicOrder;
+createClinicOrder = function () {
+  if ($('ttQuick')) ttQuickUpdate();
+  const before = selected, guessed = !!(ttQuickExtra && ttQuickExtra.consAuto) && !$('newConstruction').value.trim();
+  createClinicOrderV19();
+  if (!selected || selected === before || role() !== 'tech' || ttDoc() || guessed) return;
+  const o = order(); if (!o) return;
+  const undo = ttSnapshot(o), r = ttAutoWorks(o); if (!r) return;
+  save(); render();
+  const s = costSummary(o);
+  ttToast(o.patient + ': ' + fmt(r.sum) + (r.pending ? ' + уточнить цену' : '') + (s.cost > 0 ? ' · себестоимость ' + fmt(s.cost) + ' · чистыми ' + fmt(r.sum - s.cost) : ''), 'Убрать работы', undo);
+};
+
+// ---------- общий рендер: пересчёт перед отрисовкой ----------
+const renderV19 = render;
+render = function () {
+  if (ttCostsReady && role() === 'tech' && !ttDoc()) {
+    let ch = ttCostTplMigrate();
+    const bf = ttCostBackfill; ttCostBackfill = false;
+    if (ttAutoCostsAll(bf).changed) ch = true;
+    if (ch) save();
+  }
+  renderV19();
+};
+
+// ---------- наряд: блок «Себестоимость» во вкладке «Деньги» ----------
+function ttCostsDecorate(o, D) {
+  const box = $('orderCosts'); if (!box) return;
+  const pay = D.querySelector(':scope > .payment-compact');
+  if (pay && box.previousElementSibling !== pay) pay.after(box);
+  box.open = true;
+  const s = costSummary(o), tot = total(o), net = ttR2(tot - s.cost), pct = tot > 0 ? Math.round(net / tot * 100) : null, redo = ttRedoSum(o);
+  const life = TT_COST_SKIP.includes(o.clinic), auto = ttCostEligible(o) && ttAutoOn();
+  const sm = box.querySelector(':scope > summary');
+  if (sm) sm.innerHTML = 'Себестоимость и чистый заработок' + (s.pending ? ' <span class="muted">· есть уточнения</span>' : '');
+  const grid = box.querySelector(':scope > .money-grid');
+  if (grid) {
+    const note = grid.nextElementSibling; if (note && note.matches('p.muted')) note.remove();
+    grid.outerHTML = '<div class="ttc-grid"><div><small>' + (life ? 'Моё вознаграждение' : 'Цена работы') + '</small><b>' + fmt(tot) + '</b></div><div><small>' + (life ? 'Мои расходы' : 'Себестоимость') + '</small><b>' + fmt(s.cost) + '</b></div><div class="net' + (net < 0 ? ' minus' : '') + '"><small>Чистыми' + (pct !== null && s.cost > 0 ? ' · ' + pct + '%' : '') + (s.pending ? ' · предварительно' : '') + '</small><b>' + fmt(net) + '</b></div></div>' +
+      (s.cost > 0 ? '<p class="muted ttc-due">Подрядчикам: выплачено ' + fmt(s.paid) + ' · осталось ' + fmt(s.debt) + (redo > 0 ? ' · в том числе переделки ' + fmt(redo) : '') + '</p>' : '');
+  }
+  const tr = box.querySelector('.cost-tpl-row');
+  if (tr && auto) tr.innerHTML = '<span class="muted">Расходы по шаблонам подставляются сами и пересчитываются, когда меняются работы. Лишнюю строку уберите — она не вернётся.</span>';
+  // строки расходов
+  const offs = [];
+  box.querySelectorAll('details.cost-item').forEach(it => {
+    const q = it.querySelector('[data-cost-qty]'), c = q && o.costs.find(c => c.id === q.getAttribute('data-cost-qty')); if (!c) return;
+    if (c.off) { offs.push(c); it.remove(); return; }
+    const val = expenseValue(c), paid = expensePaid(c);
+    it.querySelector('summary').innerHTML = '<b class="ttc-val">' + (val === null ? 'Уточнить' : fmt(val)) + '</b><span class="ttc-nm">' + esc(c.name) + '</span>' + (c.redo ? '<i class="ttc-tag redo">переделка</i>' : '') + (c.auto ? '<i class="ttc-tag">авто</i>' : '') +
+      '<span class="muted ttc-sub">' + esc(c.qty) + ' × ' + (c.rate == null ? '?' : fmt(c.rate)) + ' · ' + esc(c.provider) + (c.payer === 'clinic' ? ' · счёт клиники' : c.payer === 'unknown' ? ' · плательщик не указан' : '') + (c.state !== 'actual' ? ' · план' : '') + (paid > 0 ? (val !== null && paid >= val ? ' · выплачено' : ' · выплачено ' + fmt(paid)) : '') + '</span>';
+    const rm = it.querySelector('[data-remove-cost]'); if (rm && c.auto) rm.textContent = 'Убрать из расчёта';
+  });
+  const oldAdd = box.querySelector(':scope > details.cost-add');
+  (oldAdd || box.lastElementChild).insertAdjacentHTML(oldAdd ? 'beforebegin' : 'afterend', '<form class="ttc-add" id="ttcAdd"><small class="muted ttc-cap">Добавить вручную: доставка, переделка, другой расход</small><select id="ttcOp" aria-label="Операция"></select><input id="ttcName" placeholder="Что именно" aria-label="Название расхода" hidden><input id="ttcQty" type="number" inputmode="decimal" min="0.01" step="0.01" aria-label="Количество" title="Количество"><input id="ttcRate" type="number" inputmode="decimal" min="0" step="1" placeholder="₸ за ед." aria-label="Ставка, тенге" title="Ставка за единицу"><label class="ttc-redo"><input type="checkbox" id="ttcRedo"> переделка</label><button class="btn main">＋ Добавить</button><p class="inline-feedback" id="ttcMsg" role="status"></p></form>');
+  if (oldAdd) { oldAdd.querySelector('summary').textContent = 'Подробная форма: плательщик, план или факт'; if (tr) oldAdd.after(tr); }
+  if (offs.length) {
+    $('ttcAdd').insertAdjacentHTML('beforebegin', '<p class="muted ttc-off">Убрано из расчёта: ' + offs.map(c => '<button type="button" class="text-link" data-ttc-on="' + esc(c.id) + '">' + esc(c.name) + ' ↩</button>').join(' · ') + '</p>');
+    box.querySelectorAll('[data-ttc-on]').forEach(b => b.onclick = () => {
+      const c = o.costs.find(c => c.id === b.dataset.ttcOn); if (!c) return;
+      c.off = false; c.payer = 'self'; c.state = c.rate == null ? 'planned' : 'actual';
+      o.events.push({ by: actor(), type: 'Внутренние расходы', text: 'Возвращён расход: ' + c.name, time: now(), private: true }); save(); render();
+    });
+  }
+  // правка количества руками и «убрать» у авто-строк — перехватываем до старых обработчиков
+  box.addEventListener('change', e => { const el = e.target.closest && e.target.closest('[data-cost-qty]'); if (!el) return; const c = o.costs.find(c => c.id === el.getAttribute('data-cost-qty')); if (c && c.auto) c.qtyFixed = true; }, true);
+  box.addEventListener('click', e => {
+    const b = e.target.closest && e.target.closest('[data-remove-cost]'); if (!b) return;
+    const c = o.costs.find(c => c.id === b.dataset.removeCost); if (!c || !c.auto) return;
+    e.stopPropagation(); e.preventDefault();
+    if ((c.payments || []).some(p => !p.voided)) { alert('По этой строке уже есть выплаты. Сначала отмените их.'); return; }
+    c.off = true; c.payer = 'none'; c.state = 'off';
+    o.events.push({ by: actor(), type: 'Внутренние расходы', text: 'Убран расход: ' + c.name, time: now(), private: true }); save(); render();
+  }, true);
+  // быстрое добавление: доп. расход или переделка
+  const f = $('ttcAdd');
+  if (f) {
+    const tpls = costTemplates().filter(t => String(t.op || '').trim()), units = ttOrderUnits(o);
+    $('ttcOp').innerHTML = tpls.map(t => '<option value="' + esc(t.id) + '">' + esc(t.op) + (t.rate != null ? ' · ' + fmt(t.rate) + (t.per === 'unit' ? ' за ед.' : '') : '') + '</option>').join('') + '<option value="">Другое…</option>';
+    const cur = () => tpls.find(t => t.id === $('ttcOp').value);
+    const sync = () => { const t = cur(); $('ttcName').hidden = !!t; $('ttcRate').value = t && t.rate != null ? t.rate : ''; $('ttcQty').value = t && t.per === 'unit' ? units : 1; $('ttcMsg').textContent = ''; };
+    $('ttcOp').onchange = sync; sync();
+    f.onsubmit = e => {
+      e.preventDefault();
+      const t = cur(), name = t ? t.op : $('ttcName').value.trim(), qty = Number($('ttcQty').value), rate = $('ttcRate').value === '' ? NaN : Number($('ttcRate').value), isRedo = $('ttcRedo').checked;
+      if (!name) { $('ttcMsg').textContent = 'Напишите, что это за расход.'; $('ttcName').focus(); return; }
+      if (!Number.isFinite(qty) || qty <= 0) { $('ttcMsg').textContent = 'Укажите количество больше нуля.'; return; }
+      if (!Number.isFinite(rate) || rate < 0) { $('ttcMsg').textContent = 'Укажите ставку в тенге.'; $('ttcRate').focus(); return; }
+      const c = { id: uid(), name: (isRedo ? 'Переделка · ' : '') + name, provider: t ? (String(t.provider || '').trim() || 'Не указан') : 'Прочее', qty, rate, payer: 'self', state: 'actual', date: localDay(), payments: [] };
+      if (isRedo) c.redo = true;
+      o.costs.push(c);
+      o.events.push({ by: actor(), type: 'Внутренние расходы', text: (isRedo ? 'Переделка: ' : 'Добавлен расход: ') + name + ' · ' + fmt(ttR2(qty * rate)), time: now(), private: true });
+      save(); render();
+    };
+  }
+  // короткая строка в шапке наряда
+  const top = D.querySelector('.order-summary');
+  if (top && (s.cost > 0 || auto) && tot > 0) top.insertAdjacentHTML('beforeend', '<span class="ttc-top">себестоимость ' + fmt(s.cost) + ' · чистыми <b>' + fmt(net) + '</b></span>');
+  ttApplyTabs(o, D);
+}
+const renderDetailV19 = renderDetail;
+renderDetail = function () {
+  renderDetailV19();
+  const o = order(), D = $('detail'); if (!o || !D || D.classList.contains('hidden') || role() !== 'tech') return;
+  ttCostsDecorate(o, D);
+};
+
+// ---------- расчёты: чистыми, подрядчики, месяцы ----------
+function ttMonths() {
+  const m = new Map(), get = k => { if (!m.has(k)) m.set(k, { month: k, orders: 0, charged: 0, costs: 0, redo: 0, received: 0 }); return m.get(k); };
+  for (const o of db.orders) {
+    const day = workDay(o);
+    if (day) { const r = get(monthOf(day)); r.orders++; r.charged += total(o); r.costs += costSummary(o).cost; r.redo += ttRedoSum(o); }
+    for (const p of (o.payments || []).filter(p => !p.voided)) get(monthOf(String(p.date || ''))).received += Number(p.amount) || 0;
+  }
+  return [...m.values()].filter(r => r.month).sort((a, b) => b.month.localeCompare(a.month));
+}
+function ttVendorLines() {
+  const out = [];
+  for (const o of db.orders) for (const c of o.costs || []) {
+    if (c.off || c.payer !== 'self' || c.state !== 'actual' || c.rate == null) continue;
+    const val = expenseValue(c), paid = expensePaid(c);
+    out.push({ o, c, val, paid, left: ttR2(val - paid), date: String(c.date || o.received || '') });
+  }
+  return out;
+}
+function ttVendorPay(name, amount) {
+  const lines = ttVendorLines().filter(x => (x.c.provider || 'Не указан') === name && x.left > 0).sort((a, b) => a.date.localeCompare(b.date));
+  let left = ttR2(amount), paid = 0; const snaps = new Map(), sums = new Map(), batch = uid(), day = localDay();
+  for (const x of lines) {
+    if (left <= 0) break;
+    const pay = Math.min(x.left, left);
+    if (!snaps.has(x.o.id)) snaps.set(x.o.id, JSON.stringify(x.o));
+    if (!Array.isArray(x.c.payments)) x.c.payments = [];
+    x.c.payments.push({ id: uid(), amount: pay, date: day, createdAt: new Date().toISOString(), batch });
+    sums.set(x.o.id, (sums.get(x.o.id) || 0) + pay); left = ttR2(left - pay); paid = ttR2(paid + pay);
+  }
+  if (!paid) return 0;
+  for (const [id, sum] of sums) { const at = ttFind(id); if (at) at.arr[at.i].events.push({ by: actor(), type: 'Внутренние расходы', text: 'Выплачено ' + fmt(sum) + ' · ' + name, time: now(), private: true }); }
+  save(); render();
+  ttToast('Выплачено ' + fmt(paid) + ' · ' + name, 'Отменить', () => { for (const [id, s] of snaps) { const at = ttFind(id); if (at) ttPlace(JSON.parse(s), at); } save(); render(); });
+  return paid;
+}
+function ttVendorRename(from, to) {
+  for (const o of [...db.orders, ...ttArchiveList()]) for (const c of o.costs || []) if ((c.provider || 'Не указан') === from) c.provider = to;
+  for (const t of costTemplates()) if (String(t.provider || '').trim() === from) t.provider = to;
+  save(); render();
+}
+const renderAccountsV19 = renderAccounts;
+renderAccounts = function () {
+  renderAccountsV19();
+  const P = $('workspacePane'); if (!P || role() !== 'tech') return;
+  const month = localDay().slice(0, 7), mName = monthName(month).toLowerCase();
+  const months = ttMonths(), cur = months.find(m => m.month === month) || { orders: 0, charged: 0, costs: 0, redo: 0, received: 0 };
+  const act = db.orders.filter(o => !o.delivered), inWork = act.reduce((s, o) => s + total(o), 0), inCost = act.reduce((s, o) => s + costSummary(o).cost, 0);
+  const vmap = new Map();
+  for (const x of ttVendorLines()) { const k = x.c.provider || 'Не указан'; if (!vmap.has(k)) vmap.set(k, []); vmap.get(k).push(x); }
+  const vendors = [...vmap].map(([name, ls]) => ({
+    name, ls, left: ttR2(ls.reduce((s, x) => s + Math.max(x.left, 0), 0)),
+    acc: ttR2(ls.filter(x => x.date.slice(0, 7) === month).reduce((s, x) => s + x.val, 0)),
+    paidM: ttR2(ls.reduce((s, x) => s + (x.c.payments || []).filter(p => !p.voided && String(p.date || '').slice(0, 7) === month).reduce((a, p) => a + p.amount, 0), 0))
+  })).sort((a, b) => b.left - a.left || b.acc - a.acc);
+  const owe = ttR2(vendors.reduce((s, v) => s + v.left, 0));
+  if (ttVendorOpen === null) ttVendorOpen = new Set(vendors.filter(v => v.left > 0).slice(0, 1).map(v => v.name));
+  // второй ряд показателей
+  const kp = P.querySelector('.tt-kpis');
+  if (kp) kp.insertAdjacentHTML('afterend', '<div class="tt-kpis ttc-kpis"><div class="tt-kpi ttc-net"><small>Чистыми · ' + esc(mName) + '</small><b>' + fmt(ttR2(cur.charged - cur.costs)) + '</b><em>сдано на ' + fmt(cur.charged) + ' · себестоимость ' + fmt(cur.costs) + '</em></div><div class="tt-kpi"><small>Отложить подрядчикам</small><b>' + fmt(owe) + '</b><em>начислено и ещё не выплачено</em></div><div class="tt-kpi"><small>В работе · чистыми</small><b>' + fmt(ttR2(inWork - inCost)) + '</b><em>цена ' + fmt(inWork) + ' · себестоимость ' + fmt(inCost) + '</em></div></div>');
+  // подрядчики вместо короткого списка
+  [...P.querySelectorAll('details.tt-sec')].find(d => /подрядчик/i.test(d.querySelector('summary')?.textContent || ''))?.remove();
+  const link = o => '<button type="button" class="text-link" data-open-order="' + esc(o.id) + '">' + esc(o.patient) + '</button>';
+  const vhtml = vendors.map((v, i) => {
+    const due = v.ls.filter(x => x.left > 0).sort((a, b) => a.date.localeCompare(b.date)), show = due.slice(0, 80);
+    return '<details class="ttc-vendor" data-v="' + i + '"' + (ttVendorOpen.has(v.name) ? ' open' : '') + '><summary><b>' + esc(v.name) + '</b><span class="n">' + esc(mName.split(' ')[0]) + ' · ' + fmt(v.acc) + '</span><span class="n debt">' + (v.left > 0 ? 'к выплате ' + fmt(v.left) : 'выплачено') + '</span></summary><div class="ttc-vbody">' +
+      (show.map(x => '<div class="ttc-line"><span class="d">' + esc(x.date ? x.date.slice(8, 10) + '.' + x.date.slice(5, 7) : '—') + '</span><span>' + link(x.o) + '<span class="op">' + esc(x.c.name) + ' · ' + esc(x.c.qty) + ' × ' + fmt(x.c.rate) + (x.paid > 0 ? ' · выплачено ' + fmt(x.paid) : '') + '</span></span><b>' + fmt(x.left) + '</b></div>').join('') || '<p class="muted">Всё начисленное выплачено.</p>') +
+      (due.length > show.length ? '<p class="muted">…и ещё ' + (due.length - show.length) + ' строк</p>' : '') +
+      (v.paidM > 0 ? '<p class="muted">Выплачено за ' + esc(mName.split(' ')[0]) + ': ' + fmt(v.paidM) + '</p>' : '') +
+      '<div class="row ttc-vact">' + (v.left > 0 ? '<button type="button" class="btn main" data-pay-all>Выплатил всё · ' + fmt(v.left) + '</button><button type="button" class="btn" data-pay-part>Часть суммы…</button><button type="button" class="btn" data-copy>Список для сверки</button>' : '') + '<button type="button" class="text-link" data-rename>Переименовать</button></div></div></details>';
+  }).join('');
+  const mhtml = months.slice(0, 12).map(r => '<span>' + esc(monthName(r.month)) + ' <small class="muted">· ' + r.orders + ' нар.</small></span><span class="n">' + fmt(r.charged) + '</span><span class="n">' + fmt(r.costs) + (r.redo > 0 ? '<small class="muted"> · переделки ' + fmt(r.redo) + '</small>' : '') + '</span><b class="n">' + fmt(ttR2(r.charged - r.costs)) + '</b><span class="n">' + fmt(r.received) + '</span>').join('');
+  const tbl = P.querySelector('.tt-table');
+  (tbl || kp || P.lastElementChild).insertAdjacentHTML('afterend',
+    '<section class="tt-sec ttc-vendors"><h3>Подрядчики</h3>' + (vhtml || '<p class="muted">Расходов за ваш счёт пока нет. Они появятся сами, когда в наряде есть работы из шаблонов себестоимости (вкладка «Прайсы»).</p>') + '</section>' +
+    '<details class="tt-sec ttc-msec"' + (renderAccounts.mOpen ? ' open' : '') + '><summary>Чистыми по месяцам</summary>' + (mhtml ? '<div class="ttc-months"><span class="h">Месяц</span><span class="h n">Сдано на</span><span class="h n">Себестоимость</span><span class="h n">Чистыми</span><span class="h n">Получено</span>' + mhtml + '</div><p class="muted">Сдано и себестоимость — по дате сдачи работы. Получено — по дате оплаты.</p>' : '<p class="muted">Сданных работ пока нет.</p>') + '</details>');
+  P.querySelectorAll('.ttc-vendors [data-open-order]').forEach(b => b.onclick = () => { selected = b.dataset.openOrder; renderDetail(); });
+  const ms = P.querySelector('.ttc-msec'); if (ms) ms.ontoggle = () => { renderAccounts.mOpen = ms.open; };
+  P.querySelectorAll('.ttc-vendor').forEach(el => {
+    const v = vendors[Number(el.dataset.v)];
+    el.ontoggle = () => { el.open ? ttVendorOpen.add(v.name) : ttVendorOpen.delete(v.name); };
+    const q = s => el.querySelector(s);
+    if (q('[data-pay-all]')) q('[data-pay-all]').onclick = () => { if (confirm('Отметить, что выплачено ' + fmt(v.left) + ' · ' + v.name + '?')) ttVendorPay(v.name, v.left); };
+    if (q('[data-pay-part]')) q('[data-pay-part]').onclick = () => {
+      const raw = prompt('Сколько выплатили · ' + v.name + '? Начислено ' + fmt(v.left) + '. Сумма закроет самые старые строки.', ''); if (raw === null) return;
+      const n = Number(String(raw).replace(/[^\d.,]/g, '').replace(',', '.'));
+      if (!Number.isFinite(n) || n <= 0) { alert('Введите сумму цифрами, например 50000.'); return; }
+      ttVendorPay(v.name, Math.min(n, v.left));
+    };
+    if (q('[data-copy]')) q('[data-copy]').onclick = async () => {
+      const due = v.ls.filter(x => x.left > 0).sort((a, b) => a.date.localeCompare(b.date));
+      const txt = 'Сверка · ' + v.name + ' · не выплачено на ' + fmtDay(localDay()) + '\n' + due.map(x => (x.date ? x.date.slice(8, 10) + '.' + x.date.slice(5, 7) + ' ' : '') + x.o.patient + ' — ' + x.c.name + ' ' + x.c.qty + ' × ' + x.c.rate + ' = ' + x.left + ' тг').join('\n') + '\nИтого: ' + v.left + ' тг';
+      try { await navigator.clipboard.writeText(txt); ttToast('Список скопирован — вставьте в WhatsApp'); } catch (e) { prompt('Скопируйте список:', txt); }
+    };
+    q('[data-rename]').onclick = () => { const n = prompt('Как называть этого подрядчика?', v.name); if (n === null) return; const nn = n.trim(); if (!nn || nn === v.name) return; if (ttVendorOpen.has(v.name)) { ttVendorOpen.delete(v.name); ttVendorOpen.add(nn); } ttVendorRename(v.name, nn); };
+  });
+};
+
+// ---------- прайсы: настройка авторасчёта ----------
+const renderPricesV19 = renderPrices;
+renderPrices = function () {
+  renderPricesV19();
+  const box = $('costTplBox'); if (!box) return;
+  const sm = box.querySelector('summary .muted'); if (sm) sm.textContent = 'подставляются в наряд сами';
+  const p = box.querySelector(':scope > p.muted'); if (p) p.textContent = 'Если название работы содержит «ключ», в расходы наряда добавится операция. «За зуб» — количество равно числу единиц работы. Строка без ключа сама не подставляется: её добавляют в наряде вручную (доставка, переделка). Ставка в уже созданных нарядах не меняется.';
+  const a = db.costAuto || {};
+  box.insertAdjacentHTML('beforeend', '<div class="ttc-auto"><label class="ttc-redo"><input type="checkbox" id="ttcAutoOn"' + (ttAutoOn() ? ' checked' : '') + '> Подставлять расходы в наряды автоматически</label><label>для сданных нарядов, принятых с<input type="date" id="ttcAutoFrom" value="' + esc(a.from || '') + '"></label><p class="muted">Наряды в работе считаются всегда. Life-Stom не считается: там расходы несёт клиника. Основания Ti-base считаются по записи оснований в наряде (временная и постоянная), если она заполнена; иначе — по числу единиц работы с титановым основанием.</p></div>');
+  $('ttcAutoOn').onchange = () => { db.costAuto = { ...(db.costAuto || { from: localDay().slice(0, 8) + '01' }), on: $('ttcAutoOn').checked }; ttCostBackfill = true; save(); render(); };
+  $('ttcAutoFrom').onchange = () => { db.costAuto = { ...(db.costAuto || {}), from: $('ttcAutoFrom').value || '' }; ttCostBackfill = true; save(); render(); };
+};
+
+// ---------- запуск: после первой сверки с облаком ----------
+function ttCostsStart() {
+  if (ttCostsReady) return; ttCostsReady = true;
+  if (role() !== 'tech' || ttDoc()) return;
+  let ch = ttCostTplMigrate(), first = false;
+  if (!db.costAuto) { db.costAuto = { from: localDay().slice(0, 8) + '01', on: true }; first = true; ch = true; }
+  const r = ttAutoCostsAll(first);
+  if (ch || r.changed) { save(); render(); }
+  if (first && r.orders) ttToast('Себестоимость подставлена: ' + r.orders + ' нар. · ' + fmt(r.sum), 'Открыть расчёты', () => { workspaceTab = 'accounts'; selected = null; render(); });
+}
+
+hydrate();render();
+// V20: себестоимость включается после первой сверки с облаком (или через 12 секунд, если сеть не отвечает)
+Promise.race([cloudStart(),new Promise(r=>setTimeout(r,12000))]).catch(()=>{}).finally(ttCostsStart);
 </script></body></html>
